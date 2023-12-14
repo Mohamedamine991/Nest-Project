@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException} from '@nestjs/common';
 import { QuestionsService } from './questions.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
@@ -6,7 +6,6 @@ import { UpdateQuestionDto } from './dto/update-question.dto';
 @Controller('questions')
 export class QuestionsController {
   constructor(private readonly questionsService: QuestionsService) {}
-
   @Post()
   create(@Body() createQuestionDto: CreateQuestionDto) {
     return this.questionsService.create(createQuestionDto);
@@ -30,5 +29,14 @@ export class QuestionsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.questionsService.remove(+id);
+  }
+
+  @Get(':id/right-option')
+  async getRightOption(@Param('id') id: number): Promise<string> {
+    try {
+      return await this.questionsService.getRightOption(id);
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
   }
 }

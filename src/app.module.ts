@@ -20,6 +20,7 @@ import { RecommandedCertification } from './recommanded-certifications/entities/
 import { RecommandedCourse } from './recommanded-courses/entities/recommanded-course.entity';
 import { TestQuiz } from './test-quiz/entities/test-quiz.entity';
 import { Question } from './questions/entities/question.entity';
+import { UserServiceService } from './user-service/user-service.service';
 
 
 
@@ -38,6 +39,6 @@ import { Question } from './questions/entities/question.entity';
   })
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, UserServiceService],
 })
 export class AppModule {}
