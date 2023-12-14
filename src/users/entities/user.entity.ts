@@ -5,7 +5,7 @@ import { Milestone } from '../../milestone/entities/milestone.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  userID: number;
+  id: number;
 
   @Column({ length: 50, nullable: false, unique: true })
   username: string;
@@ -21,6 +21,7 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
 
   @ManyToMany(() => Roadmap, roadmap => roadmap.users, { cascade: true })
   @JoinTable()
