@@ -4,6 +4,7 @@ import {Repository} from "typeorm";
 import {User} from "./entities/user.entity";
 import {InjectRepository} from "@nestjs/typeorm";
 import { CrudService } from '../common/crud.service';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService extends CrudService<User>{
@@ -13,10 +14,10 @@ export class UsersService extends CrudService<User>{
   ) {
     super(userRepository);
   }
-  /*
+  
   async create(createUserDto: CreateUserDto): Promise<User> {
     const user = this.userRepository.create(createUserDto);
    return user
   }
-  */
+  
 }

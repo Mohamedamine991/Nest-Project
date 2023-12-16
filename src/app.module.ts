@@ -23,6 +23,7 @@ import { Question } from './questions/entities/question.entity';
 import { CommonModule } from './common/common.module';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 
 
 
@@ -37,7 +38,7 @@ validationSchema:Joi.object({
   DB_USERNAME:Joi.string().required(),
   DB_DATABASE:Joi.string().required()
 }),
-}), CommonModule, DatabaseModule
+}), CommonModule, DatabaseModule, AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
