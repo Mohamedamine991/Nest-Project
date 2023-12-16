@@ -31,4 +31,11 @@ export class QuestionsController {
   remove(@Param('id') id: string) {
     return this.questionsService.remove(+id);
   }
+
+  @Post(':id/verify')
+  async verify(@Param('id') id: string, @Body('answer') answer: number) {
+    const isCorrect = await this.questionsService.verifyAnswer(+id, answer);
+    return { correct: isCorrect };
+  }
+  
 }

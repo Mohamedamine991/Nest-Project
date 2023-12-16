@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Question } from './entities/question.entity';
@@ -30,7 +30,16 @@ export class QuestionsService {
     return this.questionsRepository.findOneBy({ questionID: id });
   }
 
+
   async remove(id: number): Promise<void> {
     await this.questionsRepository.delete(id);
+  }
+
+  async verifyAnswer(questionId: number, userAnswer: number): Promise<boolean> {
+    const question = await this.questionsRepository.findOneBy({ questionID: questionId });
+    if (!question) {
+      throw new NotFoundException('Question not found');
+    }
+    return question.correctOption === userAnswer;
   }
 }
