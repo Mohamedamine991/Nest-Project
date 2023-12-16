@@ -2,27 +2,27 @@
           {
               "content": "Quel est le terme utilisé pour décrire le processus d'entraînement d'un modèle d'IA sur des données historiques?",
               "options": ["Overfitting", "Training", "Inference", "Regularization"],
-              "correctOption": "Training"
+              "correctOption": 1
           },
           {
               "content": "Quel algorithme est souvent utilisé pour la classification des e-mails en 'spam' ou 'non spam'?",
               "options": ["Régression linéaire", "Clustering", "Random Forest", "Naive Bayes"],
-              "correctOption": "Naive Bayes"
+              "correctOption": 3
           },
           {
               "content": "Quelle technique est utilisée pour réduire la dimensionnalité des données?",
               "options": ["Normalisation", "Régression", "PCA (Principal Component Analysis)", "Encoding"],
-              "correctOption": "PCA (Principal Component Analysis)"
+              "correctOption": 2
           },
           {
               "content": "Quel est un exemple de modèle d'apprentissage supervisé?",
               "options": ["K-means clustering", "Réseaux de neurones", "Apriori algorithm", "Arbres de décision"],
-              "correctOption": "Réseaux de neurones"
+              "correctOption": 1
           },
           {
               "content": "Qu'est-ce que 'l'apprentissage en profondeur'?",
               "options": ["Un type de régression", "Une forme d'apprentissage non supervisé", "Un type de clustering", "Un sous-ensemble de l'apprentissage machine basé sur les réseaux de neurones"],
-              "correctOption": "Un sous-ensemble de l'apprentissage machine basé sur les réseaux de neurones"
+              "correctOption": 3
           }
       ]
       
