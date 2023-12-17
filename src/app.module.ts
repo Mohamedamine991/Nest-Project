@@ -31,7 +31,7 @@ import { Question } from './questions/entities/question.entity';
     port: 3306,
     username: 'root',
     password: '',
-    database: 'project',
+    database: 'project_database', 
     entities: [User,Roadmap,Progress,Validation,Milestone,RecommandedCertification,RecommandedCourse,TestQuiz,Question],
     synchronize: true,
     logging: true,

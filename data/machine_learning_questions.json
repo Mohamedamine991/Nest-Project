@@ -1,28 +1,52 @@
 [
-          {
-              "content": "Quel est le terme utilisé pour décrire le processus d'entraînement d'un modèle d'IA sur des données historiques?",
-              "options": ["Overfitting", "Training", "Inference", "Regularization"],
-              "correctOption": 1
-          },
-          {
-              "content": "Quel algorithme est souvent utilisé pour la classification des e-mails en 'spam' ou 'non spam'?",
-              "options": ["Régression linéaire", "Clustering", "Random Forest", "Naive Bayes"],
-              "correctOption": 3
-          },
-          {
-              "content": "Quelle technique est utilisée pour réduire la dimensionnalité des données?",
-              "options": ["Normalisation", "Régression", "PCA (Principal Component Analysis)", "Encoding"],
-              "correctOption": 2
-          },
-          {
-              "content": "Quel est un exemple de modèle d'apprentissage supervisé?",
-              "options": ["K-means clustering", "Réseaux de neurones", "Apriori algorithm", "Arbres de décision"],
-              "correctOption": 1
-          },
-          {
-              "content": "Qu'est-ce que 'l'apprentissage en profondeur'?",
-              "options": ["Un type de régression", "Une forme d'apprentissage non supervisé", "Un type de clustering", "Un sous-ensemble de l'apprentissage machine basé sur les réseaux de neurones"],
-              "correctOption": 3
-          }
-      ]
-      
+    {
+        "content": "Quel est le but principal de l'algorithme de descente de gradient?",
+        "options": ["Classification", "Réduction de dimensionnalité", "Optimisation", "Clustering"],
+        "correctOption": 2
+    },
+    {
+        "content": "Qu'est-ce qu'un 'ensemble learning' en machine learning?",
+        "options": ["Utilisation de plusieurs modèles pour résoudre un problème", "Type de régression", "Apprentissage avec des ensembles de données volumineux", "Clustering des données"],
+        "correctOption": 0
+    },
+    {
+        "content": "Qu'est-ce qu'un réseau de neurones convolutifs (CNN) est principalement utilisé pour?",
+        "options": ["Traitement du langage naturel", "Prévision du temps", "Analyse financière", "Reconnaissance d'images"],
+        "correctOption": 3
+    },
+    {
+        "content": "Dans le contexte du machine learning, que signifie 'SVM'?",
+        "options": ["Simple Vector Machine", "Support Vector Machine", "Sequential Variable Model", "Scaled Vector Model"],
+        "correctOption": 1
+    },
+    {
+        "content": "Qu'est-ce que le 'bagging' en machine learning?",
+        "options": ["Un algorithme de clustering", "Une technique d'optimisation", "Une méthode pour combiner les prédictions de plusieurs modèles", "Un type de régression"],
+        "correctOption": 2
+    },
+    {
+        "content": "Quelle est la différence principale entre l'apprentissage supervisé et non supervisé?",
+        "options": ["La taille des données", "La présence de données étiquetées", "Le type d'algorithmes utilisés", "La complexité du modèle"],
+        "correctOption": 1
+    },
+    {
+        "content": "Qu'est-ce qu'une 'forêt aléatoire' en machine learning?",
+        "options": ["Un type de réseau de neurones", "Un algorithme de clustering", "Un ensemble de plusieurs arbres de décision", "Un outil de visualisation de données"],
+        "correctOption": 2
+    },
+    {
+        "content": "Quelle technique est souvent utilisée pour lutter contre le surapprentissage?",
+        "options": ["Boosting", "Normalisation", "Régularisation", "Clustering"],
+        "correctOption": 2
+    },
+    {
+        "content": "Quel est un exemple d'algorithme d'apprentissage non supervisé?",
+        "options": ["Réseaux de neurones", "Régression logistique", "K-means clustering", "Gradient boosting"],
+        "correctOption": 2
+    },
+    {
+        "content": "Dans le machine learning, que signifie 'NLP'?",
+        "options": ["New Learning Process", "Natural Language Processing", "Neural Learning Protocol", "Numeric Linear Programming"],
+        "correctOption": 1
+    }
+]

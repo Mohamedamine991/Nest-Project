@@ -1,0 +1,53 @@
+[
+          {
+              "content": "Quel est le but principal d'un pare-feu dans la sécurité informatique?",
+              "options": ["Détecter les virus", "Filtrer le trafic réseau", "Gérer les mots de passe", "Crypter les données"],
+              "correctOption": 1
+          },
+          {
+              "content": "Qu'est-ce qu'une attaque par déni de service (DoS) ?",
+              "options": ["Vol de données", "Infection par un virus", "Surcharge d'un système pour le rendre inutilisable", "Exploitation de failles logicielles"],
+              "correctOption": 2
+          },
+          {
+              "content": "Quelle méthode est souvent utilisée pour sécuriser les communications sur Internet ?",
+              "options": ["Antivirus", "Firewall", "VPN (Virtual Private Network)", "Analyse comportementale"],
+              "correctOption": 2
+          },
+          {
+              "content": "Qu'est-ce que le 'phishing' ?",
+              "options": ["Un type de malware", "Une attaque par force brute", "Une technique d'ingénierie sociale pour voler des informations", "Un protocole de sécurité"],
+              "correctOption": 2
+          },
+          {
+              "content": "Quelle est la fonction principale d'un antivirus ?",
+              "options": ["Surveiller le trafic réseau", "Crypter les données", "Détecter et supprimer les logiciels malveillants", "Gérer les mots de passe"],
+              "correctOption": 2
+          },
+          {
+              "content": "Qu'est-ce que la cryptographie asymétrique ?",
+              "options": ["Utilisation de la même clé pour chiffrer et déchiffrer", "Chiffrement des disques durs", "Utilisation de deux clés différentes pour le chiffrement et le déchiffrement", "Protection contre les attaques par déni de service"],
+              "correctOption": 2
+          },
+          {
+              "content": "Dans le contexte de la sécurité, que signifie 'SSL/TLS' ?",
+              "options": ["Un type de pare-feu", "Un protocole de sécurisation des échanges sur Internet", "Un logiciel antivirus", "Une méthode de gestion des identités"],
+              "correctOption": 1
+          },
+          {
+              "content": "Quelle technique est couramment utilisée pour protéger contre les injections SQL ?",
+              "options": ["Filtrage d'URL", "Validation des entrées", "Cryptographie", "Balayage de virus"],
+              "correctOption": 1
+          },
+          {
+              "content": "Qu'est-ce qu'une attaque 'man-in-the-middle' ?",
+              "options": ["Interception des communications entre deux parties", "Exploitation de vulnérabilités logicielles", "Vol de mot de passe", "Attaque par force brute"],
+              "correctOption": 0
+          },
+          {
+              "content": "Qu'est-ce que l'authentification à deux facteurs (2FA) ?",
+              "options": ["Deux mots de passe pour un compte", "Utilisation d'un mot de passe et d'un autre élément pour se connecter", "Deux niveaux de cryptage", "Double analyse antivirus"],
+              "correctOption": 1
+          }
+      ]
+      

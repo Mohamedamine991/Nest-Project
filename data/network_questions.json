@@ -1,0 +1,53 @@
+[
+          {
+              "content": "Quel protocole est couramment utilisé pour surveiller et gérer les équipements réseau ?",
+              "options": ["HTTP", "SNMP", "FTP", "TCP"],
+              "correctOption": 1
+          },
+          {
+              "content": "Qu'est-ce que le 'ping' en maintenance de réseau ?",
+              "options": ["Un outil de cryptage", "Un protocole de messagerie", "Un test pour vérifier la connectivité", "Un type de commutateur réseau"],
+              "correctOption": 2
+          },
+          {
+              "content": "Quel appareil est utilisé pour connecter plusieurs segments de réseau ?",
+              "options": ["Routeur", "Switch", "Hub", "Firewall"],
+              "correctOption": 1
+          },
+          {
+              "content": "Qu'est-ce que DHCP signifie dans le contexte du réseau ?",
+              "options": ["Dynamic Host Configuration Protocol", "Direct High Connection Protocol", "Data Handling Communication Protocol", "Decentralized Hosting Control Panel"],
+              "correctOption": 0
+          },
+          {
+              "content": "Dans le contexte du réseau, que signifie 'NAT' ?",
+              "options": ["Network Analysis Tool", "New Access Technology", "Network Address Translation", "Non-Authoritative Transfer"],
+              "correctOption": 2
+          },
+          {
+              "content": "Qu'est-ce que la QoS (Quality of Service) en réseau ?",
+              "options": ["Protocole de sécurité", "Gestion de la bande passante", "Protocole de routage", "Type de câblage réseau"],
+              "correctOption": 1
+          },
+          {
+              "content": "Quel protocole est utilisé pour crypter les données transmises sur un réseau ?",
+              "options": ["HTTP", "SSH", "SMTP", "IMAP"],
+              "correctOption": 1
+          },
+          {
+              "content": "Qu'est-ce que la redondance dans un réseau ?",
+              "options": ["Duplication des données", "Système de backup", "Routeurs multiples pour la continuité du service", "Sécurité renforcée"],
+              "correctOption": 2
+          },
+          {
+              "content": "Quel est le but principal d'un VLAN ?",
+              "options": ["Augmenter la vitesse Internet", "Segmenter un réseau physique en plusieurs réseaux logiques", "Fournir un accès sans fil", "Crypter les données du réseau"],
+              "correctOption": 1
+          },
+          {
+              "content": "Quelle technologie est utilisée pour créer un réseau étendu (WAN) ?",
+              "options": ["Fibre optique", "Wi-Fi", "VPN", "Ethernet"],
+              "correctOption": 2
+          }
+      ]
+      

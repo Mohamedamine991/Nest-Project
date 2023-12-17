@@ -1,0 +1,53 @@
+[
+          {
+              "content": "Quel outil est couramment utilisé pour l'intégration et la livraison continues (CI/CD) ?",
+              "options": ["Docker", "Jenkins", "Git", "Selenium"],
+              "correctOption": 1
+          },
+          {
+              "content": "Quel est le principal avantage de l'utilisation de conteneurs dans DevOps ?",
+              "options": ["Automatisation des tests", "Gestion de la configuration", "Isolation des environnements", "Sécurité renforcée"],
+              "correctOption": 2
+          },
+          {
+              "content": "Quel est un outil populaire pour la gestion de la configuration ?",
+              "options": ["Kubernetes", "Ansible", "Jira", "Nagios"],
+              "correctOption": 1
+          },
+          {
+              "content": "Que signifie 'Infrastructure as Code' (IaC) ?",
+              "options": ["Hébergement de toutes les infrastructures sur le cloud", "Utilisation de scripts pour automatiser l'infrastructure", "Gestion manuelle de l'infrastructure", "Aucune de ces réponses"],
+              "correctOption": 1
+          },
+          {
+              "content": "Quel outil est utilisé pour le suivi des bugs et des problèmes ?",
+              "options": ["GitLab", "Splunk", "Jira", "Datadog"],
+              "correctOption": 2
+          },
+          {
+              "content": "Quelle est la principale fonction de Docker dans DevOps ?",
+              "options": ["Intégration continue", "Déploiement continu", "Containerisation", "Surveillance"],
+              "correctOption": 2
+          },
+          {
+              "content": "Qu'est-ce que le 'monitoring' en DevOps ?",
+              "options": ["Développement de logiciels", "Test de logiciels", "Surveillance et analyse de systèmes", "Gestion de projet"],
+              "correctOption": 2
+          },
+          {
+              "content": "Quel langage de script est couramment utilisé en DevOps pour l'automatisation ?",
+              "options": ["C++", "Python", "Java", "Ruby"],
+              "correctOption": 1
+          },
+          {
+              "content": "Qu'est-ce que le 'cloud computing' en DevOps ?",
+              "options": ["Stockage de données hors ligne", "Utilisation de serveurs physiques", "Exploitation de ressources informatiques sur Internet", "Gestion de base de données"],
+              "correctOption": 2
+          },
+          {
+              "content": "Quel est un principe clé de la méthodologie Agile en DevOps ?",
+              "options": ["Planification détaillée à long terme", "Livraison continue de logiciels", "Isolation des équipes de développement", "Déploiement manuel"],
+              "correctOption": 1
+          }
+      ]
+      
