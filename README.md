@@ -1,5 +1,4 @@
 <h1>Test du  calcul de score du quiz : </h1>
-
 ![Screenshot (77)](https://github.com/Mohamedamine991/Nest-Project/assets/98351985/19ce6f4a-8781-4909-80bc-35f22fe3432e) 
 
 <h1>Test de la validation d'un quiz</h1>  <br> Ici de coté front n en cliquant sur valider , on doit envoyer au serveur un json de ce type : <br>
@@ -43,7 +42,10 @@
 } <br>
 
 ![image](https://github.com/Mohamedamine991/Nest-Project/assets/98351985/aced3b28-327f-4049-ac05-de85ce3e6c21)
+<h1>Seeding le  BD avec 40 questions 10 pour chaque domaine : </h1>
 
+![Screenshot (79)](https://github.com/Mohamedamine991/Nest-Project/assets/98351985/b95e45cb-d3a1-4850-915c-03058d8386b5)
+![Screenshot (78)](https://github.com/Mohamedamine991/Nest-Project/assets/98351985/4ae0eefa-e00e-4858-8a58-106aaa5592ef)
 
 
 
