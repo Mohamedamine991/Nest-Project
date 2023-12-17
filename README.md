@@ -1,3 +1,53 @@
+<h2>Table des Matières</h2>
+<ul>
+  <li><a href="#step1">Seeding des Données</a></li>
+  <li><a href="#step2">CRUD pour Quiz et Questions</a></li>
+  <li><a href="#step3">Fonction de Vérification des Réponses</a></li>
+  <li><a href="#step4">Validation Complète d'un Quiz</a></li>
+  <li><a href="#step5">Calcul du Score</a></li>
+  <li><a href="#step6">Commits et Documentation</a></li>
+</ul>
+
+<h2 id="step1">Étape 1: Seeding des Données</h2>
+<p><strong>Objectif :</strong> Créer des jeux de données initiaux pour 4 domaines (Machine Learning, Sécurité, DevOps, Réseau) avec 40 questions.</p>
+<p><strong>Actions :</strong></p>
+<ul>
+  <li>Préparation de fichiers JSON pour chaque domaine contenant 10 questions et réponses.</li>
+  <li>Développement de scripts de seeding pour peupler la base de données avec ces questions.</li>
+</ul>
+
+<h2 id="step2">Étape 2: CRUD pour Quiz et Questions</h2>
+<p><strong>Objectif :</strong> Permettre la gestion des quiz et des questions via des interfaces CRUD.</p>
+<p><strong>Actions :</strong></p>
+<ul>
+  <li>Création de services et contrôleurs NestJS pour les entités Quiz et Question.</li>
+  <li>Utilisation de TypeORM pour les opérations de base de données.</li>
+</ul>
+
+<h2 id="step3">Étape 3: Fonction de Vérification des Réponses</h2>
+<p><strong>Objectif :</strong> Vérifier l'exactitude des réponses aux questions.</p>
+<p><strong>Actions :</strong></p>
+<ul>
+  <li>Ajout d'une méthode de vérification dans <code>QuestionsService</code> pour comparer les réponses des utilisateurs avec les bonnes réponses.</li>
+</ul>
+
+<h2 id="step4">Étape 4: Validation Complète d'un Quiz</h2>
+<p><strong>Objectif :</strong> Valider toutes les réponses d'un quiz en une seule opération.</p>
+<p><strong>Actions :</strong></p>
+<ul>
+  <li>Création d'une API qui accepte les réponses du quiz et renvoie la validation pour chaque question.</li>
+  <li>Test de l'API avec Postman.</li>
+</ul>
+
+<h2 id="step5">Étape 5: Calcul du Score</h2>
+<p><strong>Objectif :</strong> Calculer le score total sur un quiz en pourcentage.</p>
+<p><strong>Actions :</strong></p>
+<ul>
+  <li>Modification de la fonction de validation du quiz pour inclure un calcul de score basé sur le nombre de réponses correctes.</li>
+  <li>Test de cette fonctionnalité avec Postman.</li>
+</ul>
+
+
 <h1>Test du  calcul de score du quiz : </h1>
 
 ![Screenshot (77)](https://github.com/Mohamedamine991/Nest-Project/assets/98351985/851b3036-78a8-4dc0-8141-51feafaaecd9)
