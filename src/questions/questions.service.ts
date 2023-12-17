@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Question } from './entities/question.entity';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
+import { QuizAnswersDto } from './dto/quiz-answers.dto';
 
 @Injectable()
 export class QuestionsService {
@@ -41,5 +42,21 @@ export class QuestionsService {
       throw new NotFoundException('Question not found');
     }
     return question.correctOption === userAnswer;
+  }
+
+
+
+  async verifyQuizAnswers(quizAnswersDto: QuizAnswersDto): Promise<any[]> {
+    const results = await Promise.all(
+      quizAnswersDto.answers.map(async (answer) => {
+        const isCorrect = await this.verifyAnswer(answer.questionId, answer.userAnswer);
+        return {
+          questionId: answer.questionId,
+          isCorrect,
+        };
+      })
+    );
+
+    return results;
   }
 }
