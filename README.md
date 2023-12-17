@@ -1,3 +1,43 @@
+<h1>Test de la validation d'un quiz</h1> , <br> Ici de coté front n en cliquant sur valider , on doit envoyer au serveur un json de ce type : <br>
+{
+  "answers": [
+    {
+      "questionId": 1,
+      "userAnswer": 2
+    },
+    {
+      "questionId": 2,
+      "userAnswer": 3
+    }, {
+      "questionId": 3,
+      "userAnswer": 3
+    }, {
+      "questionId": 4,
+      "userAnswer": 3
+    }, {
+      "questionId": 4,
+      "userAnswer": 3
+    }, {
+      "questionId": 5,
+      "userAnswer": 3
+    }, {
+      "questionId": 6,
+      "userAnswer": 3
+    }, {
+      "questionId": 7,
+      "userAnswer": 3
+    }, {
+      "questionId": 8,
+      "userAnswer": 3
+    }, {
+      "questionId": 9,
+      "userAnswer": 3
+    }, {
+      "questionId": 10,
+      "userAnswer": 3
+    }]
+}
+
 ![image](https://github.com/Mohamedamine991/Nest-Project/assets/98351985/aced3b28-327f-4049-ac05-de85ce3e6c21)
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
