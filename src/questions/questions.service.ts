@@ -46,10 +46,17 @@ export class QuestionsService {
 
 
 
-  async verifyQuizAnswers(quizAnswersDto: QuizAnswersDto): Promise<any[]> {
+  hodes
+
+  async verifyQuizAnswers(quizAnswersDto: QuizAnswersDto): Promise<any> {
+    let correctCount = 0;
+
     const results = await Promise.all(
       quizAnswersDto.answers.map(async (answer) => {
         const isCorrect = await this.verifyAnswer(answer.questionId, answer.userAnswer);
+        if (isCorrect) {
+          correctCount++;
+        }
         return {
           questionId: answer.questionId,
           isCorrect,
@@ -57,6 +64,13 @@ export class QuestionsService {
       })
     );
 
-    return results;
+    const score = (correctCount / quizAnswersDto.answers.length) * 100;
+
+    return {
+      results,
+      score: `${score.toFixed(2)}%` 
+    };
   }
 }
+
+
