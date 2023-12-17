@@ -1,3 +1,5 @@
+<h1>Test du  calcul de score du quiz</h1>
+![Screenshot (77)](https://github.com/Mohamedamine991/Nest-Project/assets/98351985/19ce6f4a-8781-4909-80bc-35f22fe3432e) <br>
 <h1>Test de la validation d'un quiz</h1>  <br> Ici de coté front n en cliquant sur valider , on doit envoyer au serveur un json de ce type : <br>
 { <br>
   "answers": [ <br>
@@ -39,6 +41,10 @@
 } <br>
 
 ![image](https://github.com/Mohamedamine991/Nest-Project/assets/98351985/aced3b28-327f-4049-ac05-de85ce3e6c21)
+
+
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
