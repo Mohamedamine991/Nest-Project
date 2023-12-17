@@ -1,5 +1,6 @@
 <h1>Test du  calcul de score du quiz : </h1>
-![Screenshot (77)](https://github.com/Mohamedamine991/Nest-Project/assets/98351985/19ce6f4a-8781-4909-80bc-35f22fe3432e) 
+
+![Screenshot (77)](https://github.com/Mohamedamine991/Nest-Project/assets/98351985/851b3036-78a8-4dc0-8141-51feafaaecd9)
 
 <h1>Test de la validation d'un quiz</h1>  <br> Ici de coté front n en cliquant sur valider , on doit envoyer au serveur un json de ce type : <br>
 { <br>
