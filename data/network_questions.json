@@ -1,53 +1,52 @@
 [
-          {
-              "content": "Quel protocole est couramment utilisé pour surveiller et gérer les équipements réseau ?",
-              "options": ["HTTP", "SNMP", "FTP", "TCP"],
-              "correctOption": 1
-          },
-          {
-              "content": "Qu'est-ce que le 'ping' en maintenance de réseau ?",
-              "options": ["Un outil de cryptage", "Un protocole de messagerie", "Un test pour vérifier la connectivité", "Un type de commutateur réseau"],
-              "correctOption": 2
-          },
-          {
-              "content": "Quel appareil est utilisé pour connecter plusieurs segments de réseau ?",
-              "options": ["Routeur", "Switch", "Hub", "Firewall"],
-              "correctOption": 1
-          },
-          {
-              "content": "Qu'est-ce que DHCP signifie dans le contexte du réseau ?",
-              "options": ["Dynamic Host Configuration Protocol", "Direct High Connection Protocol", "Data Handling Communication Protocol", "Decentralized Hosting Control Panel"],
-              "correctOption": 0
-          },
-          {
-              "content": "Dans le contexte du réseau, que signifie 'NAT' ?",
-              "options": ["Network Analysis Tool", "New Access Technology", "Network Address Translation", "Non-Authoritative Transfer"],
-              "correctOption": 2
-          },
-          {
-              "content": "Qu'est-ce que la QoS (Quality of Service) en réseau ?",
-              "options": ["Protocole de sécurité", "Gestion de la bande passante", "Protocole de routage", "Type de câblage réseau"],
-              "correctOption": 1
-          },
-          {
-              "content": "Quel protocole est utilisé pour crypter les données transmises sur un réseau ?",
-              "options": ["HTTP", "SSH", "SMTP", "IMAP"],
-              "correctOption": 1
-          },
-          {
-              "content": "Qu'est-ce que la redondance dans un réseau ?",
-              "options": ["Duplication des données", "Système de backup", "Routeurs multiples pour la continuité du service", "Sécurité renforcée"],
-              "correctOption": 2
-          },
-          {
-              "content": "Quel est le but principal d'un VLAN ?",
-              "options": ["Augmenter la vitesse Internet", "Segmenter un réseau physique en plusieurs réseaux logiques", "Fournir un accès sans fil", "Crypter les données du réseau"],
-              "correctOption": 1
-          },
-          {
-              "content": "Quelle technologie est utilisée pour créer un réseau étendu (WAN) ?",
-              "options": ["Fibre optique", "Wi-Fi", "VPN", "Ethernet"],
-              "correctOption": 2
-          }
-      ]
-      
+    {
+        "content": "What does the acronym 'IP' stand for in networking?",
+        "options": ["Internet Protocol", "Internal Process", "Intrusion Prevention", "Information Processing"],
+        "correctOption": 0
+    },
+    {
+        "content": "What is the primary purpose of a router in a network?",
+        "options": ["Store data", "Manage passwords", "Connect multiple networks", "Encrypt data"],
+        "correctOption": 2
+    },
+    {
+        "content": "What is a subnet mask used for in networking?",
+        "options": ["Protecting against malware", "Dividing an IP network into subnetworks", "Encrypting data", "Accelerating data transfer"],
+        "correctOption": 1
+    },
+    {
+        "content": "What does DHCP stand for and what is its purpose?",
+        "options": ["Direct Host Configuration Protocol, assigning static IP addresses", "Dynamic Host Configuration Protocol, assigning dynamic IP addresses", "Data Handling Control Process, managing data flow", "Device Hosting Control Protocol, connecting devices"],
+        "correctOption": 1
+    },
+    {
+        "content": "In networking, what does 'NAT' stand for, and what is its function?",
+        "options": ["Network Analysis Tool, for monitoring network performance", "Network Address Translation, for modifying network address information", "Network Allocation Table, for allocating network resources", "Network Authentication Technology, for securing networks"],
+        "correctOption": 1
+    },
+    {
+        "content": "What is the main function of a VLAN in networking?",
+        "options": ["Speeding up the network", "Encrypting network data", "Connecting physical networks over the internet", "Segmenting a LAN into smaller networks"],
+        "correctOption": 3
+    },
+    {
+        "content": "What does 'OSI model' stand for and what is its purpose in networking?",
+        "options": ["Optimal Signal Integration model, for signal optimization", "Operational System Interface model, for system compatibility", "Open Systems Interconnection model, for standardizing network protocols", "Organizational System Integration model, for network management"],
+        "correctOption": 2
+    },
+    {
+        "content": "What is a 'packet' in network terminology?",
+        "options": ["A storage unit for data", "A unit of data sent across a network", "A type of network hardware", "A network security protocol"],
+        "correctOption": 1
+    },
+    {
+        "content": "What is 'QoS' in networking, and why is it important?",
+        "options": ["Quality of Service, important for prioritizing network traffic", "Quick Operating System, important for network speed", "Query Optimization Service, important for data retrieval", "Quantum Operating Signal, important for network encryption"],
+        "correctOption": 0
+    },
+    {
+        "content": "What is 'IPv6', and how does it differ from 'IPv4'?",
+        "options": ["A network protocol with larger address space than IPv4", "A faster version of IPv4", "A more secure version of IPv4", "A type of VPN"],
+        "correctOption": 0
+    }
+]

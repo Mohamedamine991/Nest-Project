@@ -1,53 +1,52 @@
 [
-          {
-              "content": "Quel outil est couramment utilisé pour l'intégration et la livraison continues (CI/CD) ?",
-              "options": ["Docker", "Jenkins", "Git", "Selenium"],
-              "correctOption": 1
-          },
-          {
-              "content": "Quel est le principal avantage de l'utilisation de conteneurs dans DevOps ?",
-              "options": ["Automatisation des tests", "Gestion de la configuration", "Isolation des environnements", "Sécurité renforcée"],
-              "correctOption": 2
-          },
-          {
-              "content": "Quel est un outil populaire pour la gestion de la configuration ?",
-              "options": ["Kubernetes", "Ansible", "Jira", "Nagios"],
-              "correctOption": 1
-          },
-          {
-              "content": "Que signifie 'Infrastructure as Code' (IaC) ?",
-              "options": ["Hébergement de toutes les infrastructures sur le cloud", "Utilisation de scripts pour automatiser l'infrastructure", "Gestion manuelle de l'infrastructure", "Aucune de ces réponses"],
-              "correctOption": 1
-          },
-          {
-              "content": "Quel outil est utilisé pour le suivi des bugs et des problèmes ?",
-              "options": ["GitLab", "Splunk", "Jira", "Datadog"],
-              "correctOption": 2
-          },
-          {
-              "content": "Quelle est la principale fonction de Docker dans DevOps ?",
-              "options": ["Intégration continue", "Déploiement continu", "Containerisation", "Surveillance"],
-              "correctOption": 2
-          },
-          {
-              "content": "Qu'est-ce que le 'monitoring' en DevOps ?",
-              "options": ["Développement de logiciels", "Test de logiciels", "Surveillance et analyse de systèmes", "Gestion de projet"],
-              "correctOption": 2
-          },
-          {
-              "content": "Quel langage de script est couramment utilisé en DevOps pour l'automatisation ?",
-              "options": ["C++", "Python", "Java", "Ruby"],
-              "correctOption": 1
-          },
-          {
-              "content": "Qu'est-ce que le 'cloud computing' en DevOps ?",
-              "options": ["Stockage de données hors ligne", "Utilisation de serveurs physiques", "Exploitation de ressources informatiques sur Internet", "Gestion de base de données"],
-              "correctOption": 2
-          },
-          {
-              "content": "Quel est un principe clé de la méthodologie Agile en DevOps ?",
-              "options": ["Planification détaillée à long terme", "Livraison continue de logiciels", "Isolation des équipes de développement", "Déploiement manuel"],
-              "correctOption": 1
-          }
-      ]
-      
+    {
+        "content": "What is the primary purpose of Continuous Integration in DevOps?",
+        "options": ["Data backup", "Software testing and merging code changes", "Network monitoring", "Password management"],
+        "correctOption": 1
+    },
+    {
+        "content": "Which tool is commonly used for containerization in DevOps?",
+        "options": ["Jenkins", "Git", "Docker", "Nagios"],
+        "correctOption": 2
+    },
+    {
+        "content": "What does 'IaC' stand for in DevOps, and what is its purpose?",
+        "options": ["Internet and Connectivity, for network management", "Infrastructure as Code, for managing and provisioning infrastructure through code", "Integrated Application Container, for application deployment", "Information and Compliance, for security management"],
+        "correctOption": 1
+    },
+    {
+        "content": "In DevOps, what is the main use of a Version Control System like Git?",
+        "options": ["Monitoring server performance", "Managing and tracking changes to code", "Automating code deployment", "Securing application code"],
+        "correctOption": 1
+    },
+    {
+        "content": "What is the purpose of a configuration management tool like Ansible in DevOps?",
+        "options": ["Data encryption", "Managing and automating the configuration of servers", "Real-time user monitoring", "Network traffic analysis"],
+        "correctOption": 1
+    },
+    {
+        "content": "What is 'microservices architecture' in the context of DevOps?",
+        "options": ["A network security protocol", "A method of developing software as a suite of independently deployable services", "A database management approach", "A user interface design pattern"],
+        "correctOption": 1
+    },
+    {
+        "content": "What is the main benefit of implementing a CI/CD pipeline in DevOps?",
+        "options": ["Improving data security", "Enhancing communication between teams", "Automating the software delivery process", "Reducing the cost of infrastructure"],
+        "correctOption": 2
+    },
+    {
+        "content": "In DevOps, what does 'container orchestration' involve?",
+        "options": ["Encrypting container data", "Automating the deployment, scaling, and management of containerized applications", "Monitoring container performance", "Managing network traffic between containers"],
+        "correctOption": 1
+    },
+    {
+        "content": "What is 'Kubernetes' primarily used for in DevOps?",
+        "options": ["Version control", "Continuous integration", "Container orchestration", "Security scanning"],
+        "correctOption": 2
+    },
+    {
+        "content": "In DevOps, what is the significance of 'shift-left' testing?",
+        "options": ["Testing only after deployment", "Focusing on left-brain analytical testing methods", "Integrating testing early and often in the development lifecycle", "Outsourcing testing to external teams"],
+        "correctOption": 2
+    }
+]
