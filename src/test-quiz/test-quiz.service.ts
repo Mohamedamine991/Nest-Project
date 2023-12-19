@@ -1,74 +1,68 @@
-import {Injectable, NotFoundException} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { TestQuiz } from './entities/test-quiz.entity';
 import { CreateTestQuizDto } from './dto/create-test-quiz.dto';
-import {InjectRepository} from "@nestjs/typeorm";
-import {TestQuiz} from "./entities/test-quiz.entity";
-import {Repository} from "typeorm";
-import {Question} from "../questions/entities/question.entity";
+import { UpdateTestQuizDto } from './dto/update-test-quiz.dto';
+import { Question } from '../questions/entities/question.entity';
 
 @Injectable()
 export class TestQuizService {
   constructor(
-      @InjectRepository(TestQuiz)
-      private testQuizRepository: Repository<TestQuiz>,
-      @InjectRepository(Question)
-      private QuestionRepository: Repository<Question>,
+    @InjectRepository(TestQuiz)
+    private readonly testQuizRepository: Repository<TestQuiz>,
+    @InjectRepository(Question)
+    private readonly questionRepository: Repository<Question>, // Ajoutez cette ligne
+
   ) {}
-  create(createTestQuizDto: CreateTestQuizDto): Promise<TestQuiz> {
-    const testQuiz = this.testQuizRepository.create(createTestQuizDto);
-    return this.testQuizRepository.save(testQuiz);
-  }
 
-  findAll(): Promise<TestQuiz[]> {
-    return this.testQuizRepository.find({ relations: ['milestone', 'questions'] });
-  }
-
-  async findOne(quizID: number): Promise<TestQuiz> {
-    const testQuiz = await this.testQuizRepository.findOne({
-      where: { quizID },
-      relations: ['milestone', 'questions'],
-    });
-    if (!testQuiz) {
-      throw new NotFoundException(`TestQuiz with ID #${quizID} not found`);
-    }
-    return testQuiz;
-  }
-  async addQuestionToQuiz(quizID: number, questionId: number): Promise<TestQuiz> {
-    const quiz = await this.testQuizRepository.findOne({
-      where: { quizID },
-      relations: ['questions'],
-    });
-
+  async createQuizIfNotExists(title: string): Promise<TestQuiz> {
+    let quiz = await this.testQuizRepository.findOneBy({ title });
     if (!quiz) {
-      throw new NotFoundException(`TestQuiz with ID #${quizID} not found`);
+      quiz = this.testQuizRepository.create({ title });
+      await this.testQuizRepository.save(quiz);
     }
-
-    const question = await this.QuestionRepository.findOneBy({ id: questionId });
-    if (!question) {
-      throw new NotFoundException(`Question with ID #${questionId} not found`);
-    }
-
-    quiz.questions = [...quiz.questions, question];
-    return this.testQuizRepository.save(quiz);
+    return quiz;
   }
 
-  async removeQuestionFromQuiz(quizID: number, questionId: number): Promise<TestQuiz> {
-    const quiz = await this.testQuizRepository.findOne({
-      where: { quizID },
-      relations: ['questions'],
+  async addQuestionToQuiz(quiz: TestQuiz, questionData: any): Promise<Question> {
+    const question = this.questionRepository.create({
+      content: questionData.content, 
+      options: questionData.options,  
+      correctOption: questionData.correctOption,  
+      testQuiz: quiz 
     });
-
-    if (!quiz) {
-      throw new NotFoundException(`TestQuiz with ID #${quizID} not found`);
-    }
-
-    quiz.questions = quiz.questions.filter(question => question.id !== questionId);
-    return this.testQuizRepository.save(quiz);
+  
+    return this.questionRepository.save(question);
   }
 
-  async remove(quizID: number): Promise<void> {
-    const result = await this.testQuizRepository.delete(quizID);
-    if (result.affected === 0) {
-      throw new NotFoundException(`TestQuiz with ID #${quizID} not found`);
+  async create(createTestQuizDto: CreateTestQuizDto): Promise<TestQuiz> {
+    const newTestQuiz = this.testQuizRepository.create(createTestQuizDto);
+    return this.testQuizRepository.save(newTestQuiz);
+  }
+
+  async createDomainQuizzes(): Promise<void> {
+    const domains = ['Machine Learning', 'DevOps', 'Sécurité', 'Réseau'];
+    for (const title of domains) {
+      const quiz = this.testQuizRepository.create({ title });
+      await this.testQuizRepository.save(quiz);
     }
+  }
+
+  async findAll(): Promise<TestQuiz[]> {
+    return this.testQuizRepository.find();
+  }
+
+  async findOne(id: number): Promise<TestQuiz> {
+    return this.testQuizRepository.findOneBy({ quizID: id });
+  }
+
+  async update(id: number, updateTestQuizDto: UpdateTestQuizDto): Promise<TestQuiz> {
+    await this.testQuizRepository.update(id, updateTestQuizDto);
+    return this.testQuizRepository.findOneBy({ quizID: id });
+  }
+
+  async remove(id: number): Promise<void> {
+    await this.testQuizRepository.delete(id);
   }
 }

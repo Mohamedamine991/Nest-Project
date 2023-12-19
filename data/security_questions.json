@@ -1,0 +1,52 @@
+[
+    {
+        "content": "What is the primary function of antivirus software in cybersecurity?",
+        "options": ["Firewall management", "Password protection", "Detecting and removing malware", "Monitoring network traffic"],
+        "correctOption": 2
+    },
+    {
+        "content": "What does 'VPN' stand for in the context of cybersecurity?",
+        "options": ["Virtual Private Network", "Variable Protection Node", "Vital Packet Navigation", "Verified Public Network"],
+        "correctOption": 0
+    },
+    {
+        "content": "What is a common method used for securing data during transmission over the internet?",
+        "options": ["SSL/TLS Encryption", "Antivirus software", "Two-factor authentication", "CAPTCHA verification"],
+        "correctOption": 0
+    },
+    {
+        "content": "What is 'phishing' in the context of cybersecurity?",
+        "options": ["A type of computer virus", "A brute force attack", "A social engineering attack to obtain sensitive information", "A secure data transmission method"],
+        "correctOption": 2
+    },
+    {
+        "content": "What does 'DDoS' stand for, and what does it involve?",
+        "options": ["Data Delivery Over Secured networks, secure data transfer", "Dedicated Denial of Service, overwhelming a system with traffic", "Dynamic Data Operation System, a data management technique", "Decentralized Data Operation Service, a distributed computing method"],
+        "correctOption": 1
+    },
+    {
+        "content": "In cybersecurity, what is a 'zero-day exploit'?",
+        "options": ["A widely known software vulnerability", "An attack that occurs on the same day a weakness is discovered", "A routine software update", "A vulnerability unknown to those who should be interested in its mitigation"],
+        "correctOption": 3
+    },
+    {
+        "content": "What is 'two-factor authentication' (2FA) used for in cybersecurity?",
+        "options": ["Encrypting data twice for extra security", "Using two different antivirus programs", "Verifying a user's identity using two different components", "Scanning systems for vulnerabilities twice"],
+        "correctOption": 2
+    },
+    {
+        "content": "What does 'SIEM' stand for in cybersecurity?",
+        "options": ["Security Integrated Encryption Module", "Simple Internet Email Management", "Security Information and Event Management", "Systematic Intrusion Elimination Mechanism"],
+        "correctOption": 2
+    },
+    {
+        "content": "In cybersecurity, what is meant by 'sandboxing'?",
+        "options": ["Encrypting data using complex algorithms", "Isolating untested code or applications in a separate secure environment", "Storing sensitive data in an offsite location", "Filtering out spam emails"],
+        "correctOption": 1
+    },
+    {
+        "content": "What is the primary purpose of 'penetration testing' in cybersecurity?",
+        "options": ["Repairing damaged systems", "Testing the strength of passwords", "Simulating cyber attacks to identify vulnerabilities", "Monitoring outgoing data for potential leaks"],
+        "correctOption": 2
+    }
+]

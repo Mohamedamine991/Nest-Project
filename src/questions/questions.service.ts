@@ -1,44 +1,79 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Question } from './entities/question.entity';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
 import {Question} from "./entities/question.entity";
+import { QuizAnswersDto } from './dto/quiz-answers.dto';
 
 @Injectable()
 export class QuestionsService {
   constructor(
-      @InjectRepository(Question)
-      private questionRepository: Repository<Question>,
+    @InjectRepository(Question)
+    private questionsRepository: Repository<Question>,
   ) {}
-  create(Question: CreateQuestionDto) {
-    const question = this.questionRepository.create(Question);
-    return this.questionRepository.save(question);
+
+  async create(createQuestionDto: CreateQuestionDto): Promise<Question> {
+    const newQuestion = this.questionsRepository.create(createQuestionDto);
+    return this.questionsRepository.save(newQuestion);
   }
 
-  findAll() {
-    return `This action returns all questions`;
+  async findAll(): Promise<Question[]> {
+    return this.questionsRepository.find();
   }
 
-  findOne(id: number) {
-    return this.questionRepository.findOneBy({
-      id: id
-    });
+  async findOne(id: number): Promise<Question> {
+    return this.questionsRepository.findOneBy({ questionID: id });
   }
-  async getRightOption(id: number): Promise<number> {
-    const question = await this.questionRepository.findOneBy({id : id});
+
+  async update(id: number, updateQuestionDto: UpdateQuestionDto): Promise<Question> {
+    await this.questionsRepository.update(id, updateQuestionDto);
+    return this.questionsRepository.findOneBy({ questionID: id });
+  }
+
+
+  async remove(id: number): Promise<void> {
+    await this.questionsRepository.delete(id);
+  }
+
+  async verifyAnswer(questionId: number, userAnswer: number): Promise<boolean> {
+    const question = await this.questionsRepository.findOneBy({ questionID: questionId });
     if (!question) {
-      throw new Error('Question not found');
+      throw new NotFoundException('Question not found');
     }
-    return question.correctOption;
+    return question.correctOption === userAnswer;
   }
 
-  async update(id: number, updateQuestionDto: UpdateQuestionDto) {
-    await this.questionRepository.update(id, updateQuestionDto);
-    return this.findOne(id);
-  }
 
-  async remove(id: number) {
-    await this.questionRepository.delete(id);
+
+  hodes
+
+  async verifyQuizAnswers(quizAnswersDto: QuizAnswersDto): Promise<any> {
+    let correctCount = 0;
+
+    const results = await Promise.all(
+      quizAnswersDto.answers.map(async (answer) => {
+        const isCorrect = await this.verifyAnswer(answer.questionId, answer.userAnswer);
+        if (isCorrect) {
+          correctCount++;
+        }
+        return {
+          questionId: answer.questionId,
+          isCorrect,
+        };
+      })
+    );
+
+    const score = (correctCount / quizAnswersDto.answers.length) * 100;
+
+    return {
+      results,
+      score: `${score.toFixed(2)}` 
+    };
   }
 }
+
+

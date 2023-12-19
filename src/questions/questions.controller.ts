@@ -2,6 +2,7 @@ import {Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException} fr
 import { QuestionsService } from './questions.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
+import { QuizAnswersDto } from './dto/quiz-answers.dto';
 
 @Controller('questions')
 export class QuestionsController {
@@ -39,4 +40,15 @@ export class QuestionsController {
       throw new NotFoundException(error.message);
     }
   }
+  @Post(':id/verify')
+  async verify(@Param('id') id: string, @Body('answer') answer: number) {
+    const isCorrect = await this.questionsService.verifyAnswer(+id, answer);
+    return { correct: isCorrect };
+  }
+
+  @Post('verify-quiz')
+  async verifyQuiz(@Body() quizAnswersDto: QuizAnswersDto) {
+    return this.questionsService.verifyQuizAnswers(quizAnswersDto);
+  }
+  
 }

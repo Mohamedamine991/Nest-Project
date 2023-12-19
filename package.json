@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "seed": "ts-node src/scripts/seedDatabase.ts",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -26,6 +27,9 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/typeorm": "^10.0.1",
     "class-validator": "^0.14.0",
+    "csv": "^6.3.6",
+    "csv-parse": "^5.5.3",
+    "csv-parser": "^3.0.0",
     "mysql2": "^3.6.5",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
