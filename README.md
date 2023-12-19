@@ -9,6 +9,8 @@
 </ul>
 
 <h2 id="step1">Étape 1: Seeding des Données</h2>
+<h3 >terminal : npm run seed</h3>
+
 <p><strong>Objectif :</strong> Créer des jeux de données initiaux pour 4 domaines (Machine Learning, Sécurité, DevOps, Réseau) avec 40 questions.</p>
 <p><strong>Actions :</strong></p>
 <ul>
