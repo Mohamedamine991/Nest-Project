@@ -68,7 +68,7 @@ export class QuestionsService {
 
     return {
       results,
-      score: `${score.toFixed(2)}%` 
+      score: `${score.toFixed(2)}` 
     };
   }
 }
