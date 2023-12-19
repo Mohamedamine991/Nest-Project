@@ -32,7 +32,7 @@ export class QuestionsController {
   }
 
   @Get(':id/right-option')
-  async getRightOption(@Param('id') id: number): Promise<string> {
+  async getRightOption(@Param('id') id: number): Promise<number> {
     try {
       return await this.questionsService.getRightOption(id);
     } catch (error) {

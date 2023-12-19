@@ -1,4 +1,8 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateValidationDto } from './create-validation.dto';
+import { IsBoolean, IsNumber, IsOptional, IsDate } from 'class-validator';
 
-export class UpdateValidationDto extends PartialType(CreateValidationDto) {}
+export class UpdateValidationDto {
+
+    @IsNumber()
+    @IsOptional()
+    readonly score?: number;
+}

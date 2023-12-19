@@ -1,4 +1,5 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateMilestoneDto } from './create-milestone.dto';
+import { IsNumber } from 'class-validator';
 
-export class UpdateMilestoneDto extends PartialType(CreateMilestoneDto) {}
+export class UpdateMilestoneDto {
+
+}

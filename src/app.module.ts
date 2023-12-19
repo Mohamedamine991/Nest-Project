@@ -20,25 +20,25 @@ import { RecommandedCertification } from './recommanded-certifications/entities/
 import { RecommandedCourse } from './recommanded-courses/entities/recommanded-course.entity';
 import { TestQuiz } from './test-quiz/entities/test-quiz.entity';
 import { Question } from './questions/entities/question.entity';
-import { UserServiceService } from './user-service/user-service.service';
+import {UsersService} from "./users/users.service";
 
 
 
 @Module({
   imports: [UsersModule, RoadmapsModule, ProgressModule, MilestoneModule, ValidationsModule, RecommandedCertificationsModule, RecommandedCoursesModule, TestQuizModule, QuestionsModule
-  ,TypeOrmModule.forRoot({
-    type: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: '',
-    database: 'project',
-    entities: [User,Roadmap,Progress,Validation,Milestone,RecommandedCertification,RecommandedCourse,TestQuiz,Question],
-    synchronize: true,
-    logging: true,
-  })
+    ,TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: '',
+      database: 'project',
+      entities: [User,Roadmap,Progress,Validation,Milestone,RecommandedCertification,RecommandedCourse,TestQuiz,Question],
+      synchronize: true,
+      logging: true,
+    })
   ],
   controllers: [AppController],
-  providers: [AppService, UserServiceService],
+  providers: [AppService],
 })
 export class AppModule {}

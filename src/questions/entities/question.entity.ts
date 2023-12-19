@@ -10,7 +10,13 @@ export class Question {
   content: string;
 
   @Column({ nullable:false}) 
-  options: string [4];
+  option2: string ;
+ @Column({ nullable:false})
+ option3: string ;
+ @Column({ nullable:false})
+ option4: string ;
+ @Column({ nullable:false})
+ option1: string ;
 
   @Column({nullable:false})
   correctOption: number;

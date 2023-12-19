@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne} from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Roadmap } from '../../roadmaps/entities/roadmap.entity';
 
@@ -15,7 +15,7 @@ export class Progress {
 
   @ManyToOne(() => Roadmap)
   roadmap: Roadmap;
-
+/*
   @CreateDateColumn()
   createdAt: Date;
 
@@ -24,4 +24,5 @@ export class Progress {
 
   @DeleteDateColumn()
   deletedAt: Date;
+*/
 }

@@ -25,12 +25,12 @@ export class QuestionsService {
       id: id
     });
   }
-  async getRightOption(id: number): Promise<string> {
+  async getRightOption(id: number): Promise<number> {
     const question = await this.questionRepository.findOneBy({id : id});
     if (!question) {
       throw new Error('Question not found');
     }
-    return question.options[question.correctOption];
+    return question.correctOption;
   }
 
   async update(id: number, updateQuestionDto: UpdateQuestionDto) {
