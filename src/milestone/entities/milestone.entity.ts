@@ -13,8 +13,6 @@ export class Milestone {
 
   @ManyToOne(() => Roadmap, roadmap => roadmap.milestones)
   roadmap: Roadmap;
-
-
   @OneToMany(() => RecommandedCertification, recommandedCertification => recommandedCertification.milestone)
   recommandedCertifications: RecommandedCertification[];
   @OneToMany(() => RecommandedCourse, recommandedCourse => recommandedCourse.milestone)

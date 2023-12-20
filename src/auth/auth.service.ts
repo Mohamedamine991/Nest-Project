@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import User from '../users/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -9,7 +9,6 @@ import { JwtService } from '@nestjs/jwt';
 
 
 export class AuthService {
-  
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
@@ -19,18 +18,23 @@ export class AuthService {
   async signUp(signUpDto: SignUpDto): Promise<{ token: string }> {
     const { username, email, password } = signUpDto;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     const user = await this.usersRepository.create({
       username,
       email,
       password: hashedPassword,
     });
-
+try{
     await this.usersRepository.save(user);
 
-    const token = this.jwtService.sign({ id: user.id });
+}
+catch(e){
+  throw new ConflictException('Le nom d\'utilisateur et l\'email doit être unique');
 
+}
+    const token = this.jwtService.sign({ id: user.id });
     return { token };
   }
 

@@ -1,16 +1,17 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, Matches, MinLength } from 'class-validator';
+import ErrorMessages from '../../utils/error.messages';
 
 export class SignUpDto {
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({message:ErrorMessages.usernameRequired})
+  @MinLength(4,{message:ErrorMessages.invalidLengthUsername})
   username: string;
-
-  @IsNotEmpty()
-  @IsEmail({}, { message: 'Please enter correct email' })
+  @IsNotEmpty({message:ErrorMessages.emailRequired})
+  @IsEmail({}, { message:ErrorMessages.invalidEmail})
   email: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(6, { message: 'Password must be at least 6 characters long' })
+  @IsNotEmpty({ message: ErrorMessages.passwordRequired })
+  @MinLength(6, { message:ErrorMessages.invalidLengthPassword})
+  @Matches(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{6,}$/, {
+    message:ErrorMessages.invalidPassword,
+  })
   password: string;
 }
