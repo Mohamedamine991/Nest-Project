@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-
+import { Roadmap } from '../../roadmaps/entities/roadmap.entity';
+import { Milestone } from '../../milestone/entities/milestone.entity';
 
 @Entity()
 export class User {
@@ -20,6 +21,15 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+
+  @ManyToMany(() => Roadmap, roadmap => roadmap.users, { cascade: true })
+  @JoinTable()
+  roadmaps: Roadmap[];
+
+  @ManyToMany(() => Milestone, milestone => milestone.users)
+  @JoinTable()
+  milestones: Milestone[];
 }
-export default User
+
 

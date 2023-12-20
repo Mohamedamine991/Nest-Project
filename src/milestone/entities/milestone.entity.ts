@@ -13,6 +13,10 @@ export class Milestone {
 
   @ManyToOne(() => Roadmap, roadmap => roadmap.milestones)
   roadmap: Roadmap;
+
+  @ManyToMany(() => User, user => user.milestones)
+  @JoinTable()
+  users: User[];
   @OneToMany(() => RecommandedCertification, recommandedCertification => recommandedCertification.milestone)
   recommandedCertifications: RecommandedCertification[];
   @OneToMany(() => RecommandedCourse, recommandedCourse => recommandedCourse.milestone)

@@ -3,13 +3,15 @@ import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {User} from "./entities/user.entity";
-import { CommonModule } from '../common/common.module';
+import {Roadmap} from "../roadmaps/entities/roadmap.entity";
+import {Progress} from "../progress/entities/progress.entity";
+import {Milestone} from "../milestone/entities/milestone.entity";
+import {Validation} from "../validations/entities/validation.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]),CommonModule],
+  imports: [TypeOrmModule.forFeature([User,Roadmap,Progress,Milestone,Validation])],
   controllers: [UsersController],
   providers: [UsersService],
-  exports:[UsersService]
 })
 export class UsersModule {
 }

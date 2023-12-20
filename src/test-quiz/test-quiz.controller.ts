@@ -3,9 +3,15 @@ import { TestQuizService } from './test-quiz.service';
 import { CreateTestQuizDto } from './dto/create-test-quiz.dto';
 import { UpdateTestQuizDto } from './dto/update-test-quiz.dto';
 
-@Controller('test-quiz')
+@Controller('quiz')
 export class TestQuizController {
   constructor(private readonly testQuizService: TestQuizService) {}
+
+
+  @Post('/createquizzes')
+  createDomainQuizzes() {
+    return this.testQuizService.createDomainQuizzes();
+  }
 
   @Post()
   create(@Body() createTestQuizDto: CreateTestQuizDto) {
@@ -31,4 +37,8 @@ export class TestQuizController {
   remove(@Param('id') id: string) {
     return this.testQuizService.remove(+id);
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main

@@ -21,11 +21,11 @@ export class MilestoneController {
   findOne(@Param('id') id: string) {
     return this.milestoneService.findOne(+id);
   }
-
+/*
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMilestoneDto: UpdateMilestoneDto) {
     return this.milestoneService.update(+id, updateMilestoneDto);
-  }
+  }*/
 
   @Delete(':id')
   remove(@Param('id') id: string) {

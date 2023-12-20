@@ -27,5 +27,9 @@ export class Roadmap {
 
   @OneToMany(() => Milestone, milestone => milestone.roadmap)
   milestones: Milestone[];
+
+  @ManyToMany(() => User, user => user.roadmaps)
+  @JoinTable()
+  users: User[];
 }
 

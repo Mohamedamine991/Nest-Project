@@ -1,0 +1,52 @@
+[
+    {
+        "content": "What does the acronym 'IP' stand for in networking?",
+        "options": ["Internet Protocol", "Internal Process", "Intrusion Prevention", "Information Processing"],
+        "correctOption": 0
+    },
+    {
+        "content": "What is the primary purpose of a router in a network?",
+        "options": ["Store data", "Manage passwords", "Connect multiple networks", "Encrypt data"],
+        "correctOption": 2
+    },
+    {
+        "content": "What is a subnet mask used for in networking?",
+        "options": ["Protecting against malware", "Dividing an IP network into subnetworks", "Encrypting data", "Accelerating data transfer"],
+        "correctOption": 1
+    },
+    {
+        "content": "What does DHCP stand for and what is its purpose?",
+        "options": ["Direct Host Configuration Protocol, assigning static IP addresses", "Dynamic Host Configuration Protocol, assigning dynamic IP addresses", "Data Handling Control Process, managing data flow", "Device Hosting Control Protocol, connecting devices"],
+        "correctOption": 1
+    },
+    {
+        "content": "In networking, what does 'NAT' stand for, and what is its function?",
+        "options": ["Network Analysis Tool, for monitoring network performance", "Network Address Translation, for modifying network address information", "Network Allocation Table, for allocating network resources", "Network Authentication Technology, for securing networks"],
+        "correctOption": 1
+    },
+    {
+        "content": "What is the main function of a VLAN in networking?",
+        "options": ["Speeding up the network", "Encrypting network data", "Connecting physical networks over the internet", "Segmenting a LAN into smaller networks"],
+        "correctOption": 3
+    },
+    {
+        "content": "What does 'OSI model' stand for and what is its purpose in networking?",
+        "options": ["Optimal Signal Integration model, for signal optimization", "Operational System Interface model, for system compatibility", "Open Systems Interconnection model, for standardizing network protocols", "Organizational System Integration model, for network management"],
+        "correctOption": 2
+    },
+    {
+        "content": "What is a 'packet' in network terminology?",
+        "options": ["A storage unit for data", "A unit of data sent across a network", "A type of network hardware", "A network security protocol"],
+        "correctOption": 1
+    },
+    {
+        "content": "What is 'QoS' in networking, and why is it important?",
+        "options": ["Quality of Service, important for prioritizing network traffic", "Quick Operating System, important for network speed", "Query Optimization Service, important for data retrieval", "Quantum Operating Signal, important for network encryption"],
+        "correctOption": 0
+    },
+    {
+        "content": "What is 'IPv6', and how does it differ from 'IPv4'?",
+        "options": ["A network protocol with larger address space than IPv4", "A faster version of IPv4", "A more secure version of IPv4", "A type of VPN"],
+        "correctOption": 0
+    }
+]

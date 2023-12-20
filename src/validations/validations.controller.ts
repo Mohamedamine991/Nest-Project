@@ -1,7 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe} from '@nestjs/common';
 import { ValidationsService } from './validations.service';
 import { CreateValidationDto } from './dto/create-validation.dto';
-import { UpdateValidationDto } from './dto/update-validation.dto';
 
 @Controller('validations')
 export class ValidationsController {
@@ -9,7 +8,15 @@ export class ValidationsController {
 
   @Post()
   create(@Body() createValidationDto: CreateValidationDto) {
-    return this.validationsService.create(createValidationDto);
+    return this.validationsService.createValidation(createValidationDto);
+  }
+
+  @Post()
+  addValidation(
+      @Body('userId', ParseIntPipe) userId: number,
+      @Body('milestoneId', ParseIntPipe) milestoneId: number
+  ) {
+    return this.validationsService.addValidation(userId, milestoneId);
   }
 
   @Get()
@@ -18,13 +25,12 @@ export class ValidationsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.validationsService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.validationsService.findOne(id);
   }
-
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateValidationDto: UpdateValidationDto) {
-    return this.validationsService.update(+id, updateValidationDto);
+  update(@Param('id') id: number, @Body() score: number) {
+    return this.validationsService.updateValidation(id,score);
   }
 
   @Delete(':id')

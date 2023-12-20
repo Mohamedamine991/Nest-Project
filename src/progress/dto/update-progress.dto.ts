@@ -1,4 +1,16 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateProgressDto } from './create-progress.dto';
+// update-progress.dto.ts
+import { IsNumber, IsOptional } from 'class-validator';
 
-export class UpdateProgressDto extends PartialType(CreateProgressDto) {}
+export class UpdateProgressDto {
+    @IsNumber()
+    @IsOptional()
+    readonly userId?: number;
+
+    @IsNumber()
+    @IsOptional()
+    readonly roadmapId?: number;
+
+    @IsNumber()
+    @IsOptional()
+    readonly percentage?: number;
+}

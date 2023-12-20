@@ -3,20 +3,19 @@ import { TestQuiz } from '../../test-quiz/entities/test-quiz.entity';
 
 @Entity()
 export class Question {
-  @PrimaryGeneratedColumn()
- id: number;
+ @PrimaryGeneratedColumn()
+ questionID: number;
 
-  @Column({nullable:false})
-  content: string;
+ @Column({nullable:false})
+ content: string;
 
-  @Column({ nullable: false, type: 'text' }) 
-  options: string;
+ @Column({ nullable:false})
+ options: string;
 
-  @Column({nullable:false})
-  correctOption: number;
+ @Column({nullable:false})
+ correctOption: number;
 
 
-  @ManyToOne(() => TestQuiz, testQuiz => testQuiz.questions)
-  testQuiz: TestQuiz;
+ @ManyToOne(() => TestQuiz, testQuiz => testQuiz.questions)
+ testQuiz: TestQuiz;
 }
-
