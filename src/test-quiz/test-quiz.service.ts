@@ -9,10 +9,10 @@ import { Question } from '../questions/entities/question.entity';
 @Injectable()
 export class TestQuizService {
   constructor(
-    @InjectRepository(TestQuiz)
-    private readonly testQuizRepository: Repository<TestQuiz>,
-    @InjectRepository(Question)
-    private readonly questionRepository: Repository<Question>, // Ajoutez cette ligne
+      @InjectRepository(TestQuiz)
+      private readonly testQuizRepository: Repository<TestQuiz>,
+      @InjectRepository(Question)
+      private readonly questionRepository: Repository<Question>, // Ajoutez cette ligne
 
   ) {}
 
@@ -27,12 +27,12 @@ export class TestQuizService {
 
   async addQuestionToQuiz(quiz: TestQuiz, questionData: any): Promise<Question> {
     const question = this.questionRepository.create({
-      content: questionData.content, 
-      options: questionData.options,  
-      correctOption: questionData.correctOption,  
-      testQuiz: quiz 
+      content: questionData.content,
+      options: questionData.options,
+      correctOption: questionData.correctOption,
+      testQuiz: quiz
     });
-  
+
     return this.questionRepository.save(question);
   }
 

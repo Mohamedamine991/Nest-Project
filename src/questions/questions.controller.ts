@@ -1,4 +1,4 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { QuestionsService } from './questions.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
@@ -7,6 +7,7 @@ import { QuizAnswersDto } from './dto/quiz-answers.dto';
 @Controller('questions')
 export class QuestionsController {
   constructor(private readonly questionsService: QuestionsService) {}
+
   @Post()
   create(@Body() createQuestionDto: CreateQuestionDto) {
     return this.questionsService.create(createQuestionDto);
@@ -32,14 +33,6 @@ export class QuestionsController {
     return this.questionsService.remove(+id);
   }
 
-  @Get(':id/right-option')
-  async getRightOption(@Param('id') id: number): Promise<number> {
-    try {
-      return await this.questionsService.getRightOption(id);
-    } catch (error) {
-      throw new NotFoundException(error.message);
-    }
-  }
   @Post(':id/verify')
   async verify(@Param('id') id: string, @Body('answer') answer: number) {
     const isCorrect = await this.questionsService.verifyAnswer(+id, answer);
@@ -50,5 +43,5 @@ export class QuestionsController {
   async verifyQuiz(@Body() quizAnswersDto: QuizAnswersDto) {
     return this.questionsService.verifyQuizAnswers(quizAnswersDto);
   }
-  
+
 }

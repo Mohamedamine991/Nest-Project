@@ -4,16 +4,13 @@ import { Repository } from 'typeorm';
 import { Question } from './entities/question.entity';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
-import {InjectRepository} from "@nestjs/typeorm";
-import {Repository} from "typeorm";
-import {Question} from "./entities/question.entity";
 import { QuizAnswersDto } from './dto/quiz-answers.dto';
 
 @Injectable()
 export class QuestionsService {
   constructor(
-    @InjectRepository(Question)
-    private questionsRepository: Repository<Question>,
+      @InjectRepository(Question)
+      private questionsRepository: Repository<Question>,
   ) {}
 
   async create(createQuestionDto: CreateQuestionDto): Promise<Question> {
@@ -55,25 +52,23 @@ export class QuestionsService {
     let correctCount = 0;
 
     const results = await Promise.all(
-      quizAnswersDto.answers.map(async (answer) => {
-        const isCorrect = await this.verifyAnswer(answer.questionId, answer.userAnswer);
-        if (isCorrect) {
-          correctCount++;
-        }
-        return {
-          questionId: answer.questionId,
-          isCorrect,
-        };
-      })
+        quizAnswersDto.answers.map(async (answer) => {
+          const isCorrect = await this.verifyAnswer(answer.questionId, answer.userAnswer);
+          if (isCorrect) {
+            correctCount++;
+          }
+          return {
+            questionId: answer.questionId,
+            isCorrect,
+          };
+        })
     );
 
     const score = (correctCount / quizAnswersDto.answers.length) * 100;
 
     return {
       results,
-      score: `${score.toFixed(2)}` 
+      score: `${score.toFixed(2)}`
     };
   }
 }
-
-

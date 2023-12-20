@@ -17,15 +17,6 @@ export class TestQuizController {
   create(@Body() createTestQuizDto: CreateTestQuizDto) {
     return this.testQuizService.create(createTestQuizDto);
   }
-  @Patch(':quizID/add-question/:questionId')
-  addQuestion(@Param('quizID') quizID: number, @Param('questionId') questionId: number) {
-    return this.testQuizService.addQuestionToQuiz(quizID, questionId);
-  }
-
-  @Patch(':quizID/remove-question/:questionId')
-  removeQuestion(@Param('quizID') quizID: number, @Param('questionId') questionId: number) {
-    return this.testQuizService.removeQuestionFromQuiz(quizID, questionId);
-  }
 
   @Get()
   findAll() {
@@ -36,6 +27,12 @@ export class TestQuizController {
   findOne(@Param('id') id: string) {
     return this.testQuizService.findOne(+id);
   }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateTestQuizDto: UpdateTestQuizDto) {
+    return this.testQuizService.update(+id, updateTestQuizDto);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.testQuizService.remove(+id);
