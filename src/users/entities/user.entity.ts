@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDa
 import { Roadmap } from '../../roadmaps/entities/roadmap.entity';
 import { Milestone } from '../../milestone/entities/milestone.entity';
 
+
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -22,7 +23,6 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-
   @ManyToMany(() => Roadmap, roadmap => roadmap.users, { cascade: true })
   @JoinTable()
   roadmaps: Roadmap[];
@@ -30,6 +30,7 @@ export class User {
   @ManyToMany(() => Milestone, milestone => milestone.users)
   @JoinTable()
   milestones: Milestone[];
-}
 
+}
+export default User
 

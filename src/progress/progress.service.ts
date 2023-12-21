@@ -1,12 +1,13 @@
 // progress.service.ts
 import {ConflictException, Injectable} from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+
 import {In, Repository} from 'typeorm';
 import { Progress } from './entities/progress.entity';
 import { CreateProgressDto } from './dto/create-progress.dto';
 import {Milestone} from "../milestone/entities/milestone.entity";
 import {Validation} from "../validations/entities/validation.entity";
 import {UsersService} from "../users/users.service";
+import { InjectRepository } from '@nestjs/typeorm';
 @Injectable()
 export class ProgressService {
   constructor(

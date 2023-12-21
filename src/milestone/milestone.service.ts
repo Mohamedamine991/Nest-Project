@@ -2,10 +2,10 @@ import {ConflictException, Injectable, NotFoundException} from '@nestjs/common';
 import { CreateMilestoneDto } from './dto/create-milestone.dto';
 import {Repository} from "typeorm";
 import {Milestone} from "./entities/milestone.entity";
-import {InjectRepository} from "@nestjs/typeorm";
-import {Question} from "../questions/entities/question.entity";
+
 import {TestQuiz} from "../test-quiz/entities/test-quiz.entity";
 import {User} from "../users/entities/user.entity";
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class MilestoneService {

@@ -10,7 +10,6 @@ import { RecommandedCertificationsModule } from './recommanded-certifications/re
 import { RecommandedCoursesModule } from './recommanded-courses/recommanded-courses.module';
 import { TestQuizModule } from './test-quiz/test-quiz.module';
 import { QuestionsModule } from './questions/questions.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
 import { Roadmap } from './roadmaps/entities/roadmap.entity';
 import { Progress } from './progress/entities/progress.entity';
@@ -20,23 +19,25 @@ import { RecommandedCertification } from './recommanded-certifications/entities/
 import { RecommandedCourse } from './recommanded-courses/entities/recommanded-course.entity';
 import { TestQuiz } from './test-quiz/entities/test-quiz.entity';
 import { Question } from './questions/entities/question.entity';
-import {UsersService} from "./users/users.service";
+import { CommonModule } from './common/common.module';
+import { DatabaseModule } from './database/database.module';
+import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 
 
+
+const Joi = require('joi');
 
 @Module({
   imports: [UsersModule, RoadmapsModule, ProgressModule, MilestoneModule, ValidationsModule, RecommandedCertificationsModule, RecommandedCoursesModule, TestQuizModule, QuestionsModule
-    ,TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '',
-      database: 'project',
-      entities: [User,Roadmap,Progress,Validation,Milestone,RecommandedCertification,RecommandedCourse,TestQuiz,Question],
-      synchronize: true,
-      logging: true,
-    })
+  ,ConfigModule.forRoot({
+validationSchema:Joi.object({
+  DB_HOST:Joi.string().required(),
+  DB_PORT:Joi.number().required(),
+  DB_USERNAME:Joi.string().required(),
+  DB_DATABASE:Joi.string().required()
+}),
+}), CommonModule, DatabaseModule, AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

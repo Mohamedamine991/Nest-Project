@@ -3,9 +3,9 @@ import { CreateValidationDto } from './dto/create-validation.dto';
 import { UpdateValidationDto } from './dto/update-validation.dto';
 import {Validation} from "./entities/validation.entity";
 import {Repository} from "typeorm";
-import {InjectRepository} from "@nestjs/typeorm";
 import {MilestoneService} from "../milestone/milestone.service";
 import {UsersService} from "../users/users.service";
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ValidationsService {
