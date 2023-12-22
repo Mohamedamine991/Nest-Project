@@ -43,8 +43,8 @@ export class TestQuizService {
   }
 
   async createDomainQuizzes(): Promise<void> {
-    const domains = ['Machine Learning', 'DevOps', 'Sécurité', 'Réseau'];
-    for (const title of domains) {
+    const milestones = ['Machine Learning', 'DevOps', 'Sécurité', 'Réseau'];
+    for (const title of milestones) {
       const quiz = this.testQuizRepository.create({ title });
       await this.testQuizRepository.save(quiz);
     }
