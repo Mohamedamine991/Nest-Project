@@ -19,7 +19,7 @@ export class MilestoneController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.milestoneService.findOne(+id);
+    return this.milestoneService.findOne(id);
   }
 /*
   @Patch(':id')
@@ -29,6 +29,6 @@ export class MilestoneController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.milestoneService.remove(+id);
+    return this.milestoneService.remove(id);
   }
 }

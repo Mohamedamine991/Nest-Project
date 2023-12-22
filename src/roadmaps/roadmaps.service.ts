@@ -26,7 +26,7 @@ export class RoadmapService {
   }
   // roadmap.service.ts
 
-  async addUserToRoadmap(roadmapId: number, userId: number): Promise<Roadmap> {
+  async addUserToRoadmap(roadmapId:string, userId: number): Promise<Roadmap> {
     const roadmap = await this.roadmapRepository.findOne({
       where: { roadmapID: roadmapId },
       relations: ['users'],
@@ -51,7 +51,7 @@ export class RoadmapService {
     return this.roadmapRepository.save(roadmap);
   }
 
-  async assignMilestoneToRoadmap(roadmapID: number, milestoneID: number): Promise<Roadmap> {
+  async assignMilestoneToRoadmap(roadmapID:string, milestoneID: string): Promise<Roadmap> {
     const roadmap = await this.roadmapRepository.findOne({
       where: { roadmapID },
       relations: ['milestones'],
@@ -80,7 +80,7 @@ export class RoadmapService {
       relations: ['milestones'],
     });
   }
-  async findOne(roadmapID: number): Promise<Roadmap> {
+  async findOne(roadmapID: string): Promise<Roadmap> {
     const roadmap = await this.roadmapRepository.findOne({
       where: { roadmapID },
       relations: ['milestones', 'users'],
@@ -102,7 +102,7 @@ export class RoadmapService {
     return this.roadmapRepository.save(roadmap);
   }*/
 
-  async remove(roadmapID: number): Promise<void> {
+  async remove(roadmapID: string): Promise<void> {
     const result = await this.roadmapRepository.delete(roadmapID);
     if (result.affected === 0) {
       throw new NotFoundException(`Roadmap with ID #${roadmapID} not found`);

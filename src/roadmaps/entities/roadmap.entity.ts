@@ -5,7 +5,7 @@ import { Milestone } from '../../milestone/entities/milestone.entity';
 @Entity()
 export class Roadmap {
   @PrimaryGeneratedColumn()
-  roadmapID: number;
+  roadmapID: string;
 
   @Column({nullable: false })
   title: string;

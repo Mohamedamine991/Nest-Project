@@ -24,7 +24,7 @@ export class UsersController {
   @Get(':userId/roadmaps/:roadmapId/milestones')
   getUserMilestonesInRoadmap(
       @Param('userId', ParseIntPipe) userId: number,
-      @Param('roadmapId', ParseIntPipe) roadmapId: number
+      @Param('roadmapId', ParseIntPipe) roadmapId: string
   ) {
     return this.usersService.getUserMilestonesInRoadmap(userId, roadmapId);
   }

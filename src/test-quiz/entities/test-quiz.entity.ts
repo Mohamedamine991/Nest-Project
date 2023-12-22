@@ -6,7 +6,7 @@ import { Question } from '../../questions/entities/question.entity';
 @Entity()
 export class TestQuiz {
   @PrimaryGeneratedColumn()
-  quizID: number;
+  quizID: string;
 
   @Column({nullable:false})
   title: string;

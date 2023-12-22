@@ -54,16 +54,16 @@ export class TestQuizService {
     return this.testQuizRepository.find();
   }
 
-  async findOne(id: number): Promise<TestQuiz> {
+  async findOne(id: string): Promise<TestQuiz> {
     return this.testQuizRepository.findOneBy({ quizID: id });
   }
 
-  async update(id: number, updateTestQuizDto: UpdateTestQuizDto): Promise<TestQuiz> {
+  async update(id: string, updateTestQuizDto: UpdateTestQuizDto): Promise<TestQuiz> {
     await this.testQuizRepository.update(id, updateTestQuizDto);
     return this.testQuizRepository.findOneBy({ quizID: id });
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id:string): Promise<void> {
     await this.testQuizRepository.delete(id);
   }
 }

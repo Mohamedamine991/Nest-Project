@@ -38,7 +38,7 @@ export class ValidationsService {
   }
 
 
-  async addValidation(userId: number, milestoneId: number): Promise<Validation> {
+  async addValidation(userId: number, milestoneId: string): Promise<Validation> {
     const existingValidation = await this.validationRepository.findOne({
       where: { user: { id: userId }, milestone: { milestoneId: milestoneId } },
     });

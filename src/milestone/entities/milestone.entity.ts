@@ -9,7 +9,7 @@ import { TestQuiz } from '../../test-quiz/entities/test-quiz.entity';
 @Entity()
 export class Milestone {
   @PrimaryGeneratedColumn()
-  milestoneId: number;
+  milestoneId: string;
 
   @ManyToOne(() => Roadmap, roadmap => roadmap.milestones)
   roadmap: Roadmap;
