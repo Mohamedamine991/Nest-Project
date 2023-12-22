@@ -14,15 +14,15 @@ export class RoadmapsController {
 
   @Patch(':roadmapID/assign-milestone/:milestoneID')
   assignMilestoneToRoadmap(
-      @Param('roadmapID', ParseIntPipe) roadmapID: number,
-      @Param('milestoneID', ParseIntPipe) milestoneID: number
+      @Param('roadmapID', ParseIntPipe) roadmapID: string,
+      @Param('milestoneID', ParseIntPipe) milestoneID: string
   ) {
     return this.roadmapsService.assignMilestoneToRoadmap(roadmapID, milestoneID);
   }
   @Patch(':roadmapID/assign-milestone/:milestoneID')
   assignMilestone(
-      @Param('roadmapID', ParseIntPipe) roadmapID: number,
-      @Param('milestoneID', ParseIntPipe) milestoneID: number
+      @Param('roadmapID', ParseIntPipe) roadmapID: string,
+      @Param('milestoneID', ParseIntPipe) milestoneID: string
   ) {
     return this.roadmapsService.assignMilestoneToRoadmap(roadmapID, milestoneID);
   }
@@ -34,7 +34,7 @@ export class RoadmapsController {
 */
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.roadmapsService.findOne(+id);
+    return this.roadmapsService.findOne(id);
   }
 /*
   @Patch(':id')
@@ -44,6 +44,6 @@ export class RoadmapsController {
 */
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.roadmapsService.remove(+id);
+    return this.roadmapsService.remove(id);
   }
 }

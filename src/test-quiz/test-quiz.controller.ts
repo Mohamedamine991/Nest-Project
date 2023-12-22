@@ -25,16 +25,16 @@ export class TestQuizController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.testQuizService.findOne(+id);
+    return this.testQuizService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTestQuizDto: UpdateTestQuizDto) {
-    return this.testQuizService.update(+id, updateTestQuizDto);
+    return this.testQuizService.update(id, updateTestQuizDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.testQuizService.remove(+id);
+    return this.testQuizService.remove(id);
   }
 }

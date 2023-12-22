@@ -31,7 +31,7 @@ export class ProgressController {
   @Post('/subscribe')
   subscribeUser(
       @Body('userId', ParseIntPipe) userId: number,
-      @Body('roadmapId', ParseIntPipe) roadmapId: number
+      @Body('roadmapId', ParseIntPipe) roadmapId: string
   ){
     this.UsersService.addRoadmap(userId,roadmapId);
     this.RoadmapService.addUserToRoadmap(roadmapId,userId);

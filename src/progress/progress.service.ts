@@ -18,7 +18,7 @@ export class ProgressService {
       @InjectRepository(Validation)
       private validationRepository: Repository<Validation>,
   ) {}
-  async calculateUserProgressForRoadmap(userId: number, roadmapId: number): Promise<number> {
+  async calculateUserProgressForRoadmap(userId: number, roadmapId: string): Promise<number> {
     // Retrieve all milestones for the specified roadmap
     const milestones = await this.milestoneRepository.find({
       where: { roadmap: { roadmapID: roadmapId } },
@@ -67,7 +67,7 @@ export class ProgressService {
     return this.progressRepository.save(progress);
   }
 
-  async subscribeUserToRoadmap(userId: number, roadmapId: number): Promise<Progress> {
+  async subscribeUserToRoadmap(userId: number, roadmapId: string): Promise<Progress> {
     const existingProgress = await this.progressRepository.findOne({
       where: {
         user: { id: userId },

@@ -14,7 +14,7 @@ export class ValidationsController {
   @Post()
   addValidation(
       @Body('userId', ParseIntPipe) userId: number,
-      @Body('milestoneId', ParseIntPipe) milestoneId: number
+      @Body('milestoneId', ParseIntPipe) milestoneId: string
   ) {
     return this.validationsService.addValidation(userId, milestoneId);
   }

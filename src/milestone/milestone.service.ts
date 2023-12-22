@@ -28,7 +28,7 @@ export class MilestoneService {
   }
   // milestone.service.ts
 
-  async addUserToMilestone(milestoneId: number, userId: number): Promise<Milestone> {
+  async addUserToMilestone(milestoneId: string, userId: number): Promise<Milestone> {
     const milestone = await this.milestoneRepository.findOne({
       where: { milestoneId: milestoneId },
       relations: ['users'],
@@ -54,14 +54,14 @@ export class MilestoneService {
 
 
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.milestoneRepository.findOne({
       where: { milestoneId : id },
       relations: ['roadmap', 'users', 'recommandedCertifications', 'recommandedCourses', 'quiz'],
     });
   }
 
-  async assignQuizToMilestone(milestoneId: number, testQuizId: number): Promise<Milestone> {
+  async assignQuizToMilestone(milestoneId: string, testQuizId: string): Promise<Milestone> {
     const milestone = await this.milestoneRepository.findOneBy({ milestoneId: milestoneId });
     if (!milestone) {
       throw new NotFoundException(`Milestone avec ID #${milestoneId} non trouvée`);
@@ -80,7 +80,7 @@ export class MilestoneService {
 
 
 
-  async remove(id: number) {
+  async remove(id: string) {
     await this.milestoneRepository.delete(id);
   }
 }

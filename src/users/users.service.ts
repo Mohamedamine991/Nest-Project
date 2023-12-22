@@ -32,7 +32,7 @@ export class UsersService {
 
   // users.service.ts
 
-  async addMilestoneToUser(userId: number, milestoneId: number): Promise<User> {
+  async addMilestoneToUser(userId: number, milestoneId: string): Promise<User> {
     const user = await this.userRepository.findOne({
       where: { id: userId },
       relations: ['milestones'],
@@ -56,7 +56,7 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
-  async getUserMilestonesInRoadmap(userId: number, roadmapId: number): Promise<Milestone[]> {
+  async getUserMilestonesInRoadmap(userId: number, roadmapId: string): Promise<Milestone[]> {
     const user = await this.userRepository.findOne({
       where: { id: userId },
       relations: ['milestones'],
@@ -74,7 +74,7 @@ export class UsersService {
   }
 
 
-  async addRoadmap(userId: number, roadmapId: number): Promise<User> {
+  async addRoadmap(userId: number, roadmapId: string): Promise<User> {
     const user = await this.userRepository.findOne({
       where: { id: userId },
       relations: ['roadmaps'],
