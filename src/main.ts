@@ -10,6 +10,7 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Optional: Specify the allowed HTTP methods
     allowedHeaders: 'Content-Type, Accept', // Optional: Specify the allowed headers
   });
+  
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
 }
