@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToMany, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToMany, OneToOne, JoinColumn, PrimaryColumn } from 'typeorm';
 import { Roadmap } from '../../roadmaps/entities/roadmap.entity';
 import { User } from '../../users/entities/user.entity';
 import { RecommandedCertification} from '../../recommanded-certifications/entities/recommanded-certification.entity';
@@ -8,7 +8,7 @@ import { TestQuiz } from '../../test-quiz/entities/test-quiz.entity';
 
 @Entity()
 export class Milestone {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   milestoneId: string;
 
   @ManyToOne(() => Roadmap, roadmap => roadmap.milestones)
