@@ -32,18 +32,22 @@
     "@types/bcrypt": "^5.0.2",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
+<<<<<<< HEAD
     "class-validator": "^0.14.0",
     "cors": "^2.8.5",
+=======
+    "class-validator": "^0.14.1",
+>>>>>>> 381a82536d776b319e7267d1c1a77ac21f6868a4
     "csv": "^6.3.6",
     "csv-parse": "^5.5.3",
     "csv-parser": "^3.0.0",
-    "joi": "^17.11.0",
-    "mysql2": "^3.6.5",
+    "joi": "^17.11.1",
+    "mysql2": "^3.7.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "typeorm": "^0.3.17"
+    "typeorm": "^0.3.19"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
