@@ -1,10 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToMany, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToMany, ManyToMany, JoinTable, PrimaryColumn } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Milestone } from '../../milestone/entities/milestone.entity';
 
 @Entity()
 export class Roadmap {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()  
   roadmapID: string;
 
   @Column({nullable: false })

@@ -3,11 +3,12 @@ import { AppModule } from '../app.module';
 import { TestQuizService } from '../test-quiz/test-quiz.service';
 import * as fs from 'fs';
 import * as path from 'path';
+import { RoadmapService } from '../roadmaps/roadmaps.service';
 
 async function seedDatabase() {
   const app = await NestFactory.createApplicationContext(AppModule);
   const testQuizService = app.get(TestQuizService);
-
+  const roadmapService = app.get(RoadmapService);
   const domainFiles = [
     { title: 'Machine Learning', file: 'machine_learning_questions.json' },
     { title: 'Security', file: 'security_questions.json' },
@@ -28,6 +29,7 @@ async function seedDatabase() {
     }
   }
 
+  await roadmapService.seedRoadmaps();
   console.log('Seeding completed!');
   await app.close();
 }

@@ -104,14 +104,6 @@ export class UsersService {
     return await this.userRepository.save(newUser);
   }
 
-  findAll() {
-    return `This action returns all users`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
-
   async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.userRepository.findOneBy({id: id});
     if (!user) {
