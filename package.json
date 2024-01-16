@@ -32,12 +32,8 @@
     "@types/bcrypt": "^5.0.2",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
-<<<<<<< HEAD
     "class-validator": "^0.14.0",
     "cors": "^2.8.5",
-=======
-    "class-validator": "^0.14.1",
->>>>>>> 381a82536d776b319e7267d1c1a77ac21f6868a4
     "csv": "^6.3.6",
     "csv-parse": "^5.5.3",
     "csv-parser": "^3.0.0",

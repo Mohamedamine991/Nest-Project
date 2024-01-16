@@ -4,11 +4,7 @@ import { Milestone } from '../../milestone/entities/milestone.entity';
 
 @Entity()
 export class Roadmap {
-<<<<<<< HEAD
-  @PrimaryColumn()
-=======
   @PrimaryColumn()  
->>>>>>> 381a82536d776b319e7267d1c1a77ac21f6868a4
   roadmapID: string;
 
   @Column({nullable: false })
