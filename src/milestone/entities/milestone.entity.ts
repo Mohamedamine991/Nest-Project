@@ -30,6 +30,13 @@ export class Milestone {
 
   @Column({ type: 'float' })
   score: number;
+  
+  @Column()
+  title: string;
+
+  @Column()
+  description: string;
+  
   @CreateDateColumn()
   createdAt: Date;
 
