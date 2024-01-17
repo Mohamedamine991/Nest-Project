@@ -1,1 +1,4 @@
-export class CreateTestQuizDto {}
+export class CreateTestQuizDto {
+
+
+}

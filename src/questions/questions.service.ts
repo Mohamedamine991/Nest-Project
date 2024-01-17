@@ -19,10 +19,26 @@ export class QuestionsService {
       
   ) {}
 
-  async create(createQuestionDto: CreateQuestionDto): Promise<Question> {
-    const newQuestion = this.questionsRepository.create(createQuestionDto);
-    return this.questionsRepository.save(newQuestion);
+  async create(createQuestionDto): Promise<Question> {
+    // Vérifier si le quiz existe
+    const quiz = await this.testQuizRepository.findOneBy({ quizID: createQuestionDto.testQuiz.quizID });
+
+    if (!quiz) {
+      // Modifier le message pour refléter le bon champ de l'objet DTO
+      throw new NotFoundException(`Quiz with ID ${createQuestionDto.testQuiz.quizID} not found. Please create the quiz first.`);
+    }
+
+    // Créer et sauvegarder la nouvelle question
+    const question = this.questionsRepository.create({
+      content: createQuestionDto.content,
+      options: createQuestionDto.options,
+      correctOption: createQuestionDto.correctOption,
+      testQuiz: quiz,
+    });
+
+    return this.questionsRepository.save(question);
   }
+
 
   async findAll(): Promise<Question[]> {
     return this.questionsRepository.find();

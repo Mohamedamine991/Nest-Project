@@ -11,18 +11,12 @@ export class TestQuizController {
   seedTestQuizzes() {
     return this.testQuizService.seedTestQuizzes();
   }
-
-
-  @Post('/createquizzes')
-  createDomainQuizzes() {
-    return this.testQuizService.createDomainQuizzes();
-  }
-
+   
   @Post()
-  create(@Body() createTestQuizDto: CreateTestQuizDto) {
-    return this.testQuizService.create(createTestQuizDto);
+  async create(@Body() createQuizDto: CreateTestQuizDto) {
+    return this.testQuizService.create(createQuizDto);
   }
-
+  
   @Get()
   findAll() {
     return this.testQuizService.findAll();
