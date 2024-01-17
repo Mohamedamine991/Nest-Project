@@ -37,6 +37,9 @@ export class Milestone {
   @Column()
   description: string;
   
+  @Column()
+  orderNumber: number;
+  
   @CreateDateColumn()
   createdAt: Date;
 
