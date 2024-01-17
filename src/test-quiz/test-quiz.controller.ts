@@ -7,6 +7,11 @@ import { UpdateTestQuizDto } from './dto/update-test-quiz.dto';
 export class TestQuizController {
   constructor(private readonly testQuizService: TestQuizService) {}
 
+  @Get('testseed')
+  seedTestQuizzes() {
+    return this.testQuizService.seedTestQuizzes();
+  }
+
 
   @Post('/createquizzes')
   createDomainQuizzes() {
@@ -37,4 +42,5 @@ export class TestQuizController {
   remove(@Param('id') id: string) {
     return this.testQuizService.remove(id);
   }
+
 }
