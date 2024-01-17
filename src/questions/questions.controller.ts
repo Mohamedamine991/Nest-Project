@@ -8,10 +8,17 @@ import { QuizAnswersDto } from './dto/quiz-answers.dto';
 export class QuestionsController {
   constructor(private readonly questionsService: QuestionsService) {}
 
+  //tester le seed
+  @Get('testseed')
+  seedQuestions() {
+    return this.questionsService.seedQuestions();
+  }
+
   @Post()
   create(@Body() createQuestionDto: CreateQuestionDto) {
     return this.questionsService.create(createQuestionDto);
   }
+
 
   @Get()
   findAll() {
@@ -43,5 +50,6 @@ export class QuestionsController {
   async verifyQuiz(@Body() quizAnswersDto: QuizAnswersDto) {
     return this.questionsService.verifyQuizAnswers(quizAnswersDto);
   }
+
 
 }

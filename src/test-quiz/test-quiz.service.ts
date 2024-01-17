@@ -1,19 +1,21 @@
 import { Injectable } from '@nestjs/common';
 
 import { Repository } from 'typeorm';
-import { TestQuiz } from './entities/test-quiz.entity';
 import { CreateTestQuizDto } from './dto/create-test-quiz.dto';
 import { UpdateTestQuizDto } from './dto/update-test-quiz.dto';
+import { TestQuiz } from '../test-quiz/entities/test-quiz.entity';
 import { Question } from '../questions/entities/question.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import * as fs from 'fs';
+import * as path from 'path';
 @Injectable()
 export class TestQuizService {
   constructor(
       @InjectRepository(TestQuiz)
       private readonly testQuizRepository: Repository<TestQuiz>,
       @InjectRepository(Question)
-      private readonly questionRepository: Repository<Question>, // Ajoutez cette ligne
+      private readonly questionRepository: Repository<Question>, 
 
   ) {}
 
@@ -66,4 +68,17 @@ export class TestQuizService {
   async remove(id:string): Promise<void> {
     await this.testQuizRepository.delete(id);
   }
+
+
+  async seedTestQuizzes() {
+    const filePath = path.join(__dirname, '../../data/test_quiz.json');
+    const rawData = fs.readFileSync(filePath, 'utf8');
+    const quizData = JSON.parse(rawData);
+
+    for (const quiz of quizData) {
+      const testQuiz = this.testQuizRepository.create(quiz);
+      await this.testQuizRepository.save(testQuiz);
+    }
+  }
+
 }

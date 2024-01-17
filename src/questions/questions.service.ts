@@ -5,12 +5,18 @@ import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
 import { QuizAnswersDto } from './dto/quiz-answers.dto';
 import { InjectRepository } from '@nestjs/typeorm';
+import { TestQuiz } from '../test-quiz/entities/test-quiz.entity';
+import * as fs from 'fs';
+import * as path from 'path';
 
 @Injectable()
 export class QuestionsService {
   constructor(
       @InjectRepository(Question)
       private questionsRepository: Repository<Question>,
+      @InjectRepository(TestQuiz)
+      private testQuizRepository: Repository<TestQuiz>,
+      
   ) {}
 
   async create(createQuestionDto: CreateQuestionDto): Promise<Question> {
@@ -45,9 +51,6 @@ export class QuestionsService {
   }
 
 
-
-  hodes
-
   async verifyQuizAnswers(quizAnswersDto: QuizAnswersDto): Promise<any> {
     let correctCount = 0;
 
@@ -71,4 +74,31 @@ export class QuestionsService {
       score: `${score.toFixed(2)}`
     };
   }
-}
+  async seedQuestions() {
+    const filePath = path.join(__dirname, '../../data/question.json');
+    const rawData = fs.readFileSync(filePath, 'utf8');
+    const questionData = JSON.parse(rawData);
+    console.log(questionData);
+  
+    for (const qData of questionData) {
+      const question = new Question();
+  
+      question.content = qData.content;
+      question.options = JSON.stringify(qData.options); 
+      question.correctOption = qData.correctOption;
+  
+      const testQuiz = await this.testQuizRepository.findOne({
+        where: { quizID: qData.testQuizQuizID }
+      });
+  
+      if (testQuiz) {
+        question.testQuiz = testQuiz;
+      } else {
+         console.warn(`TestQuiz "${qData.testQuizQuizID}" not found for question.`);
+      }
+  
+      await this.questionsRepository.save(question);
+    }
+  } 
+
+  }
