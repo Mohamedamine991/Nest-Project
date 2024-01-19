@@ -39,17 +39,9 @@ export class TestQuizService {
     return this.questionRepository.save(question);
   }
 
-  async create(createTestQuizDto: CreateTestQuizDto): Promise<TestQuiz> {
-    const newTestQuiz = this.testQuizRepository.create(createTestQuizDto);
-    return this.testQuizRepository.save(newTestQuiz);
-  }
-
-  async createDomainQuizzes(): Promise<void> {
-    const milestones = ['Machine Learning', 'DevOps', 'Sécurité', 'Réseau'];
-    for (const title of milestones) {
-      const quiz = this.testQuizRepository.create({ title });
-      await this.testQuizRepository.save(quiz);
-    }
+  async create(createQuizDto: CreateTestQuizDto): Promise<TestQuiz> {
+    const quiz = this.testQuizRepository.create(createQuizDto);
+    return this.testQuizRepository.save(quiz);
   }
 
   async findAll(): Promise<TestQuiz[]> {
