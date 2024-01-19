@@ -39,6 +39,16 @@ export class QuestionsService {
     return this.questionsRepository.save(question);
   }
 
+  //get les questions d'un quiz
+  async getQuestionsByQuiz(quizID: string): Promise<Question[]> {
+    return this.questionsRepository.find({
+      where: { testQuiz: { quizID } },
+    });
+  }
+  //le nbre des questions d'un quiz
+  async getCountByQuizId(quizId: string): Promise<number> {
+    return this.questionsRepository.count({ where: { testQuiz: { quizID: quizId } } });
+  }
 
   async findAll(): Promise<Question[]> {
     return this.questionsRepository.find();

@@ -14,13 +14,26 @@ export class QuestionsController {
     return this.questionsService.seedQuestions();
   }
 
+  //get les questions d'un quiz
+
+  @Get('by-quiz/:quizID')
+  async getByQuiz(@Param('quizID') quizID: string) {
+    return this.questionsService.getQuestionsByQuiz(quizID);
+  }
+
+  //le nbre des questions d'un quiz
+
+  @Get('count/:quizId')
+  async getCountByQuizId(@Param('quizId') quizId: string) {
+    const count = await this.questionsService.getCountByQuizId(quizId);
+    return { questionCount: count };
+  }
+
+
   @Post()
   create(@Body() createQuestionDto: CreateQuestionDto) {
     return this.questionsService.create(createQuestionDto);
   }
-
-  
-
 
   @Get()
   findAll() {
@@ -52,6 +65,4 @@ export class QuestionsController {
   async verifyQuiz(@Body() quizAnswersDto: QuizAnswersDto) {
     return this.questionsService.verifyQuizAnswers(quizAnswersDto);
   }
-
-
 }
