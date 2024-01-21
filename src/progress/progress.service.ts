@@ -13,6 +13,7 @@ import { CrudService } from '../common/crud.service';
 import User from '../users/entities/user.entity';
 import { Roadmap } from '../roadmaps/entities/roadmap.entity';
 import { UpdateProgressDto } from './dto/update-progress.dto';
+import { ConfirmUpdateProgressDto } from './dto/confirm-progress.dto';
 @Injectable()
 export class ProgressService extends CrudService<Progress>{
   constructor(
@@ -47,7 +48,8 @@ export class ProgressService extends CrudService<Progress>{
     return await this.progressRepository.save(newProgress);
     
   }
-  async updateProgressByUserAndRoadmap(userId: number, roadmapId: string): Promise<Progress> {
+  async updateProgressByUserAndRoadmap(confirmUpdateprogressDto:ConfirmUpdateProgressDto): Promise<Progress> {
+  const {userId,roadmapId}=confirmUpdateprogressDto
    let validated=0
    const findOneOptionsProgress: FindOneOptions<Progress> = {
       where: { user: { id: userId }, roadmap: { id: roadmapId} },
@@ -58,15 +60,16 @@ export class ProgressService extends CrudService<Progress>{
       throw new NotFoundException(`Progress for User ID ${userId} and Roadmap ID ${roadmapId} not found.`);
     }
 
-    const findManyOptionsMilestone : FindManyOptions<Milestone>={
-      where:{roadmap:{id:roadmapId}}
-    }
-    const milestonesAndCount=await this.milestoneRepository.findAndCount(findManyOptionsMilestone)
-    if (!milestonesAndCount) {
+    const findManyOptionsMilestone: FindManyOptions<Milestone> = {
+      where: { roadmap: { id: roadmapId } }}
+    const milestones = await this.milestoneRepository.find(findManyOptionsMilestone);
+  
+  
+    if (!milestones) {
       throw new NotFoundException(`Milestones Roadmap ID ${roadmapId} not found.`);
     }
-    const milestones=milestonesAndCount[0]
-    const count=milestonesAndCount[1]
+    console.log(milestones)
+
     for (const milestone of milestones) {
       const milestoneId = milestone.id;
       const findOneOptionsValidation : FindOneOptions<Validation>={
@@ -79,7 +82,8 @@ export class ProgressService extends CrudService<Progress>{
         }
       }
     }
-    const ratio= validated/count
+    const ratio= validated
+    console.log(ratio)
     existingProgress.percentage = Number(ratio.toFixed(1));
     return await this.progressRepository.save(existingProgress);
   }

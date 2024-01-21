@@ -1,118 +1,118 @@
 [
   {
-    "roadmap": "DevOps",
+    "roadmapId": "DevOps",
     "description": "Understand the basics of the Linux operating system and how to manage it.",
     "quizId": 1,
     "id": "Introduction to Linux",
     "orderNumber": 1
   },
   {
-    "roadmap": "DevOps",
+    "roadmapId": "DevOps",
     "description": "Learn how to containerize applications using Docker and manage containers.",
     "quizId": 2,
     "id": "Docker for Beginners",
     "orderNumber": 2
   },
   {
-    "roadmap": "DevOps",
+    "roadmapId": "DevOps",
     "description": "Gain expertise in Infrastructure as Code (IaC) with Terraform.",
     "quizId": 3,
     "id": "Mastering Terraform",
     "orderNumber": 3
   },
   {
-    "roadmap": "DevOps",
+    "roadmapId": "DevOps",
     "description": "Understand the principles of CI/CD and implement pipelines.",
     "quizId": 4,
     "id": "Continuous Integration/Continuous Deployment",
     "orderNumber": 4
   },
   {
-    "roadmap": "DevOps",
+    "roadmapId": "DevOps",
     "description": "Explore orchestration with Kubernetes and how to deploy clusters.",
     "quizId": 5,
     "id": "Kubernetes Fundamentals",
     "orderNumber": 5
   },
   {
-    "roadmap": "MachineLearning",
+    "roadmapId": "MachineLearning",
     "description": "Understand the basics of machine learning and its applications.",
     "quizId": 6,
     "id": "Introduction to Machine Learning",
     "orderNumber": 1
   },
   {
-    "roadmap": "MachineLearning",
+    "roadmapId": "MachineLearning",
     "description": "Learn techniques for preparing and cleaning data for machine learning models.",
     "quizId": 7,
     "id": "Data Preprocessing and Feature Engineering",
     "orderNumber": 2
   },
   {
-    "roadmap": "MachineLearning",
+    "roadmapId": "MachineLearning",
     "description": "Explore and implement supervised learning algorithms such as regression and classification.",
     "quizId": 8,
     "id": "Supervised Learning Algorithms",
     "orderNumber": 3
   },
   {
-    "roadmap": "MachineLearning",
+    "roadmapId": "MachineLearning",
     "description": "Understand and apply unsupervised learning methods like clustering and dimensionality reduction.",
     "quizId": 9,
     "id": "Unsupervised Learning Techniques",
     "orderNumber": 4
   },
   {
-    "roadmap": "MachineLearning",
+    "roadmapId": "MachineLearning",
     "description": "Delve into neural networks, deep learning architectures, and their applications.",
     "quizId": 10,
     "id": "Neural Networks and Deep Learning",
     "orderNumber": 5
   },
   {
-    "roadmap": "Cybersecurity",
+    "roadmapId": "Cybersecurity",
     "description": "Understand the fundamentals of cybersecurity and its importance in protecting information.",
     "quizId": 11,
     "id": "Introduction to Cybersecurity",
     "orderNumber": 1
   },
   {
-    "roadmap": "Cybersecurity",
+    "roadmapId": "Cybersecurity",
     "description": "Learn the basics of securing computer networks, including firewalls and intrusion detection systems.",
     "quizId": 12,
     "id": "Network Security Basics",
     "orderNumber": 2
   },
   {
-    "roadmap": "Cybersecurity",
+    "roadmapId": "Cybersecurity",
     "description": "Explore common cyber threats and techniques for vulnerability assessment.",
     "quizId": 13,
     "id": "Cyber Threats and Vulnerability Assessment",
     "orderNumber": 3
   },
   {
-    "roadmap": "Cybersecurity",
+    "roadmapId": "Cybersecurity",
     "description": "Develop skills in responding to cybersecurity incidents and conducting digital forensics.",
     "quizId": 14,
     "id": "Incident Response and Digital Forensics",
     "orderNumber": 4
   },
   {
-    "roadmap": "Cybersecurity",
+    "roadmapId": "Cybersecurity",
     "description": "Understand security considerations in cloud environments and best practices.",
     "quizId": 15,
     "id": "Security in Cloud Computing",
     "orderNumber": 5
   },
   {
-    "roadmap": "FullStackWebDev",
+    "roadmapId": "FullStackWebDev",
     "description": "Understand the basics of web development, including HTML, CSS, and JavaScript.",
     "quizId": 16,
     "id": "Introduction to Web Development",
     "orderNumber": 1
   },
   {
-    "roadmap": "FullStackWebDev",
+    "roadmapId": "FullStackWebDev",
 
     "description": "Learn server-side development using Node.js and Nest framework.",
     "quizId": 17,
@@ -120,21 +120,21 @@
     "orderNumber": 2
   },
   {
-    "roadmap": "FullStackWebDev",
+    "roadmapId": "FullStackWebDev",
     "description": "Explore database concepts and learn to design and manage databases for web applications.",
     "quizId": 18,
     "id": "Database Design and Management",
     "orderNumber": 3
   },
   {
-    "roadmap": "FullStackWebDev",
+    "roadmapId": "FullStackWebDev",
     "description": "Master client-side development using Angular framework for building dynamic user interfaces.",
     "quizId": 19,
     "id": "Frontend Development with Angular",
     "orderNumber": 4
   },
   {
-    "roadmap": "FullStackWebDev",
+    "roadmapId": "FullStackWebDev",
     "description": "Develop and integrate RESTful APIs for communication between frontend and backend.",
     "quizId": 20,
     "id": "RESTful API Development and Integration",

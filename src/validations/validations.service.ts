@@ -9,6 +9,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CrudService } from '../common/crud.service';
 import { boolean } from 'joi';
 import { ConfirmValidationDto } from './dto/confirm-validation.dto';
+import { TestQuiz } from '../test-quiz/entities/test-quiz.entity';
+import User from '../users/entities/user.entity';
+import { Milestone } from '../milestone/entities/milestone.entity';
+import { Question } from '../questions/entities/question.entity';
+import { title } from 'process';
+import test from 'node:test';
 // validations.service.ts
 
 
@@ -17,17 +23,22 @@ export class ValidationsService extends CrudService<Validation> {
   constructor(
     @InjectRepository(Validation)
     private validationRepository: Repository<Validation>,
-    private milestoneService: MilestoneService,
-    private userService: UsersService,
-    // Other repositories as needed
+    @InjectRepository(Milestone)
+    private milestoneRepository:Repository<Milestone>,
+    @InjectRepository(User)
+    private userRepository:Repository<User>,
+    @InjectRepository(TestQuiz)
+    private testRepository:Repository<TestQuiz>,
+    @InjectRepository(Question)
+    private questionRepository:Repository<Question>
   ) {
     super(validationRepository);
   }
 
   async createValidation(createDto: CreateValidationDto): Promise<Validation> {
     const { userId, milestoneId, passed, score } = createDto;
-    const user = await this.userService.findOne(userId);
-    const milestone = await this.milestoneService.findOne(milestoneId);
+    const user = await this.userRepository.findOne({where : {id:userId}});
+    const milestone = await this.milestoneRepository.findOne({where: {id:milestoneId}});
     if (!user || !milestone) {
       throw new NotFoundException('User or Milestone not found.');
     }
@@ -62,40 +73,50 @@ export class ValidationsService extends CrudService<Validation> {
 
   async calculateAndUpdateScore(confirmvalidationdto:ConfirmValidationDto): Promise<any> {
     const {userId,milestoneId,userAnswers}=confirmvalidationdto
-    const user = await this.userService.findOne(userId);
-    const milestone = await this.milestoneService.findOne(milestoneId);
+    const user = await this.userRepository.findOne({where : {id:userId}});
+    const milestone = await this.milestoneRepository.findOne({where: {id:milestoneId}})
+    const testQuiz =await this.testRepository.findOne({where :{title:milestone.id}})
+    const questions =await this.questionRepository.find({
+      where: {testQuiz:{ title:testQuiz.title}}
+    })
     if (!user || !milestone) {
       throw new NotFoundException('User or Milestone not found.');
     }
     console.log('output')
-    console.log(milestone.quiz)
-    /*
-    const correctAnswers = questions.reduce((count, question) => {
-      if (question.correctOption === userAnswers[question.questionID]) {
-        return count + 1;
+    console.log(questions)
+    let cout=0
+    let len=0
+    for ( const question of questions){
+      console.log(question.correctOption)
+      console.log(userAnswers[0])
+      console.log(userAnswers)
+      if (question.correctOption === userAnswers[len]) {
+        cout=cout+1
       }
-      return count;
-    }, 0);
-    const totalQuestions = questions.length;
-    const userScore = (correctAnswers / totalQuestions) * 100;
+      len=len+1
+    }
+    const userScore = ((cout / len) * 100);
+    const score= parseFloat(userScore.toString())
     const validation = await this.validationRepository.findOne({
       where: { user, milestone },
     });
     const threshold = 70;
     const passed=userScore >= threshold;
+    console.log(userScore)
+    console.log(typeof(userScore))
     if (!validation) {
       const createValidationDto = {
         userId: user.id,
         milestoneId: milestone.id,
         passed: passed,
-        score: userScore,
+        score: score,
       };
-      this.createValidation(createValidationDto)
+      return await this.validationRepository.save(createValidationDto)
     }
-    validation.score = userScore;
+    validation.score = score;
     validation.passed = passed;
     return await this.validationRepository.save(validation);
-    */
+    
   }
 
 }
