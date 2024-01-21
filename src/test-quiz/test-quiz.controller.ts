@@ -7,6 +7,11 @@ import { UpdateTestQuizDto } from './dto/update-test-quiz.dto';
 export class TestQuizController {
   constructor(private readonly testQuizService: TestQuizService) {}
 
+  @Get('testseed')
+  seedTestQuizzes() {
+    return this.testQuizService.seedTestQuizzes();
+  }
+
 
   @Post('/createquizzes')
   createDomainQuizzes() {
@@ -24,17 +29,18 @@ export class TestQuizController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.testQuizService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTestQuizDto: UpdateTestQuizDto) {
+  update(@Param('id') id: number, @Body() updateTestQuizDto: UpdateTestQuizDto) {
     return this.testQuizService.update(id, updateTestQuizDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.testQuizService.remove(id);
   }
+  
 }

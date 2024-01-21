@@ -5,12 +5,12 @@ import { User } from '../../users/entities/user.entity';
 @Entity()
 export class Validation {
   @PrimaryGeneratedColumn()
-  validationId: number;
-  @ManyToOne(() => User)
-  user: User;
+  id: number;
+  @ManyToOne(() => User, (user) => user.validations)
+  public user: User
 
-  @ManyToOne(() => Milestone)
-  milestone: Milestone;
+  @ManyToOne(() => Milestone, (milestone) => milestone.validations)
+  public milestone: Milestone
   @Column({ default: false })
   passed: boolean;
 

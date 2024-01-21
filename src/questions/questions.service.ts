@@ -5,36 +5,22 @@ import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
 import { QuizAnswersDto } from './dto/quiz-answers.dto';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CrudService } from '../common/crud.service';
+import { TestQuiz } from '../test-quiz/entities/test-quiz.entity';
+import * as fs from 'fs';
+import * as path from 'path';
 
 @Injectable()
-export class QuestionsService {
+export class QuestionsService extends CrudService<Question>{
   constructor(
       @InjectRepository(Question)
       private questionsRepository: Repository<Question>,
-  ) {}
+      @InjectRepository(TestQuiz)
+      private testQuizRepository: Repository<TestQuiz>,
 
-  async create(createQuestionDto: CreateQuestionDto): Promise<Question> {
-    const newQuestion = this.questionsRepository.create(createQuestionDto);
-    return this.questionsRepository.save(newQuestion);
-  }
+  ) {super(questionsRepository)}
 
-  async findAll(): Promise<Question[]> {
-    return this.questionsRepository.find();
-  }
-
-  async findOne(id: number): Promise<Question> {
-    return this.questionsRepository.findOneBy({ questionID: id });
-  }
-
-  async update(id: number, updateQuestionDto: UpdateQuestionDto): Promise<Question> {
-    await this.questionsRepository.update(id, updateQuestionDto);
-    return this.questionsRepository.findOneBy({ questionID: id });
-  }
-
-
-  async remove(id: number): Promise<void> {
-    await this.questionsRepository.delete(id);
-  }
+  
 
   async verifyAnswer(questionId: number, userAnswer: number): Promise<boolean> {
     const question = await this.questionsRepository.findOneBy({ questionID: questionId });
@@ -45,8 +31,6 @@ export class QuestionsService {
   }
 
 
-
-  hodes
 
   async verifyQuizAnswers(quizAnswersDto: QuizAnswersDto): Promise<any> {
     let correctCount = 0;
@@ -68,7 +52,47 @@ export class QuestionsService {
 
     return {
       results,
-      score: `${score.toFixed(2)}`
+      score: `${score.toFixed(2)}` 
     };
   }
+  async seedQuestions() {
+    const filePath = path.join(__dirname, '../../data/question.json');
+    const rawData = fs.readFileSync(filePath, 'utf8');
+    const questionData = JSON.parse(rawData);
+  
+
+    for (const qData of questionData) {
+      const question = new Question();
+
+      question.content = qData.content;
+      question.options = JSON.stringify(qData.options); 
+      question.correctOption = qData.correctOption;
+
+      const testQuiz = await this.testQuizRepository.findOne({
+        where: { id: qData.testQuizId }
+      });
+
+      if (testQuiz) {
+        question.testQuiz = testQuiz;
+      } else {
+         console.warn(`TestQuiz "${qData.testQuizId}" not found for question.`);
+      }
+
+      await this.questionsRepository.save(question);
+    }
+  } 
+  async getQuestionsByQuiz(id: number): Promise<Question[]> {
+    return this.questionsRepository.find({
+      where: { testQuiz: { id } },
+    });
+  }
+  //le nbre des questions d'un quiz
+  async getCountByQuizId(quizId: number): Promise<number> {
+    return this.questionsRepository.count({ where: { testQuiz: { id: quizId } } });
+  }
+
+
+
+
+
 }

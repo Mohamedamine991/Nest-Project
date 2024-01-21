@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ProgressService } from './progress.service';
-import { ProgressController } from './progress.controller';
+
+
 import {Progress} from "./entities/progress.entity";
 
 import {Milestone} from "../milestone/entities/milestone.entity";
@@ -10,11 +10,13 @@ import {RoadmapService} from "../roadmaps/roadmaps.service";
 import {User} from "../users/entities/user.entity";
 import {Roadmap} from "../roadmaps/entities/roadmap.entity";
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ProgressController } from './progress.controller';
+import { CrudService } from '../common/crud.service';
+import { ProgressService } from './progress.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Progress,Milestone,Validation,User,Roadmap])],
-
+  imports: [TypeOrmModule.forFeature([Progress,User,Roadmap,Validation,Milestone])],
   controllers: [ProgressController],
-  providers: [ProgressService,UsersService,RoadmapService],
+  providers: [ProgressService],
 })
 export class ProgressModule {}

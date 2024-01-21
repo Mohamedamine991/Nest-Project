@@ -6,7 +6,8 @@ import { CreateTestQuizDto } from './dto/create-test-quiz.dto';
 import { UpdateTestQuizDto } from './dto/update-test-quiz.dto';
 import { Question } from '../questions/entities/question.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-
+import * as fs from 'fs';
+import * as path from 'path';
 @Injectable()
 export class TestQuizService {
   constructor(
@@ -43,8 +44,8 @@ export class TestQuizService {
   }
 
   async createDomainQuizzes(): Promise<void> {
-    const domains = ['Machine Learning', 'DevOps', 'Sécurité', 'Réseau'];
-    for (const title of domains) {
+    const milestones = ['Machine Learning', 'DevOps', 'Sécurité', 'Réseau'];
+    for (const title of milestones) {
       const quiz = this.testQuizRepository.create({ title });
       await this.testQuizRepository.save(quiz);
     }
@@ -54,16 +55,32 @@ export class TestQuizService {
     return this.testQuizRepository.find();
   }
 
-  async findOne(id: string): Promise<TestQuiz> {
-    return this.testQuizRepository.findOneBy({ quizID: id });
+  async findOne(id: number): Promise<TestQuiz> {
+    return this.testQuizRepository.findOneBy({ id: id });
   }
 
-  async update(id: string, updateTestQuizDto: UpdateTestQuizDto): Promise<TestQuiz> {
+  async update(id: number, updateTestQuizDto: UpdateTestQuizDto): Promise<TestQuiz> {
     await this.testQuizRepository.update(id, updateTestQuizDto);
-    return this.testQuizRepository.findOneBy({ quizID: id });
+    return this.testQuizRepository.findOneBy({ id: id });
   }
 
-  async remove(id:string): Promise<void> {
+  async remove(id:number): Promise<void> {
     await this.testQuizRepository.delete(id);
   }
+  async seedTestQuizzes() {
+    const filePath = path.join(__dirname, '../../data/test_quiz.json');
+    const rawData = fs.readFileSync(filePath, 'utf8');
+    const quizData = JSON.parse(rawData);
+
+    for (const quiz of quizData) {
+      const testQuiz = this.testQuizRepository.create(quiz);
+      await this.testQuizRepository.save(testQuiz);
+    }
+  }
+
+
+
+
+
+
 }

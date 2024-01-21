@@ -6,3 +6,4 @@ npm i bcrypt @types/bcrypt
 npm i --save @nestjs/passport passport
 npm install passport-jwt
 npm install joi
+npm install cors

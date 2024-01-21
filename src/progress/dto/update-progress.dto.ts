@@ -1,15 +1,11 @@
 // update-progress.dto.ts
-import { IsNumber, IsOptional } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateProgressDto {
     @IsNumber()
-    @IsOptional()
-    readonly userId?: number;
-
-    @IsNumber()
-    @IsOptional()
-    readonly roadmapId?: number;
-
+    readonly userId: number;
+    @IsString()
+    readonly roadmapId: string;
     @IsNumber()
     @IsOptional()
     readonly percentage?: number;

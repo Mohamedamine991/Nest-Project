@@ -5,7 +5,7 @@ import { Milestone } from '../../milestone/entities/milestone.entity';
 @Entity()
 export class RecommandedCourse {
   @PrimaryGeneratedColumn()
-  recommandedCourseId: number;
+  id: number;
 
   @Column({nullable:true})
   title: string;

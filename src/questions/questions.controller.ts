@@ -8,6 +8,21 @@ import { QuizAnswersDto } from './dto/quiz-answers.dto';
 export class QuestionsController {
   constructor(private readonly questionsService: QuestionsService) {}
 
+
+
+
+
+
+  @Get('by-quiz/:quizID')
+  async getByQuiz(@Param('quizID') quizID: number) {
+    return this.questionsService.getQuestionsByQuiz(quizID);
+  }
+  @Get('count/:quizId')
+  async getCountByQuizId(@Param('quizId') quizId: number) {
+    const count = await this.questionsService.getCountByQuizId(quizId);
+    return { questionCount: count };
+  }
+
   @Post()
   create(@Body() createQuestionDto: CreateQuestionDto) {
     return this.questionsService.create(createQuestionDto);

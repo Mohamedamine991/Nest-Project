@@ -1,0 +1,22 @@
+[
+    {"id": 1, "title": "Introduction to Linux"},
+    {"id": 2, "title": "Docker for Beginners"},
+    {"id": 3, "title": "Mastering Terraform"},
+    {"id": 4, "title": "Continuous Integration/Continuous Deployment"},
+    {"id": 5, "title": "Kubernetes Fundamentals"},
+    {"id": 6, "title": "Introduction to Machine Learning"},
+    {"id": 7, "title": "Data Preprocessing and Feature Engineering"},
+    {"id": 8, "title": "Supervised Learning Algorithms"},
+    {"id": 9, "title": "Unsupervised Learning Techniques"},
+    {"id": 10, "title": "Neural Networks and Deep Learning"},
+    {"id": 11, "title": "Introduction to Cybersecurity"},
+    {"id": 12, "title": "Network Security Basics"},
+    {"id": 13, "title": "Cyber Threats and Vulnerability Assessment"},
+    {"id": 14, "title": "Incident Response and Digital Forensics"},
+    {"id": 15, "title": "Security in Cloud Computing"},
+    {"id": 16, "title": "Introduction to Web Development"},
+    {"id": 17, "title": "Backend Development with Node.js and Nest"},
+    {"id": 18, "title": "Database Design and Management"},
+    {"id": 19, "title": "Frontend Development with Angular"},
+    {"id": 20, "title": "RESTful API Development and Integration"}
+]
