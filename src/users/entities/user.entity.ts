@@ -1,11 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { Roadmap } from '../../roadmaps/entities/roadmap.entity';
 import { Milestone } from '../../milestone/entities/milestone.entity';
+import { Progress } from '../../progress/entities/progress.entity';
+import { Validation } from '../../validations/entities/validation.entity';
 
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: 'int', name: 'id', unsigned: true })
   id: number;
 
   @Column({ length: 50, nullable: false, unique: true })
@@ -22,14 +24,11 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+  @OneToMany(() => Progress, progress => progress.user)
+  progress: Progress[]
+  @OneToMany(() => Validation, validations => validations.user)
+  validations: Progress[]
 
-  @ManyToMany(() => Roadmap, roadmap => roadmap.users, { cascade: true })
-  @JoinTable()
-  roadmaps: Roadmap[];
-
-  @ManyToMany(() => Milestone, milestone => milestone.users)
-  @JoinTable()
-  milestones: Milestone[];
 
 }
 export default User

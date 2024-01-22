@@ -8,9 +8,10 @@ import {Question} from "../questions/entities/question.entity";
 import {Validation} from "../validations/entities/validation.entity";
 import {User} from "../users/entities/user.entity";
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Roadmap } from '../roadmaps/entities/roadmap.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Milestone,TestQuiz,Question,Validation,User])],
+  imports: [TypeOrmModule.forFeature([Milestone,TestQuiz,Roadmap])],
   controllers: [MilestoneController],
   providers: [MilestoneService],
 })

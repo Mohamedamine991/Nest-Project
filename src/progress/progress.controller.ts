@@ -1,45 +1,24 @@
+
 import {Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe} from '@nestjs/common';
 import { ProgressService } from './progress.service';
 import { CreateProgressDto } from './dto/create-progress.dto';
 import { UpdateProgressDto } from './dto/update-progress.dto';
-import {UsersService} from "../users/users.service";
-import {RoadmapService} from "../roadmaps/roadmaps.service";
+import { ConfirmUpdateProgressDto } from './dto/confirm-progress.dto';
+
 
 @Controller('progress')
 export class ProgressController {
-  constructor(private readonly progressService: ProgressService, private readonly UsersService:UsersService, private readonly RoadmapService:RoadmapService) {}
-
-  @Post()
+  constructor(private readonly progressService: ProgressService){}
+  @Post('suivreRoadmap')
   create(@Body() createProgressDto: CreateProgressDto) {
     return this.progressService.create(createProgressDto);
   }
-
+  @Post('confirm')
+  confirm(@Body() confirmUpdateProgressDto:ConfirmUpdateProgressDto){
+    return this.progressService.updateProgressByUserAndRoadmap(confirmUpdateProgressDto)
+  }
   @Get()
-  findAll() {
-    return this.progressService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.progressService.findOne(+id);
-  }
-/*
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProgressDto: UpdateProgressDto) {
-    return this.progressService.update(+id, updateProgressDto);
-  }*/
-  @Post('/subscribe')
-  subscribeUser(
-      @Body('userId', ParseIntPipe) userId: number,
-      @Body('roadmapId', ParseIntPipe) roadmapId: string
-  ){
-    this.UsersService.addRoadmap(userId,roadmapId);
-    this.RoadmapService.addUserToRoadmap(roadmapId,userId);
-    return this.progressService.subscribeUserToRoadmap(userId, roadmapId);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.progressService.remove(+id);
+  findAll(){
+    return this.progressService.findAll()
   }
 }

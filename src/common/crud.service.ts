@@ -1,45 +1,50 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { DeepPartial, DeleteResult, FindOneOptions, FindOptionsUtils, Repository } from 'typeorm';
-import { HasIdInterface } from './has-id.interface';
+import { Repository, DeepPartial, FindOneOptions, DeleteResult } from 'typeorm';
+import { NotFoundException } from '@nestjs/common';
 
-
-export class CrudService<T extends HasIdInterface> {
+export class CrudService<T> {
   constructor(private repository: Repository<T>) {}
 
-  async create(createDto: DeepPartial<T>): Promise<T> {
+ async create(createDto: DeepPartial<T>): Promise<T> {
     const newEntity = this.repository.create(createDto as DeepPartial<T>);
     return await this.repository.save(newEntity);
   }
-  findAll() {
-    return this.repository.find();
+
+  async findAll(): Promise<T[]> {
+    return await this.repository.find();
   }
 
-  findOne(id:number) {
+  async findOne(id: any): Promise<T | undefined> {
     const findOneOptions: FindOneOptions = {
-        where: { id: id }, 
-      }
-    return this.repository.findOne(findOneOptions);
+      where: { id: id },
+    };
+    return await this.repository.findOne(findOneOptions);
   }
 
-  async update(id: number, updateDto: DeepPartial<T>):Promise<T> {
+  async update(id: number, updateDto: DeepPartial<T>): Promise<T> {
     const findOneOptions: FindOneOptions = {
-        where: { id: id }, 
-      }
-      const existingEntity = await this.repository.findOne(findOneOptions);
-      if (!existingEntity) {
-        throw new NotFoundException(`L' entitté avec l'ID ${id} n'a pas été trouvé.`);
-      }
-      const updatedEntity = Object.assign(existingEntity,updateDto);
-      return await this.repository.save(updatedEntity);
-   }
-   async remove(id: number): Promise<DeleteResult> {
-    const findOneOptions: FindOneOptions = {
-      where: { id: id }, 
-    }
+      where: { id: id },
+    };
     const existingEntity = await this.repository.findOne(findOneOptions);
+
     if (!existingEntity) {
-      throw new NotFoundException(`Le Todo avec l'ID ${id} n'a pas été trouvé.`);
+      throw new NotFoundException(`Entity with ID ${id} not found.`);
     }
-   return await this.repository.delete(id);
-}
+
+    const updatedEntity = Object.assign(existingEntity, updateDto);
+    return this.repository.save(updatedEntity);
   }
+
+  async remove(id: any): Promise<DeleteResult> {
+    const findOneOptions: FindOneOptions = {
+      where: { id: id },
+    };
+
+    const existingEntity = await this.repository.findOne(findOneOptions);
+
+    if (!existingEntity) {
+      throw new NotFoundException(`Entity with ID ${id} not found.`);
+    }
+
+    return await this.repository.delete(id);
+  }
+}

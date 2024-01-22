@@ -7,6 +7,12 @@ import { UpdateMilestoneDto } from './dto/update-milestone.dto';
 export class MilestoneController {
   constructor(private readonly milestoneService: MilestoneService) {}
 
+  @Get('testseed')
+  seedsMilestones() {
+    return this.milestoneService.seedMilestones();
+  }
+  
+  
   @Post()
   create(@Body() createMilestoneDto: CreateMilestoneDto) {
     return this.milestoneService.create(createMilestoneDto);
