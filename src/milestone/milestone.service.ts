@@ -19,8 +19,12 @@ export class MilestoneService  extends CrudService<Milestone>{
     return this.milestoneRepository.find({
       where: { roadmap: { id: roadmapId } },
       relations: ['validations', 'recommandedCertifications', 'recommandedCourses', 'quiz'],
+      order: {
+        orderNumber: 'ASC' 
+      },
     });
   }
+  
   constructor(
       @InjectRepository(Milestone)
       private milestoneRepository: Repository<Milestone>,
