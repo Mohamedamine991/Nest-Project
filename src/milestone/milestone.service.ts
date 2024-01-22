@@ -13,6 +13,14 @@ import * as fs from 'fs';
 import * as path from 'path';
 @Injectable()
 export class MilestoneService  extends CrudService<Milestone>{
+
+
+  async findMilestonesByRoadmap(roadmapId: string): Promise<Milestone[]> {
+    return this.milestoneRepository.find({
+      where: { roadmap: { id: roadmapId } },
+      relations: ['validations', 'recommandedCertifications', 'recommandedCourses', 'quiz'],
+    });
+  }
   constructor(
       @InjectRepository(Milestone)
       private milestoneRepository: Repository<Milestone>,
