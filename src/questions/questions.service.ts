@@ -19,87 +19,8 @@ export class QuestionsService {
       
   ) {}
 
-  async create(createQuestionDto): Promise<Question> {
-    // Vérifier si le quiz existe
-    const quiz = await this.testQuizRepository.findOneBy({ quizID: createQuestionDto.testQuiz.quizID });
 
-    if (!quiz) {
-      // Modifier le message pour refléter le bon champ de l'objet DTO
-      throw new NotFoundException(`Quiz with ID ${createQuestionDto.testQuiz.quizID} not found. Please create the quiz first.`);
-    }
-
-    // Créer et sauvegarder la nouvelle question
-    const question = this.questionsRepository.create({
-      content: createQuestionDto.content,
-      options: createQuestionDto.options,
-      correctOption: createQuestionDto.correctOption,
-      testQuiz: quiz,
-    });
-
-    return this.questionsRepository.save(question);
-  }
-
-  //get les questions d'un quiz
-  async getQuestionsByQuiz(quizID: string): Promise<Question[]> {
-    return this.questionsRepository.find({
-      where: { testQuiz: { quizID } },
-    });
-  }
-  //le nbre des questions d'un quiz
-  async getCountByQuizId(quizId: string): Promise<number> {
-    return this.questionsRepository.count({ where: { testQuiz: { quizID: quizId } } });
-  }
-
-  async findAll(): Promise<Question[]> {
-    return this.questionsRepository.find();
-  }
-
-  async findOne(id: number): Promise<Question> {
-    return this.questionsRepository.findOneBy({ questionID: id });
-  }
-
-  async update(id: number, updateQuestionDto: UpdateQuestionDto): Promise<Question> {
-    await this.questionsRepository.update(id, updateQuestionDto);
-    return this.questionsRepository.findOneBy({ questionID: id });
-  }
-
-
-  async remove(id: number): Promise<void> {
-    await this.questionsRepository.delete(id);
-  }
-
-  async verifyAnswer(questionId: number, userAnswer: number): Promise<boolean> {
-    const question = await this.questionsRepository.findOneBy({ questionID: questionId });
-    if (!question) {
-      throw new NotFoundException('Question not found');
-    }
-    return question.correctOption === userAnswer;
-  }
-
-
-  async verifyQuizAnswers(quizAnswersDto: QuizAnswersDto): Promise<any> {
-    let correctCount = 0;
-
-    const results = await Promise.all(
-        quizAnswersDto.answers.map(async (answer) => {
-          const isCorrect = await this.verifyAnswer(answer.questionId, answer.userAnswer);
-          if (isCorrect) {
-            correctCount++;
-          }
-          return {
-            questionId: answer.questionId,
-            isCorrect,
-          };
-        })
-    );
-
-    const score = (correctCount / quizAnswersDto.answers.length) * 100;
-
-    return {
-      results,
-      score: `${score.toFixed(2)}`
-    };
-  }
+   //1-tester le seed-
   async seedQuestions() {
     const filePath = path.join(__dirname, '../../data/question.json');
     const rawData = fs.readFileSync(filePath, 'utf8');
@@ -127,4 +48,90 @@ export class QuestionsService {
     }
   } 
 
+
+  //2-get les questions d'un quiz
+  async getQuestionsByQuiz(quizID: string): Promise<Question[]> {
+    return this.questionsRepository.find({
+      where: { testQuiz: { quizID } },
+    });
+  }
+
+  
+  //3-le nbre des questions d'un quiz
+  async getCountByQuizId(quizId: string): Promise<number> {
+    return this.questionsRepository.count({ where: { testQuiz: { quizID: quizId } } });
+  }
+
+
+  async create(createQuestionDto: CreateQuestionDto): Promise<Question> {
+    const quiz = await this.testQuizRepository.findOne({ quizID: createQuestionDto.testQuizId });
+    
+    if (!quiz) {
+      throw new NotFoundException(`Quiz with ID ${createQuestionDto.testQuizId} not found. Please create the quiz first.`);
+    }
+  
+    const question = this.questionsRepository.create({
+      content: createQuestionDto.content,
+      options: createQuestionDto.options,
+      correctOption: createQuestionDto.correctOption,
+      testQuiz: quiz, 
+    });
+  
+    return this.questionsRepository.save(question);
+  }
+  
+    
+  
+  //5-get toutes les questions
+  async findAll(): Promise<Question[]> {
+    return this.questionsRepository.find();
+  }
+  //6-get une question par id
+  async findOne(id: number): Promise<Question> {
+    return this.questionsRepository.findOneBy({ questionID: id });
+  }
+  /*//7-modifier une question
+  async update(id: number, updateQuestionDto): Promise<Question> {
+    await this.questionsRepository.update(id, updateQuestionDto);
+    return this.questionsRepository.findOneBy({ questionID: id });
+  }*/
+
+  //8-supprimer une question
+  async remove(id: number): Promise<void> {
+    await this.questionsRepository.delete(id);
+  }
+  //9-verifier la reponse d'une question
+  async verifyAnswer(questionId: number, userAnswer: number): Promise<boolean> {
+    const question = await this.questionsRepository.findOneBy({ questionID: questionId });
+    if (!question) {
+      throw new NotFoundException('Question not found');
+    }
+    return question.correctOption === userAnswer;
+  }
+
+  //10-verifier les reponses d'un quiz
+  async verifyQuizAnswers(quizAnswersDto: QuizAnswersDto): Promise<any> {
+    let correctCount = 0;
+
+    const results = await Promise.all(
+        quizAnswersDto.answers.map(async (answer) => {
+          const isCorrect = await this.verifyAnswer(answer.questionId, answer.userAnswer);
+          if (isCorrect) {
+            correctCount++;
+          }
+          return {
+            questionId: answer.questionId,
+            isCorrect,
+          };
+        })
+    );
+
+    const score = (correctCount / quizAnswersDto.answers.length) * 100;
+
+    return {
+      results,
+      score: `${score.toFixed(2)}`
+    };
+  }
+  
   }
