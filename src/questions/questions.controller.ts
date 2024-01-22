@@ -18,14 +18,14 @@ export class QuestionsController {
 
   //2-get les questions d'un quiz
   @Get('by-quiz/:quizID')
-  async getByQuiz(@Param('quizID') quizID: string) {
+  async getByQuiz(@Param('quizID') quizID: number) {
     return this.questionsService.getQuestionsByQuiz(quizID);
   }
 
 
   //3-le nbre des questions d'un quiz
   @Get('count/:quizId')
-  async getCountByQuizId(@Param('quizId') quizId: string) {
+  async getCountByQuizId(@Param('quizId') quizId: number) {
     const count = await this.questionsService.getCountByQuizId(quizId);
     return { questionCount: count };
   }

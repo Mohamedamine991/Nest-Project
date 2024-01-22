@@ -1,125 +1,101 @@
 // progress.service.ts
-import {ConflictException, Injectable} from '@nestjs/common';
 
-import {In, Repository} from 'typeorm';
+import {ConflictException, Injectable, NotFoundException} from '@nestjs/common';
+
+import {CustomRepositoryCannotInheritRepositoryError, FindManyOptions, FindOneOptions, In, IntegerType, Repository} from 'typeorm';
 import { Progress } from './entities/progress.entity';
 import { CreateProgressDto } from './dto/create-progress.dto';
 import {Milestone} from "../milestone/entities/milestone.entity";
 import {Validation} from "../validations/entities/validation.entity";
 import {UsersService} from "../users/users.service";
 import { InjectRepository } from '@nestjs/typeorm';
+import { CrudService } from '../common/crud.service';
+import User from '../users/entities/user.entity';
+import { Roadmap } from '../roadmaps/entities/roadmap.entity';
+import { UpdateProgressDto } from './dto/update-progress.dto';
+import { ConfirmUpdateProgressDto } from './dto/confirm-progress.dto';
 @Injectable()
-export class ProgressService {
+export class ProgressService extends CrudService<Progress>{
   constructor(
       @InjectRepository(Progress)
       private progressRepository: Repository<Progress>,
+      @InjectRepository(User)
+      private userRepository:Repository<User>,
+      @InjectRepository(Roadmap)
+      private roadmapRepository:Repository<Roadmap>,
       @InjectRepository(Milestone)
-      private milestoneRepository: Repository<Milestone>,
+      private milestoneRepository:Repository<Milestone>,
       @InjectRepository(Validation)
-      private validationRepository: Repository<Validation>,
-  ) {}
-  async calculateUserProgressForRoadmap(userId: number, roadmapId: string): Promise<number> {
-    // Retrieve all milestones for the specified roadmap
-    const milestones = await this.milestoneRepository.find({
-      where: { roadmap: { roadmapID: roadmapId } },
+      private validationRepository:Repository<Validation>
+      
+  ) {
+    super(progressRepository)
+  }
+  async create(createDto: CreateProgressDto): Promise<Progress> {
+    const { roadmapId, userId, percentage } = createDto;
+
+    
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    const roadmap = await this.roadmapRepository.findOne({ where: { id: roadmapId } });
+    if (!user || !roadmap) {
+      throw new NotFoundException('User or Roadmap not found.');
+    }
+    const newProgress = this.progressRepository.create({
+      user,
+      roadmap,
+      percentage,
     });
+    return await this.progressRepository.save(newProgress);
+    
+  }
+  async updateProgressByUserAndRoadmap(confirmUpdateprogressDto:ConfirmUpdateProgressDto): Promise<Progress> {
+  const {userId,roadmapId}=confirmUpdateprogressDto
+   let validated=0
+   const findOneOptionsProgress: FindOneOptions<Progress> = {
+      where: { user: { id: userId }, roadmap: { id: roadmapId} },
+    };
+    const existingProgress = await this.progressRepository.findOne(findOneOptionsProgress);
 
-    // Retrieve all validation records for the user for each milestone
-    const validations = await this.validationRepository.find({
-      where: { user: { id: userId }, milestone: In(milestones.map(milestone => milestone.milestoneId)) },
-    });
-
-    const userTotalScore = validations.reduce((total, validation) => {
-      return validation.passed ? total + validation.score : total;
-    }, 0);
-
-    const maxPossibleScore = milestones.reduce((total, milestone) => total + milestone.score, 0);
-
-    const progressPercentage = (userTotalScore / maxPossibleScore) * 100;
-
-    let progressRecord = await this.progressRepository.findOne({
-      where: { user: { id: userId }, roadmap: { roadmapID: roadmapId } },
-    });
-
-    if (progressRecord) {
-      // Update the existing progress record
-      progressRecord.percentage = progressPercentage;
-    } else {
-      // Create a new progress record
-      progressRecord = this.progressRepository.create({
-        user: { id: userId } as any,
-        roadmap: { id: roadmapId } as any,
-        percentage: progressPercentage,
-      });
+    if (!existingProgress) {
+      throw new NotFoundException(`Progress for User ID ${userId} and Roadmap ID ${roadmapId} not found.`);
     }
 
-    // Save the updated or new progress record
-    await this.progressRepository.save(progressRecord);
-
-    return progressPercentage;
-  }
-  async create(createProgressDto: CreateProgressDto): Promise<Progress> {
-    const progress = this.progressRepository.create({
-      user: { id: createProgressDto.userId } as any,
-      roadmap: { id: createProgressDto.roadmapId } as any,
-      percentage: createProgressDto.percentage,
-    });
-    return this.progressRepository.save(progress);
-  }
-
-  async subscribeUserToRoadmap(userId: number, roadmapId: string): Promise<Progress> {
-    const existingProgress = await this.progressRepository.findOne({
-      where: {
-        user: { id: userId },
-        roadmap : {roadmapID: roadmapId}
-
-      },
-    });
-
-    if (existingProgress) {
-      throw new ConflictException('User is already subscribed to this roadmap');
+    const findManyOptionsMilestone: FindManyOptions<Milestone> = {
+      where: { roadmap: { id: roadmapId } }}
+    const milestones = await this.milestoneRepository.find(findManyOptionsMilestone);
+  
+  
+    if (!milestones) {
+      throw new NotFoundException(`Milestones Roadmap ID ${roadmapId} not found.`);
     }
+    console.log(milestones)
 
-     const progress= this.progressRepository.create({
-       user: { id: userId },
-       roadmap : {roadmapID: roadmapId},
-      percentage: 0 ,
-    });
-
-    return this.progressRepository.save(progress);
-  }
-
-
-  async findAll(): Promise<Progress[]> {
-    return this.progressRepository.find({ relations: ['user', 'roadmap'] });
-  }
-
-  async findOne(id: number): Promise<Progress> {
-    return this.progressRepository.findOneBy({progressID :id});
-  }
-
-  /*async update(id: number, updateProgressDto: UpdateProgressDto): Promise<Progress> {
-    const progress = await this.findOne(id);
-    if (!progress) {
-      throw new Error(`Progress with ID ${id} not found`);
+    for (const milestone of milestones) {
+      const milestoneId = milestone.id;
+      const findOneOptionsValidation : FindOneOptions<Validation>={
+        where:{user:{id:userId},milestone:{id:milestoneId}}
+      }
+      const validation=await this.validationRepository.findOne(findOneOptionsValidation)
+      if(validation){
+        if (validation.passed==true){
+          validated=validated+1
+        }
+      }
     }
-
-    // Update only provided fields
-    if (updateProgressDto.userId) {
-      progress.user = { id: updateProgressDto.userId } as any;
-    }
-    if (updateProgressDto.roadmapId) {
-      progress.roadmap = { id: updateProgressDto.roadmapId } as any;
-    }
-    if (updateProgressDto.percentage !== undefined) {
-      progress.percentage = updateProgressDto.percentage;
-    }
-
-    return this.progressRepository.save(progress);
+    const ratio= validated
+    console.log(ratio)
+    existingProgress.percentage = Number(ratio.toFixed(1));
+    return await this.progressRepository.save(existingProgress);
   }
-*/
-  async remove(id: number): Promise<void> {
-    await this.progressRepository.delete(id);
-  }
+  async getProgressByUserAndRoadmap(userId:number,roadmapId:string){
+    const findOneOptions: FindOneOptions<Progress> = {
+      where: { user: { id: userId }, roadmap: { id: roadmapId} },
+    };
+    const existingProgress = await this.progressRepository.findOne(findOneOptions);
+    if (!existingProgress) {
+      throw new NotFoundException(`Progress for User ID ${userId} and Roadmap ID ${roadmapId} not found.`);
+    }
+    return existingProgress.percentage
 
+  }
 }

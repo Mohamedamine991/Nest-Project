@@ -1,11 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToMany, ManyToMany, JoinTable, PrimaryColumn } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Milestone } from '../../milestone/entities/milestone.entity';
+import { Progress } from '../../progress/entities/progress.entity';
 
 @Entity()
 export class Roadmap {
-  @PrimaryColumn()  
-  roadmapID: string;
+  @PrimaryColumn({name:'id'})  
+  id: string;
 
   @Column({nullable: false })
   title: string;
@@ -24,12 +25,10 @@ export class Roadmap {
 
   @DeleteDateColumn()
   deletedAt: Date;
-
+  @OneToMany(() => Progress, progress => progress.roadmap)
+  public progress: Progress[]
   @OneToMany(() => Milestone, milestone => milestone.roadmap)
   milestones: Milestone[];
 
-  @ManyToMany(() => User, user => user.roadmaps)
-  @JoinTable()
-  users: User[];
 }
 

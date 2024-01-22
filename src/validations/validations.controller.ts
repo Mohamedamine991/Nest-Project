@@ -1,6 +1,7 @@
 import {Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe} from '@nestjs/common';
 import { ValidationsService } from './validations.service';
 import { CreateValidationDto } from './dto/create-validation.dto';
+import { ConfirmValidationDto } from './dto/confirm-validation.dto';
 
 @Controller('validations')
 export class ValidationsController {
@@ -10,15 +11,10 @@ export class ValidationsController {
   create(@Body() createValidationDto: CreateValidationDto) {
     return this.validationsService.createValidation(createValidationDto);
   }
-
-  @Post()
-  addValidation(
-      @Body('userId', ParseIntPipe) userId: number,
-      @Body('milestoneId', ParseIntPipe) milestoneId: string
-  ) {
-    return this.validationsService.addValidation(userId, milestoneId);
+  @Get('confirm')
+  validate(@Body() confirmvalidationdto:ConfirmValidationDto){
+      return this.validationsService.calculateAndUpdateScore(confirmvalidationdto)
   }
-
   @Get()
   findAll() {
     return this.validationsService.findAll();
@@ -27,10 +23,6 @@ export class ValidationsController {
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.validationsService.findOne(id);
-  }
-  @Patch(':id')
-  update(@Param('id') id: number, @Body() score: number) {
-    return this.validationsService.updateValidation(id,score);
   }
 
   @Delete(':id')

@@ -1,21 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, DeleteDateColumn, UpdateDateColumn, CreateDateColumn} from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Roadmap } from '../../roadmaps/entities/roadmap.entity';
 
 @Entity()
 export class Progress {
   @PrimaryGeneratedColumn()
-  progressID: number;
-
+  id: number;
   @Column({ type: 'float', default: 0 })
   percentage: number;
 
-  @ManyToOne(() => User)
-  user: User;
+  @ManyToOne(() => User, (user) => user.progress)
+  user: User
 
-  @ManyToOne(() => Roadmap)
-  roadmap: Roadmap;
-/*
+  @ManyToOne(() => Roadmap, (roadmap) => roadmap.progress)
+   roadmap: Roadmap
   @CreateDateColumn()
   createdAt: Date;
 
@@ -24,5 +22,4 @@ export class Progress {
 
   @DeleteDateColumn()
   deletedAt: Date;
-*/
 }

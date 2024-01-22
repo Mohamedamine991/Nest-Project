@@ -3,7 +3,7 @@
 import { IsEmpty } from 'class-validator';
 
 export class CreateRoadmapDto {
- roadmapID:string;
+ id:string;
  title: string;
  domain: string;
  description: string;
