@@ -13,7 +13,7 @@ export class ProgressController {
   create(@Body() createProgressDto: CreateProgressDto) {
     return this.progressService.create(createProgressDto);
   }
-  @Post('confirm')
+  @Patch('confirm')
   confirm(@Body() confirmUpdateProgressDto:ConfirmUpdateProgressDto){
     return this.progressService.updateProgressByUserAndRoadmap(confirmUpdateProgressDto)
   }
@@ -21,4 +21,11 @@ export class ProgressController {
   findAll(){
     return this.progressService.findAll()
   }
+  @Get('getprogress/:userId/:roadmapId')
+getProgressByUserAndRoadmap(@Param('userId') userId: number, @Param('roadmapId') roadmapId: string) {
+  return this.progressService.getProgressByUserAndRoadmap(userId, roadmapId);
 }
+
+  
+  }
+
