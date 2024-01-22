@@ -1,11 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../app.module';
-import { TestQuizService } from '../test-quiz/test-quiz.service';
-import * as fs from 'fs';
-import * as path from 'path';
 import { RoadmapService } from '../roadmaps/roadmaps.service';
 import { QuestionsService } from '../questions/questions.service';
 import { MilestoneService } from '../milestone/milestone.service';
+import { TestQuizService } from '../test-quiz/test-quiz.service';
 
 async function seedDatabase() {
   const app = await NestFactory.createApplicationContext(AppModule);

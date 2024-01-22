@@ -9,13 +9,13 @@ export class Question {
  @Column({nullable:false})
  content: string;
 
- @Column({ nullable:false})
- options: string;
+ @Column({ type: 'json', nullable: false })
+ options: string[];
 
  @Column({nullable:false})
  correctOption: number;
 
-
+ 
  @ManyToOne(() => TestQuiz, testQuiz => testQuiz.questions)
  testQuiz: TestQuiz;
 }

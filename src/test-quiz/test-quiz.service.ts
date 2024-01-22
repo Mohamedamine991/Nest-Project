@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
 import { Repository } from 'typeorm';
-import { TestQuiz } from './entities/test-quiz.entity';
 import { CreateTestQuizDto } from './dto/create-test-quiz.dto';
 import { UpdateTestQuizDto } from './dto/update-test-quiz.dto';
+import { TestQuiz } from '../test-quiz/entities/test-quiz.entity';
 import { Question } from '../questions/entities/question.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as fs from 'fs';
@@ -14,7 +14,7 @@ export class TestQuizService {
       @InjectRepository(TestQuiz)
       private readonly testQuizRepository: Repository<TestQuiz>,
       @InjectRepository(Question)
-      private readonly questionRepository: Repository<Question>, // Ajoutez cette ligne
+      private readonly questionRepository: Repository<Question>, 
 
   ) {}
 
