@@ -13,18 +13,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 @Injectable()
 export class MilestoneService  extends CrudService<Milestone>{
-
-
-  async findMilestonesByRoadmap(roadmapId: string): Promise<Milestone[]> {
-    return this.milestoneRepository.find({
-      where: { roadmap: { id: roadmapId } },
-      relations: ['validations', 'recommandedCertifications', 'recommandedCourses', 'quiz'],
-      order: {
-        orderNumber: 'ASC' 
-      },
-    });
-  }
-  
   constructor(
       @InjectRepository(Milestone)
       private milestoneRepository: Repository<Milestone>,
@@ -35,16 +23,29 @@ export class MilestoneService  extends CrudService<Milestone>{
   ) {
     super(milestoneRepository)
   }
-  async assignTestQuizAndRoadmapToMilestone(roadmapId:string,testquizId:number):Promise<Milestone>{
+  async create(createMilestoneDto:CreateMilestoneDto):Promise<Milestone>{
+  const {id,roadmapId,title,description,orderNumber}=createMilestoneDto
   const roadmap = await this.roadmapRepository.findOne({ where: { id: roadmapId } });
-  const testquiz=await this.testQuizRepository.findOne({ where: { id: testquizId } })
+  const testquiz=await this.testQuizRepository.findOne({ where: { title:title } })
   if (!testquiz || !roadmap) {
     throw new NotFoundException('testquiz or Roadmap not found.');
   }
-  return await this.milestoneRepository.save({
-    roadmap,testquiz
+  return await this.milestoneRepository.save({id,
+    roadmap,testquiz,description,orderNumber
   })
   }
+  async findMilestonesByRoadmap(roadmapId: string): Promise<Milestone[]> {
+    return this.milestoneRepository.find({
+      where: { roadmap: { id: roadmapId } },
+      relations: ['validations', 'recommandedCertifications', 'recommandedCourses', 'quiz'],
+      order: {
+        orderNumber: 'ASC' 
+      },
+    });
+  }
+
+
+
   async seedMilestones() {
     const filePath = path.join(__dirname, '../../data/milestone.json');
     const rawData = fs.readFileSync(filePath, 'utf8');

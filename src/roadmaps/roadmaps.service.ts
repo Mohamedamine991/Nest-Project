@@ -21,6 +21,9 @@ export class RoadmapService extends CrudService<Roadmap> {
     super(roadmapRepository)
   }
 
+
+
+
   async seedRoadmaps() {
     const filePath = path.join(__dirname, '../../data/roadmap.json');
     const rawData = fs.readFileSync(filePath, 'utf8');
