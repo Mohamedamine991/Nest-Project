@@ -25,9 +25,11 @@ export class Roadmap {
 
   @DeleteDateColumn()
   deletedAt: Date;
+
   @OneToMany(() => Progress, progress => progress.roadmap)
   public progress: Progress[]
-  @OneToMany(() => Milestone, milestone => milestone.roadmap ,  { onDelete: 'CASCADE' } )
+
+  @OneToMany(() => Milestone, milestone => milestone.roadmap , {cascade: true})
   milestones: Milestone[];
 
 }

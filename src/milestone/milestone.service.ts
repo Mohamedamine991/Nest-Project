@@ -45,6 +45,19 @@ export class MilestoneService  extends CrudService<Milestone>{
     roadmap,testquiz
   })
   }
+
+  async DeleteMilestone(id: string): Promise<string > {
+    const milestone = await this.milestoneRepository.findOne({where : {id}});
+
+    if (!milestone) {
+        return `Milestone with ID ${id} does not exist.` ;
+    }
+
+    await this.milestoneRepository.delete(id);
+    return `Milestone with ID ${id} has been successfully deleted.`; 
+}
+
+
   async seedMilestones() {
     const filePath = path.join(__dirname, '../../data/milestone.json');
     const rawData = fs.readFileSync(filePath, 'utf8');

@@ -40,7 +40,7 @@ export class TestQuizController {
 
   @Delete(':id')
   remove(@Param('id') id: number) {
-    return this.testQuizService.remove(id);
+    return this.testQuizService.DeleteQuiz(id);
   }
   
 }

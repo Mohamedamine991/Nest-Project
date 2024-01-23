@@ -16,7 +16,9 @@ export class UsersService extends CrudService<User> {
   ) {
     super(userRepository)
   }
-
+   async findAll(): Promise<User[]> {
+    return await this.userRepository.find();
+   }
 
   async DeleteUser(id: number): Promise<{ message: string }> {
     const result = await this.userRepository.delete(id);
