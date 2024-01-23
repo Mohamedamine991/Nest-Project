@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException, HttpStatus } from '@nestjs/common';
 import { QuestionsService } from './questions.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
 import { QuizAnswersDto } from './dto/quiz-answers.dto';
+import { response } from 'express';
 
 @Controller('questions')
 export class QuestionsController {
@@ -15,7 +16,7 @@ export class QuestionsController {
     return this.questionsService.seedQuestions();
   }
 
-
+  
   //2-get les questions d'un quiz
   @Get('by-quiz/:quizID')
   async getByQuiz(@Param('quizID') quizID: number) {
@@ -54,17 +55,21 @@ export class QuestionsController {
 
   //7-modifier une question
   /*@Patch(':id')
-  update(@Param('id') id: string, @Body() updateQuestionDto: UpdateQuestionDto) {
-    return this.questionsService.update(+id, updateQuestionDto);
+  async update(@Param('id') id: string, @Body() updateQuestionDto: UpdateQuestionDto) {
+    const updatedQuestion = await this.questionsService.update(+id, updateQuestionDto);
+    if (!updatedQuestion) {
+      throw new NotFoundException(`Question with ID ${id} not found`);
+    }
+    return updatedQuestion;
   }*/
 
 
   //8-supprimer une question
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.questionsService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return this.questionsService.deleteQuestion(+id);
   }
-
+  
 
    //9-verifier la reponse d'une question
   @Post(':id/verify')

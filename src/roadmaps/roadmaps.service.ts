@@ -23,7 +23,6 @@ export class RoadmapService extends CrudService<Roadmap> {
 
 
 
-
   async seedRoadmaps() {
     const filePath = path.join(__dirname, '../../data/roadmap.json');
     const rawData = fs.readFileSync(filePath, 'utf8');

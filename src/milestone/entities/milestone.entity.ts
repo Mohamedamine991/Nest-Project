@@ -11,17 +11,23 @@ import { Validation } from '../../validations/entities/validation.entity';
 export class Milestone {
   @PrimaryColumn()
   id: string;
-  @ManyToOne(() => Roadmap, roadmap => roadmap.milestones,{eager:true})
+
+  @ManyToOne(() => Roadmap, roadmap => roadmap.milestones,{eager:true , onDelete: 'CASCADE' })
   roadmap: Roadmap;
+
   @OneToMany(() => Validation, validations => validations.milestone)
   validations: Validation[]
+
   @OneToMany(() => RecommandedCertification, recommandedCertification => recommandedCertification.milestone)
   recommandedCertifications: RecommandedCertification[];
+
   @OneToMany(() => RecommandedCourse, recommandedCourse => recommandedCourse.milestone)
   recommandedCourses: RecommandedCourse[];
+
   @OneToOne(() => TestQuiz, testQuiz => testQuiz.milestone)
   @JoinColumn()
   quiz: TestQuiz;
+
   @Column()
   description: string;
 

@@ -8,15 +8,18 @@ import { Question } from '../questions/entities/question.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as fs from 'fs';
 import * as path from 'path';
+import { CrudService } from 'src/common/crud.service';
 @Injectable()
-export class TestQuizService {
+export class TestQuizService extends CrudService<TestQuiz> {
   constructor(
       @InjectRepository(TestQuiz)
       private readonly testQuizRepository: Repository<TestQuiz>,
       @InjectRepository(Question)
       private readonly questionRepository: Repository<Question>, 
 
-  ) {}
+  ) {
+    super(testQuizRepository);
+  }
 
   async createQuizIfNotExists(title: string): Promise<TestQuiz> {
     let quiz = await this.testQuizRepository.findOneBy({ title });
@@ -64,9 +67,15 @@ export class TestQuizService {
     return this.testQuizRepository.findOneBy({ id: id });
   }
 
-  async remove(id:number): Promise<void> {
+  async DeleteQuiz(id: number): Promise<string> {
+    const quiz = await this.testQuizRepository.findOne({ where: { id } });
+    if (!quiz) {
+        return `Quiz with id ${id} does not exist.`;
+    }
+
     await this.testQuizRepository.delete(id);
-  }
+    return `Quiz with id ${id} has been successfully deleted.`;
+}
   async seedTestQuizzes() {
     const filePath = path.join(__dirname, '../../data/test_quiz.json');
     const rawData = fs.readFileSync(filePath, 'utf8');
@@ -77,10 +86,4 @@ export class TestQuizService {
       await this.testQuizRepository.save(testQuiz);
     }
   }
-
-
-
-
-
-
 }
