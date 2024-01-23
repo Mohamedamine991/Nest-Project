@@ -37,7 +37,7 @@ export class MilestoneController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.milestoneService.DeleteMilestone(id);
+    return this.milestoneService.remove(id);
   }
 
 

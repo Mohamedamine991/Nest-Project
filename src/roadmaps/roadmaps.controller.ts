@@ -25,7 +25,7 @@ export class RoadmapsController {
 
   @Delete(':id')
     async remove(@Param('id') id: string) {
-      return await this.roadmapsService.DeleteRoadmap(id);
+      return await this.roadmapsService.remove(id);
     }
   /*
     @Patch(':id')
