@@ -8,7 +8,7 @@ import { Question } from '../questions/entities/question.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as fs from 'fs';
 import * as path from 'path';
-import { CrudService } from 'src/common/crud.service';
+import { CrudService } from '../common/crud.service';
 @Injectable()
 export class TestQuizService extends CrudService<TestQuiz> {
   constructor(

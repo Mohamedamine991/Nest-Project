@@ -20,6 +20,4 @@
     @IsNotEmpty()
     testQuizId: number;
 
-    @IsDateString()
-    readonly createdAt?: Date;
   }
