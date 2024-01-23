@@ -1,4 +1,4 @@
-  import { ArrayMaxSize, ArrayMinSize, IsArray, IsInt, IsNotEmpty, IsString, Length, Min } from "class-validator";
+  import { ArrayMaxSize, ArrayMinSize, IsArray, IsDateString, IsInt, IsNotEmpty, IsOptional, IsString, Length, Min } from "class-validator";
 
   export class CreateQuestionDto {
     @IsString()
@@ -19,4 +19,7 @@
     @IsInt()
     @IsNotEmpty()
     testQuizId: number;
+
+    @IsDateString()
+    readonly createdAt?: Date;
   }

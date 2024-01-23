@@ -1,14 +1,14 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Body, Injectable, NotFoundException, Param, Patch } from '@nestjs/common';
 import { DeleteResult, Repository } from 'typeorm';
 import { Question } from './entities/question.entity';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
-import { QuizAnswersDto } from './dto/quiz-answers.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CrudService } from '../common/crud.service';
 import { TestQuiz } from '../test-quiz/entities/test-quiz.entity';
 import * as fs from 'fs';
 import * as path from 'path';
+import { QuizAnswersDto } from './dto/quiz-answers.dto';
 
 @Injectable()
 export class QuestionsService extends CrudService<Question>{
@@ -82,23 +82,35 @@ export class QuestionsService extends CrudService<Question>{
   
     return this.questionsRepository.save(question);
   }
+
   //5-get toutes les questions
   async findAll(): Promise<Question[]> {
     return this.questionsRepository.find();
   }
-  //6-get une question par id
-  async findOne(id: number): Promise<Question> {
-    return this.questionsRepository.findOneBy({ questionID: id });
-  }
-  /*//7-modifier une question
-  async update(id: number, updateQuestionDto): Promise<Question> {
-    await this.questionsRepository.update(id, updateQuestionDto);
-    return this.questionsRepository.findOneBy({ questionID: id });
+
+  /*
+  // 7-modifier une question 
+  async update(id: number, updateQuestionDto: UpdateQuestionDto): Promise<Question> {
+    const question = await this.questionsRepository.findOne({
+      where: { questionID: id }
+    });
+    if (!question) {
+      throw new NotFoundException(`Question with ID ${id} not found`);
+    }
+    this.questionsRepository.merge(question, updateQuestionDto);
+    return this.questionsRepository.save(question);
   }*/
 
+
   //8-supprimer une question
-  async remove(id: number): Promise<DeleteResult> {
-    return await this.questionsRepository.delete(id);
+  async deleteQuestion(id: number): Promise<string> {
+    const result = await this.questionsRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Question with ID "${id}" not found`);
+    }
+
+    return `Question with ID "${id}" has been successfully deleted`;
   }
   //9-verifier la reponse d'une question
   async verifyAnswer(questionId: number, userAnswer: number): Promise<boolean> {

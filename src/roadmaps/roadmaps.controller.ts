@@ -22,14 +22,16 @@ export class RoadmapsController {
   findOne(@Param('id') id: string) {
     return this.roadmapsService.findOne(id);
   }
-/*
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRoadmapDto: UpdateRoadmapDto) {
-    return this.roadmapsService.update(+id, updateRoadmapDto);
-  }
-*/
+
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.roadmapsService.remove(id);
-  }
+    async remove(@Param('id') id: string) {
+      return await this.roadmapsService.DeleteRoadmap(id);
+    }
+  /*
+    @Patch(':id')
+    update(@Param('id') id: string, @Body() updateRoadmapDto: UpdateRoadmapDto) {
+      return this.roadmapsService.update(+id, updateRoadmapDto);
+    }
+  */
+    // Remove the duplicate remove function
 }
