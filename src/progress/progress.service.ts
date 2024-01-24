@@ -2,7 +2,7 @@
 
 import {ConflictException, Injectable, NotFoundException} from '@nestjs/common';
 
-import {CustomRepositoryCannotInheritRepositoryError, FindManyOptions, FindOneOptions, In, IntegerType, Repository} from 'typeorm';
+import {CustomRepositoryCannotInheritRepositoryError, FindManyOptions, FindOneOptions, In, IntegerType, Repository, UpdateResult} from 'typeorm';
 import { Progress } from './entities/progress.entity';
 import { CreateProgressDto } from './dto/create-progress.dto';
 import {Milestone} from "../milestone/entities/milestone.entity";
@@ -32,7 +32,7 @@ export class ProgressService extends CrudService<Progress>{
     super(progressRepository)
   }
   async create(createDto: CreateProgressDto): Promise<Progress> {
-    const { roadmapId, userId, percentage } = createDto;
+    const { roadmapId, userId,percentage } = createDto;
 
     
     const user = await this.userRepository.findOne({ where: { id: userId } });
@@ -48,7 +48,7 @@ export class ProgressService extends CrudService<Progress>{
     return await this.progressRepository.save(newProgress);
     
   }
-  async updateProgressByUserAndRoadmap(confirmUpdateprogressDto:ConfirmUpdateProgressDto): Promise<Progress> {
+  async updateProgressByUserAndRoadmap(confirmUpdateprogressDto:ConfirmUpdateProgressDto): Promise<UpdateResult> {
   const {userId,roadmapId}=confirmUpdateprogressDto
    let validated=0
    const findOneOptionsProgress: FindOneOptions<Progress> = {
@@ -57,7 +57,7 @@ export class ProgressService extends CrudService<Progress>{
     const existingProgress = await this.progressRepository.findOne(findOneOptionsProgress);
 
     if (!existingProgress) {
-      throw new NotFoundException(`Progress for User ID ${userId} and Roadmap ID ${roadmapId} not found.`);
+      throw new NotFoundException(`Progress for User and Roadmap not found.`);
     }
 
     const findManyOptionsMilestone: FindManyOptions<Milestone> = {
@@ -85,7 +85,7 @@ export class ProgressService extends CrudService<Progress>{
     const ratio= validated
     console.log(ratio)
     existingProgress.percentage = Number(ratio.toFixed(1));
-    return await this.progressRepository.save(existingProgress);
+    return await this.progressRepository.update(existingProgress.id,{percentage:existingProgress.percentage});
   }
   async getProgressByUserAndRoadmap(userId:number,roadmapId:string){
     const findOneOptions: FindOneOptions<Progress> = {

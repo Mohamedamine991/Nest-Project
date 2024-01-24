@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -23,6 +23,7 @@ import { CommonModule } from './common/common.module';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { AuthMiddleware } from './middlewares/auth.middelware';
 
 
 
@@ -42,4 +43,14 @@ validationSchema:Joi.object({
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule{
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes(
+      { path: 'progress/*', method: RequestMethod.POST },
+      { path: 'progress/*', method: RequestMethod.PATCH },
+      { path: 'validations/*', method: RequestMethod.PATCH },
+      { path: 'validations/*', method: RequestMethod.POST}
+    )
+  }
+
+}

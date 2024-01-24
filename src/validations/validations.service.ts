@@ -2,7 +2,7 @@ import {ConflictException, Injectable, NotFoundException} from '@nestjs/common';
 import { CreateValidationDto } from './dto/create-validation.dto';
 import { UpdateValidationDto } from './dto/update-validation.dto';
 import {Validation} from "./entities/validation.entity";
-import {FindOneOptions, IntegerType, Repository} from "typeorm";
+import {FindOneOptions, IntegerType, Repository, UpdateResult} from "typeorm";
 import {MilestoneService} from "../milestone/milestone.service";
 import {UsersService} from "../users/users.service";
 import { InjectRepository } from '@nestjs/typeorm';
@@ -71,7 +71,7 @@ export class ValidationsService extends CrudService<Validation> {
     return this.validationRepository.save(existingValidation);
   }
 
-  async calculateAndUpdateScore(confirmvalidationdto:ConfirmValidationDto): Promise<any> {
+  async calculateAndUpdateScore(confirmvalidationdto:ConfirmValidationDto): Promise<UpdateResult> {
     const {userId,milestoneId,userAnswers}=confirmvalidationdto
     const user = await this.userRepository.findOne({where : {id:userId}});
     const milestone = await this.milestoneRepository.findOne({where: {id:milestoneId}})
@@ -82,14 +82,9 @@ export class ValidationsService extends CrudService<Validation> {
     if (!user || !milestone) {
       throw new NotFoundException('User or Milestone not found.');
     }
-    console.log('output')
-    console.log(questions)
     let cout=0
     let len=0
     for ( const question of questions){
-      console.log(question.correctOption)
-      console.log(userAnswers[0])
-      console.log(userAnswers)
       if (question.correctOption === userAnswers[len]) {
         cout=cout+1
       }
@@ -98,25 +93,24 @@ export class ValidationsService extends CrudService<Validation> {
     const userScore = ((cout / len) * 100);
     const score= parseFloat(userScore.toString())
     const validation = await this.validationRepository.findOne({
-      where: { user, milestone },
+      where: {user:{id:user.id},milestone:{id:milestone.id}}
     });
+    console.log(validation)
     const threshold = 70;
     const passed=userScore >= threshold;
-    console.log(userScore)
-    console.log(typeof(userScore))
-    if (!validation) {
-      const createValidationDto = {
-        userId: user.id,
-        milestoneId: milestone.id,
-        passed: passed,
-        score: score,
-      };
-      return await this.validationRepository.save(createValidationDto)
-    }
     validation.score = score;
     validation.passed = passed;
-    return await this.validationRepository.save(validation);
+    return await this.validationRepository.update(validation.id,{score:validation.score,passed:validation.passed});
     
+  }
+  async getValidationByUserAndMilestone(milestoneId:string,userId:number){
+    const existedValidation=await this.validationRepository.findOne({
+      where:{user:{id:userId},milestone:{id:milestoneId}}
+    })
+      if(!existedValidation){
+        throw new NotFoundException("'User or Milestone not found")
+      }
+    return {"passed":existedValidation.passed,"score":existedValidation.score}
   }
 
 }

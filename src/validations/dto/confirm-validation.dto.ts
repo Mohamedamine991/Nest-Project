@@ -3,7 +3,7 @@ import { IsBoolean, IsNumber, IsDate, IsString, IsNotEmpty, IsArray } from 'clas
 export class ConfirmValidationDto {
     @IsNotEmpty()
     @IsNumber()
-    readonly userId: number;
+    userId: number;
     @IsNotEmpty()
     @IsString()
     readonly milestoneId: string;
