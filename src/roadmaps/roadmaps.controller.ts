@@ -25,13 +25,12 @@ export class RoadmapsController {
 
   @Delete(':id')
     async remove(@Param('id') id: string) {
-      return await this.roadmapsService.DeleteRoadmap(id);
+      return await this.roadmapsService.deleteRoadmap(id);
     }
-  /*
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() updateRoadmapDto: UpdateRoadmapDto) {
-      return this.roadmapsService.update(+id, updateRoadmapDto);
+
+
+    @Delete('/soft/:id')
+    async removesoft(@Param('id') id: string) {
+      return await this.roadmapsService.deleteRoadmapv2(id);
     }
-  */
-    // Remove the duplicate remove function
 }

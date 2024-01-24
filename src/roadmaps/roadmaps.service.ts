@@ -22,16 +22,31 @@ export class RoadmapService extends CrudService<Roadmap> {
   }
 
 
-  async DeleteRoadmap(id: string): Promise<string> {
-    const roadmap = await this.roadmapRepository.findOne({ where: { id } });
-
-    if (!roadmap) {
-        return `Roadmap with ID ${id} does not exist.`;
+  async deleteRoadmap(id: string): Promise<string> {
+    try {
+        await super.remove(id);
+        return `Roadmap with ID ${id} has been successfully deleted`;
+    } catch (error) {
+        if (error instanceof NotFoundException) {
+            return `Roadmap with ID ${id} not found`;
+        }
+        throw error; // ou gérer les autres types d'erreurs si nécessaire
     }
+}
 
-    await this.roadmapRepository.delete(id);
-    return `Roadmap with ID ${id} has been successfully deleted.`;
+async deleteRoadmapv2(id: string): Promise<string> {
+  try {
+      await super.removewithsoft(id);
+      return `Roadmap with ID ${id} has been successfully deleted`;
+  } catch (error) {
+      if (error instanceof NotFoundException) {
+          return `Roadmap with ID ${id} not found`;
+      }
+      throw error; // ou gérer les autres types d'erreurs si nécessaire
   }
+}
+
+
 
 
   async seedRoadmaps() {

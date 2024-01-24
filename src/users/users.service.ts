@@ -20,39 +20,42 @@ export class UsersService extends CrudService<User> {
     return await this.userRepository.find();
    }
 
-  async DeleteUser(id: number): Promise<{ message: string }> {
-    const result = await this.userRepository.delete(id);
-
-    if (result.affected === 0) {
-      throw new NotFoundException(`User with ID "${id}" not found`);
+   async deleteUser(id: string): Promise<string> {
+    try {
+        await super.remove(id);
+        return `User with ID "${id}" has been successfully deleted`;
+    } catch (error) {
+        if (error instanceof NotFoundException) {
+            return `User with ID "${id}" not found`;
+        }
+        throw error; 
     }
 
-    return { message: `User with ID "${id}" has been successfully deleted` };
-  }
- /*
-  async create(createUserDto: CreateUserDto) {
-    const newUser = this.userRepository.create(createUserDto);
-    return await this.userRepository.save(newUser);
-  }
+    
+}
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
-    const user = await this.userRepository.findOneBy({id: id});
-    if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
-    }
-
-    Object.assign(user, updateUserDto);
-    return this.userRepository.save(user);
+async deleteUserv2(id: string): Promise<string> {
+  try {
+      await super.removewithsoft(id);
+      return `User with ID "${id}" has been successfully deleted`;
+  } catch (error) {
+      if (error instanceof NotFoundException) {
+          return `User with ID "${id}" not found`;
+      }
+      throw error; 
   }
 
-  async remove(id: number) {
-    const result = await this.userRepository.delete(id);
+  
+}
 
-    if (result.affected === 0) {
-      throw new NotFoundException(`User with ID "${id}" not found`);
-    }
+async getUserById(id: string): Promise<User> {
+  const user = await super.findOne(id);
+  if (!user) {
+    throw new NotFoundException(`User with ID ${id} not found.`);
   }
-*/
+  return user;
+}
+
 
 
 }

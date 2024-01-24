@@ -9,17 +9,18 @@ export class CrudService<T> {
     const newEntity = this.repository.create(createDto as DeepPartial<T>);
     return await this.repository.save(newEntity);
   }
+  
 
   async findAll(): Promise<T[]> {
     return await this.repository.find();
   }
 
-  async findOne(id: any): Promise<T | undefined> {
-    const findOneOptions: FindOneOptions = {
-      where: { id: id },
-    };
-    return await this.repository.findOne(findOneOptions);
-  }
+    async findOne(id: any): Promise<T | undefined> {
+      const findOneOptions: FindOneOptions = {
+        where: { id: id },
+      };
+      return await this.repository.findOne(findOneOptions);
+    }
 
 
   async update(id: number, updateDto: DeepPartial<T>): Promise<T> {
@@ -37,16 +38,25 @@ export class CrudService<T> {
   }
 
   async remove(id: any): Promise<DeleteResult> {
-    const findOneOptions: FindOneOptions = {
-      where: { id: id },
-    };
-
+    const findOneOptions = { where: { id: id } };
     const existingEntity = await this.repository.findOne(findOneOptions);
 
     if (!existingEntity) {
-      throw new NotFoundException(`Entity with ID ${id} not found.`);
+      throw new NotFoundException();
     }
 
     return await this.repository.delete(id);
+}
+
+async removewithsoft(id: any): Promise<DeleteResult> {
+  const findOneOptions = { where: { id: id } };
+  const existingEntity = await this.repository.findOne(findOneOptions);
+
+  if (!existingEntity) {
+    throw new NotFoundException();
   }
+
+  return await this.repository.softDelete(id);
+}
+
 }

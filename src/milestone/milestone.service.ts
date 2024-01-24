@@ -46,16 +46,29 @@ export class MilestoneService  extends CrudService<Milestone>{
   })
   }
 
-  async DeleteMilestone(id: string): Promise<string > {
-    const milestone = await this.milestoneRepository.findOne({where : {id}});
-
-    if (!milestone) {
-        return `Milestone with ID ${id} does not exist.` ;
+  async deleteMilestone(id: string): Promise<string> {
+    try {
+        await super.removewithsoft(id);
+        return `Milestone with ID "${id}" has been successfully deleted`;
+    } catch (error) {
+        if (error instanceof NotFoundException) {
+            return `Milestone with ID "${id}" not found`;
+        }
+        throw error; 
     }
-
-    await this.milestoneRepository.delete(id);
-    return `Milestone with ID ${id} has been successfully deleted.`; 
 }
+  
+
+async deleteMilestonev2(id: string): Promise<string > {
+  try {
+    await super.removewithsoft(id);
+    return `Milestone with ID "${id}" has been successfully deleted`;
+} catch (error) {
+    if (error instanceof NotFoundException) {
+        return `Milestone with ID "${id}" not found`;
+    }
+    throw error; 
+}}
 
 
   async seedMilestones() {

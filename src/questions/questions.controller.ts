@@ -55,22 +55,21 @@ export class QuestionsController {
 
   //7-modifier une question
   @Patch(':id')
-  async update(@Param('id') id: number, @Body() updateQuestionDto: UpdateQuestionDto) {
-    return await this.questionsService.updateQuestion(id, updateQuestionDto);
-  }
-
-  //Avec la methode generique de crud.service.ts  , :
-  /*@Patch(':id')
   updateQuestion1(@Param('id') questionID: number, @Body() updateQuestionDto: UpdateQuestionDto) {
     return this.questionsService.updateQuestion(questionID, updateQuestionDto);
-  }*/
+  }
 
   //8-supprimer une question
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return this.questionsService.deleteQuestion(+id);
   }
-  
+
+  //9-supprimer une question avec soft delete
+  @Delete('/soft/:id')
+  async removesoft(@Param('id') id: string) {
+    return this.questionsService.deleteQuestionv2(+id);
+  }
    //9-verifier la reponse d'une question
   @Post(':id/verify')
   async verify(@Param('id') id: string, @Body('answer') answer: number) {
