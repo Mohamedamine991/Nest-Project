@@ -1,5 +1,5 @@
 import { Body, Injectable, NotFoundException, Param, Patch } from '@nestjs/common';
-import { DeleteResult, Repository } from 'typeorm';
+import { DeleteResult, FindOneOptions, Repository } from 'typeorm';
 import { Question } from './entities/question.entity';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
@@ -88,20 +88,49 @@ export class QuestionsService extends CrudService<Question>{
     return this.questionsRepository.find();
   }
 
-  /*
-  // 7-modifier une question 
-  async update(id: number, updateQuestionDto: UpdateQuestionDto): Promise<Question> {
-    const question = await this.questionsRepository.findOne({
-      where: { questionID: id }
-    });
+
+  //7-modifier une question
+  async updateQuestion(questionID: number, updateDto: UpdateQuestionDto): Promise<Question> {
+    const question = await this.questionsRepository.findOne({ where: { questionID } });
     if (!question) {
-      throw new NotFoundException(`Question with ID ${id} not found`);
+      throw new NotFoundException(`Question with ID ${questionID} not found.`);
     }
-    this.questionsRepository.merge(question, updateQuestionDto);
+
+    if (updateDto.testQuizId !== undefined) {
+      const testQuiz = await this.testQuizRepository.findOne({ where: { id: updateDto.testQuizId } });
+      if (!testQuiz) {
+        throw new NotFoundException(`TestQuiz with ID ${updateDto.testQuizId} not found.`);
+      }
+      question.testQuiz = testQuiz;
+    }
+    Object.assign(question, updateDto);
+
     return this.questionsRepository.save(question);
-  }*/
+  }
 
 
+  async updateQuestion1(id: number, updateDto: UpdateQuestionDto): Promise<Question> {
+    const findOneOptions: FindOneOptions = {
+      where: { questionID:  id },
+    }
+    const question = await this.questionsRepository.findOne(findOneOptions);
+
+    if (!question) {
+      throw new NotFoundException(`Question with ID ${id} not found.`);
+    }
+
+    if (updateDto.testQuizId) {
+      const testQuiz = await this.testQuizRepository.findOne({ where: { id: updateDto.testQuizId } });
+      if (!testQuiz) {
+        throw new NotFoundException(`TestQuiz with ID ${updateDto.testQuizId} not found.`);
+      }
+      question.testQuiz = testQuiz;
+    }
+
+    return super.update(id, updateDto);
+  }
+
+ 
   //8-supprimer une question
   async deleteQuestion(id: number): Promise<string> {
     const result = await this.questionsRepository.delete(id);

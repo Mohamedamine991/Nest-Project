@@ -1,5 +1,6 @@
 import { Repository, DeepPartial, FindOneOptions, DeleteResult } from 'typeorm';
 import { NotFoundException } from '@nestjs/common';
+import { find } from 'rxjs';
 
 export class CrudService<T> {
   constructor(private repository: Repository<T>) {}
@@ -20,18 +21,19 @@ export class CrudService<T> {
     return await this.repository.findOne(findOneOptions);
   }
 
+
   async update(id: number, updateDto: DeepPartial<T>): Promise<T> {
     const findOneOptions: FindOneOptions = {
-      where: { id: id },
+      where: { id:  id },
     };
-    const existingEntity = await this.repository.findOne(findOneOptions);
 
+    const existingEntity = await this.repository.findOne(findOneOptions)
     if (!existingEntity) {
       throw new NotFoundException(`Entity with ID ${id} not found.`);
     }
 
-    const updatedEntity = Object.assign(existingEntity, updateDto);
-    return this.repository.save(updatedEntity);
+    Object.assign(existingEntity, updateDto);
+    return this.repository.save(existingEntity);
   }
 
   async remove(id: any): Promise<DeleteResult> {
