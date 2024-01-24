@@ -6,8 +6,6 @@ export class CreateMilestoneDto {
     @IsString()
     roadmapId:string
     @IsString()
-    title:string
-    @IsString()
     description:string
     @IsNumber()
     orderNumber:number
