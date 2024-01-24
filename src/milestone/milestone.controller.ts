@@ -28,7 +28,12 @@ export class MilestoneController {
   }
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.milestoneService.remove(id);
+    return this.milestoneService.deleteMilestone(id);
+  }
+
+  @Delete('/soft/:id')
+  removesoft(@Param('id') id: string) {
+    return this.milestoneService.deleteMilestonev2(id);
   }
   @Get('byRoadmap/:roadmapId')
   findMilestonesByRoadmap(@Param('roadmapId') roadmapId: string) {

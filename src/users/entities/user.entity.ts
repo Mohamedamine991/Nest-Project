@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn, OneToMany, DeleteDateColumn } from 'typeorm';
 import { Roadmap } from '../../roadmaps/entities/roadmap.entity';
 import { Milestone } from '../../milestone/entities/milestone.entity';
 import { Progress } from '../../progress/entities/progress.entity';
@@ -28,6 +28,9 @@ export class User {
   progress: Progress[]
   @OneToMany(() => Validation, validations => validations.user)
   validations: Progress[]
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 
 
 }
