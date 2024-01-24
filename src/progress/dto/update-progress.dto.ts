@@ -3,7 +3,7 @@ import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateProgressDto {
     @IsNumber()
-    readonly userId: number;
+    userId: number;
     @IsString()
     readonly roadmapId: string;
     @IsNumber()

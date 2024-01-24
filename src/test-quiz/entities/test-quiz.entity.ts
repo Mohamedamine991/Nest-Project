@@ -1,11 +1,11 @@
-import { Entity, Column, OneToOne, OneToMany , PrimaryColumn } from 'typeorm';
+import { Entity, Column, OneToOne, OneToMany , PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 import { Milestone } from '../../milestone/entities/milestone.entity';
 import { Question } from '../../questions/entities/question.entity';
 
 
 @Entity()
 export class TestQuiz {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column({nullable:false})

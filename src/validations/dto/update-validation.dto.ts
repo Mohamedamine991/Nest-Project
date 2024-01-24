@@ -2,9 +2,7 @@ import { IsBoolean, IsNumber, IsOptional, IsDate, IsString, IsNotEmpty } from 'c
 import { CreateValidationDto } from './create-validation.dto';
 
 export class UpdateValidationDto  {
-    @IsNotEmpty()
-    @IsNumber()
-    readonly userId: number;
+    userId?: number;
     @IsNotEmpty()
     @IsString()
     readonly milestoneId: string;

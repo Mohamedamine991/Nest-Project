@@ -1,7 +1,8 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Put, Req} from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Put, Req, UseGuards} from '@nestjs/common';
 import { ValidationsService } from './validations.service';
 import { CreateValidationDto } from './dto/create-validation.dto';
 import { ConfirmValidationDto } from './dto/confirm-validation.dto';
+import { AuthGuard } from '../Gaurds/jwt-auth.guard';
 
 @Controller('validations')
 export class ValidationsController {
@@ -13,12 +14,23 @@ export class ValidationsController {
     createValidationDto.userId=userId
     return this.validationsService.createValidation(createValidationDto);
   }
+  @UseGuards(AuthGuard)
   @Patch('confirm')
   validate(@Body() confirmvalidationdto:ConfirmValidationDto,@Req() req:Request){
-      const userId=req['user']['id']
+      console.log(req['user'])
+      const userId:number=req['user']['id']
+      console.log(userId)
       confirmvalidationdto.userId=userId
       return this.validationsService.calculateAndUpdateScore(confirmvalidationdto)
   }
+  @UseGuards(AuthGuard)
+  @Get('getData/:milestoneId')
+    getValidationByUserAndMilestone(@Param('milestoneId') milestoneId:string,@Req() req:Request){
+      console.log(req['user'])
+      const userId=req['user']['id']
+      console.log(userId)
+      return this.validationsService.getValidationByUserAndMilestone(milestoneId,+userId)
+    }
   @Get()
   findAll() {
     return this.validationsService.findAll();
