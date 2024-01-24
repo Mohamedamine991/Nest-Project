@@ -1,8 +1,10 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateProgressDto {
+  @IsNotEmpty()
   @IsNumber()
   userId: number;
+  @IsNotEmpty()
   @IsString()
   roadmapId: string;
   @IsNumber()

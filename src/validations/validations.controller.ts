@@ -1,4 +1,4 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe} from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Put, Req} from '@nestjs/common';
 import { ValidationsService } from './validations.service';
 import { CreateValidationDto } from './dto/create-validation.dto';
 import { ConfirmValidationDto } from './dto/confirm-validation.dto';
@@ -8,11 +8,15 @@ export class ValidationsController {
   constructor(private readonly validationsService: ValidationsService) {}
 
   @Post()
-  create(@Body() createValidationDto: CreateValidationDto) {
+  create(@Body() createValidationDto: CreateValidationDto,@Req() req:Request) {
+    const userId=req['user']['id']
+    createValidationDto.userId=userId
     return this.validationsService.createValidation(createValidationDto);
   }
-  @Get('confirm')
-  validate(@Body() confirmvalidationdto:ConfirmValidationDto){
+  @Patch('confirm')
+  validate(@Body() confirmvalidationdto:ConfirmValidationDto,@Req() req:Request){
+      const userId=req['user']['id']
+      confirmvalidationdto.userId=userId
       return this.validationsService.calculateAndUpdateScore(confirmvalidationdto)
   }
   @Get()

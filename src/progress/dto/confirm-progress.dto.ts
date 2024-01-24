@@ -1,9 +1,11 @@
 // update-progress.dto.ts
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class ConfirmUpdateProgressDto {
+    @IsNotEmpty()
     @IsNumber()
-    readonly userId: number;
+    userId: number;
+    @IsNotEmpty()
     @IsString()
     readonly roadmapId: string;
 }
