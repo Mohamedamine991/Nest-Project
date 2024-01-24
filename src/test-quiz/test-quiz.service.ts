@@ -8,7 +8,7 @@ import { Question } from '../questions/entities/question.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as fs from 'fs';
 import * as path from 'path';
-import { CrudService } from 'src/common/crud.service';
+import { CrudService } from '../common/crud.service';
 @Injectable()
 export class TestQuizService extends CrudService<TestQuiz> {
   constructor(
@@ -41,9 +41,8 @@ export class TestQuizService extends CrudService<TestQuiz> {
     return this.questionRepository.save(question);
   }
 
-  async create(createTestQuizDto: CreateTestQuizDto): Promise<TestQuiz> {
-    const newTestQuiz = this.testQuizRepository.create(createTestQuizDto);
-    return this.testQuizRepository.save(newTestQuiz);
+  async createQuiz(createTestQuizDto: CreateTestQuizDto): Promise<TestQuiz> {
+    return super.create(createTestQuizDto);
   }
 
   async createDomainQuizzes(): Promise<void> {

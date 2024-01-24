@@ -1,4 +1,4 @@
-  import { ArrayMaxSize, ArrayMinSize, IsArray, IsDateString, IsInt, IsNotEmpty, IsOptional, IsString, Length, Min } from "class-validator";
+  import { ArrayMaxSize, ArrayMinSize, IsArray, IsDateString, IsInt, IsNotEmpty, IsOptional, IsString, Length, Max, Min } from "class-validator";
 
   export class CreateQuestionDto {
     @IsString()
@@ -13,13 +13,12 @@
 
     @IsInt()
     @IsNotEmpty()
-    @Min(0, { message: "Correct option index must be >= 0." })
+    @Min(0, { message: "Correct option index must be >= -1." })
+    @Max(3, { message: "Correct option index must be <= 3." })  
     correctOption: number;
 
     @IsInt()
     @IsNotEmpty()
     testQuizId: number;
-
-    @IsDateString()
-    readonly createdAt?: Date;
+    
   }

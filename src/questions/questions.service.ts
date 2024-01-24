@@ -1,5 +1,5 @@
 import { Body, Injectable, NotFoundException, Param, Patch } from '@nestjs/common';
-import { DeleteResult, Repository } from 'typeorm';
+import { DeleteResult, FindOneOptions, Repository } from 'typeorm';
 import { Question } from './entities/question.entity';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
@@ -18,11 +18,13 @@ export class QuestionsService extends CrudService<Question>{
       @InjectRepository(TestQuiz)
       private testQuizRepository: Repository<TestQuiz>,
 
-  ) {super(questionsRepository)}
+  ) {
+    super(questionsRepository);
+  }
 
   
 
-  //1-tester le seed  
+  //1-tester le seed 
   async seedQuestions() {
     const filePath = path.join(__dirname, '../../data/question.json');
     const rawData = fs.readFileSync(filePath, 'utf8');
@@ -66,55 +68,75 @@ export class QuestionsService extends CrudService<Question>{
 
 
     //4-ajouter une question
-  async create(createQuestionDto: CreateQuestionDto): Promise<Question> {
-    const quiz = await this.testQuizRepository.findOne({ where: { id: createQuestionDto.testQuizId } });
-    
-    if (!quiz) {
-      throw new NotFoundException(`Quiz with ID ${createQuestionDto.testQuizId} not found. Please create the quiz first.`);
+    async createQuestion(createQuestionDto: CreateQuestionDto): Promise<Question> {
+      const quiz = await this.testQuizRepository.findOne({ where: { id: createQuestionDto.testQuizId } });
+  
+      if (!quiz) {
+        throw new NotFoundException(`Quiz with ID ${createQuestionDto.testQuizId} not found. Please create the quiz first.`);
+      }
+  
+      const newQuestionData = {
+        ...createQuestionDto,
+        testQuiz: quiz,
+      };
+        return super.create(newQuestionData);
     }
-  
-    const question = this.questionsRepository.create({
-      content: createQuestionDto.content,
-      options: createQuestionDto.options,
-      correctOption: createQuestionDto.correctOption,
-      testQuiz: quiz, 
-    });
-  
-    return this.questionsRepository.save(question);
-  }
 
   //5-get toutes les questions
   async findAll(): Promise<Question[]> {
     return this.questionsRepository.find();
   }
 
-  /*
-  // 7-modifier une question 
-  async update(id: number, updateQuestionDto: UpdateQuestionDto): Promise<Question> {
-    const question = await this.questionsRepository.findOne({
-      where: { questionID: id }
-    });
-    if (!question) {
-      throw new NotFoundException(`Question with ID ${id} not found`);
-    }
-    this.questionsRepository.merge(question, updateQuestionDto);
-    return this.questionsRepository.save(question);
-  }*/
 
+  //7-modifier une question
+  async updateQuestion(id: number, updateDto: UpdateQuestionDto): Promise<Question> {
+    
+    const question = await this.questionsRepository.findOneBy({ id: id });
+
+    if (!question) {
+      throw new NotFoundException(`Question with ID ${id} not found.`);
+    }
+
+    if (updateDto.testQuizId) {
+      const testQuiz = await this.testQuizRepository.findOne({ where: { id: updateDto.testQuizId } });
+      if (!testQuiz) {
+        throw new NotFoundException(`TestQuiz with ID ${updateDto.testQuizId} not found.`);
+      }
+      question.testQuiz = testQuiz;
+    }
+
+    return super.update(id, updateDto);
+  }
 
   //8-supprimer une question
   async deleteQuestion(id: number): Promise<string> {
-    const result = await this.questionsRepository.delete(id);
-
-    if (result.affected === 0) {
-      throw new NotFoundException(`Question with ID "${id}" not found`);
+    try {
+        await super.remove(id);
+        return `Question with ID "${id}" has been successfully deleted`;
+    } catch (error) {
+        if (error instanceof NotFoundException) {
+            return `Question with ID "${id}" not found`;
+        }
+        throw error; 
     }
+}
 
-    return `Question with ID "${id}" has been successfully deleted`;
-  }
+  //9-supprimer une question avec soft delete
+  async deleteQuestionv2(id: number): Promise<string> {
+    try {
+        await super.removewithsoft(id);
+        return `Question with ID "${id}" has been successfully deleted`;
+    } catch (error) {
+        if (error instanceof NotFoundException) {
+            return `Question with ID "${id}" not found`;
+        }
+        throw error; // ou gérer d'autres types d'erreurs si nécessaire
+    }
+}
+
   //9-verifier la reponse d'une question
   async verifyAnswer(questionId: number, userAnswer: number): Promise<boolean> {
-    const question = await this.questionsRepository.findOneBy({ questionID: questionId });
+    const question = await this.questionsRepository.findOneBy({ id: questionId });
     if (!question) {
       throw new NotFoundException('Question not found');
     }
