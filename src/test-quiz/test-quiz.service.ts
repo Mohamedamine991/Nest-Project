@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { Repository } from 'typeorm';
 import { CreateTestQuizDto } from './dto/create-test-quiz.dto';
@@ -40,10 +40,16 @@ export class TestQuizService extends CrudService<TestQuiz> {
 
     return this.questionRepository.save(question);
   }
-
   async createQuiz(createTestQuizDto: CreateTestQuizDto): Promise<TestQuiz> {
+    const existingQuiz = await this.testQuizRepository.findOne({ where: { title: createTestQuizDto.title } });
+  
+    if (existingQuiz) {
+      throw new BadRequestException(`A quiz with the title "${createTestQuizDto.title}" already exists.`);
+    }
+  
     return super.create(createTestQuizDto);
   }
+  
 
   async createDomainQuizzes(): Promise<void> {
     const milestones = ['Machine Learning', 'DevOps', 'Sécurité', 'Réseau'];
