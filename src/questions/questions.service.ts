@@ -54,10 +54,18 @@ export class QuestionsService extends CrudService<Question>{
 
 
   //2-get les questions d'un quiz
+  /*
   async getQuestionsByQuiz(id: number): Promise<Question[]> {
-    const question = await super.findOne(id);
-    return [question];
+    const question = await super.getQuestionsByQuiz(id);
+    return question;
+  }*/
+
+  async getQuestionsByQuiz1(id: number): Promise<Question[]> {
+    return this.questionsRepository.find({
+      where: { testQuiz: { id } },
+    });
   }
+
 
   
   //3-le nbre des questions d'un quiz

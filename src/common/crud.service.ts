@@ -22,6 +22,11 @@ export class CrudService<T> {
       return await this.repository.findOne(findOneOptions);
     }
 
+    /*async getQuestionsByQuiz(id: any): Promise<T[]> {
+      return await this.repository.find({
+        where: { testQuizId: id },
+      });
+    }*/
 
   async update(id: number, updateDto: DeepPartial<T>): Promise<T> {
     const findOneOptions: FindOneOptions = {
