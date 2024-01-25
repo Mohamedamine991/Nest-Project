@@ -41,14 +41,35 @@ export class MilestoneService  extends CrudService<Milestone>{
   async findMilestonesByRoadmap(roadmapId: string): Promise<Milestone[]> {
     return this.milestoneRepository.find({
       where: { roadmap: { id: roadmapId } },
-      relations: ['validations', 'recommandedCertifications', 'recommandedCourses', 'quiz'],
       order: {
         orderNumber: 'ASC' 
       },
     });
   }
 
+  async deleteMilestone(id: string): Promise<string> {
+    try {
+        await super.removewithsoft(id);
+        return `Milestone with ID "${id}" has been successfully deleted`;
+    } catch (error) {
+        if (error instanceof NotFoundException) {
+            return `Milestone with ID "${id}" not found`;
+        }
+        throw error; 
+    }
+}
+  
 
+async deleteMilestonev2(id: string): Promise<string > {
+  try {
+    await super.removewithsoft(id);
+    return `Milestone with ID "${id}" has been successfully deleted`;
+} catch (error) {
+    if (error instanceof NotFoundException) {
+        return `Milestone with ID "${id}" not found`;
+    }
+    throw error; 
+}}
 
 
   async seedMilestones() {

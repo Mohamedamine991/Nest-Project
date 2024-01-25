@@ -54,23 +54,22 @@ export class QuestionsController {
 
 
   //7-modifier une question
-  /*@Patch(':id')
-  async update(@Param('id') id: string, @Body() updateQuestionDto: UpdateQuestionDto) {
-    const updatedQuestion = await this.questionsService.update(+id, updateQuestionDto);
-    if (!updatedQuestion) {
-      throw new NotFoundException(`Question with ID ${id} not found`);
-    }
-    return updatedQuestion;
-  }*/
-
+  @Patch(':id')
+  updateQuestion1(@Param('id') questionID: number, @Body() updateQuestionDto: UpdateQuestionDto) {
+    return this.questionsService.updateQuestion(questionID, updateQuestionDto);
+  }
 
   //8-supprimer une question
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return this.questionsService.deleteQuestion(+id);
   }
-  
 
+  //9-supprimer une question avec soft delete
+  @Delete('/soft/:id')
+  async removesoft(@Param('id') id: string) {
+    return this.questionsService.deleteQuestionv2(+id);
+  }
    //9-verifier la reponse d'une question
   @Post(':id/verify')
   async verify(@Param('id') id: string, @Body('answer') answer: number) {

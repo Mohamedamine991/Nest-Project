@@ -1,15 +1,14 @@
-import { IsBoolean, IsNumber, IsDate, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsDate, IsString, IsNotEmpty } from 'class-validator';
 
 export class CreateValidationDto {
-    @IsNumber()
-    readonly userId: number;
-
+    userId?: number;
+    @IsNotEmpty()
     @IsString()
     readonly milestoneId: string;
-
+    @IsNotEmpty()
     @IsBoolean()
     readonly passed: boolean;
-
+    @IsNotEmpty()
     @IsNumber()
     readonly score: number;
 }

@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { TestQuizService } from './test-quiz.service';
 import { CreateTestQuizDto } from './dto/create-test-quiz.dto';
 import { UpdateTestQuizDto } from './dto/update-test-quiz.dto';
+import { TestQuiz } from './entities/test-quiz.entity';
 
 @Controller('quiz')
 export class TestQuizController {
@@ -13,14 +14,16 @@ export class TestQuizController {
   }
 
 
+ 
+  @Post()
+  async createQuiz(@Body() createTestQuizDto: CreateTestQuizDto): Promise<TestQuiz> {
+    return this.testQuizService.createQuiz(createTestQuizDto);
+  }
+
+
   @Post('/createquizzes')
   createDomainQuizzes() {
     return this.testQuizService.createDomainQuizzes();
-  }
-   
-  @Post()
-  async create(@Body() createQuizDto: CreateTestQuizDto) {
-    return this.testQuizService.create(createQuizDto);
   }
   
   @Get()

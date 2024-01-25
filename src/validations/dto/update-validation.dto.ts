@@ -1,9 +1,9 @@
-import { IsBoolean, IsNumber, IsOptional, IsDate, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsOptional, IsDate, IsString, IsNotEmpty } from 'class-validator';
+import { CreateValidationDto } from './create-validation.dto';
 
-export class UpdateValidationDto {
-    @IsNumber()
-    readonly userId: number;
-
+export class UpdateValidationDto  {
+    userId?: number;
+    @IsNotEmpty()
     @IsString()
     readonly milestoneId: string;
 
