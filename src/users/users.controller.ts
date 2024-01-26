@@ -26,4 +26,9 @@ export class UsersController {
     return await this.usersService.getUserById(id);
   }
 
+  @Get(':id/totalscore')
+  async getTotalScore(@Param('id', ParseIntPipe) id: number) {
+    return await this.usersService.getTotalScore(id);
+  }
+
 } 

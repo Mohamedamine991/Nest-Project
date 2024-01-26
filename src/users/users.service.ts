@@ -7,12 +7,15 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {Roadmap} from "../roadmaps/entities/roadmap.entity";
 import {Milestone} from "../milestone/entities/milestone.entity";
 import { CrudService } from '../common/crud.service';
+import { Progress } from 'src/progress/entities/progress.entity';
 
 @Injectable()
 export class UsersService extends CrudService<User> {
   constructor(
       @InjectRepository(User)
       private userRepository: Repository<User>,
+      @InjectRepository(Progress)
+      private progressRepository: Repository<Progress>,
   ) {
     super(userRepository)
   }
@@ -56,6 +59,12 @@ async getUserById(id: string): Promise<User> {
   return user;
 }
 
+async getTotalScore(userId: number): Promise<number> {
+  const userProgresses = await this.progressRepository.find({ 
+    where: { user: { id: userId } } 
+  });
 
+  return userProgresses.reduce((total, progress) => total + progress.percentage, 0);
+}
 
 }
