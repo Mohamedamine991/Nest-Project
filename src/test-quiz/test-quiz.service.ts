@@ -67,6 +67,9 @@ export class TestQuizService extends CrudService<TestQuiz> {
     return this.testQuizRepository.findOneBy({ id: id });
   }
 
+  async findByTitle(title: string): Promise<TestQuiz> {
+    return this.testQuizRepository.findOneBy({ title: title });
+  }
   async update(id: number, updateTestQuizDto: UpdateTestQuizDto): Promise<TestQuiz> {
     await this.testQuizRepository.update(id, updateTestQuizDto);
     return this.testQuizRepository.findOneBy({ id: id });
