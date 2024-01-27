@@ -67,4 +67,22 @@ async getTotalScore(userId: number): Promise<number> {
   return userProgresses.reduce((total, progress) => total + progress.percentage, 0);
 }
 
+
+async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+  const existingUser = await this.getUserById(id);
+
+  if (updateUserDto.username) {
+    existingUser.username = updateUserDto.username;
+  }
+
+  if (updateUserDto.email) {
+    existingUser.email = updateUserDto.email;
+  }
+
+  if (updateUserDto.password) {
+    existingUser.password = updateUserDto.password;
+  }
+
+  return await this.userRepository.save(existingUser);
+}
 }
