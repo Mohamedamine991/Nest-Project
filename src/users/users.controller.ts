@@ -21,9 +21,10 @@ export class UsersController {
   async findAll() {
     return await this.usersService.findAll();
   }
-
-  @Get(':id')
-  async getUserById(@Param('id') id: number) {
+  @UseGuards(AuthGuard)
+  @Get('getuser')
+  async getUserById(@Req() req:Request ) {
+    const id=req['user']['id']
     return await this.usersService.getUserById(id);
   }
 

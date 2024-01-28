@@ -5,7 +5,7 @@ import { Question } from '../../questions/entities/question.entity';
 
 @Entity()
 export class TestQuiz {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id: number;
 
   @Column({nullable:false})
