@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Roadmap } from '../roadmaps/entities/roadmap.entity';
 import { Milestone } from '../milestone/entities/milestone.entity';
 import { CrudService } from '../common/crud.service';
-import { Progress } from 'src/progress/entities/progress.entity';
+import { Progress } from '../progress/entities/progress.entity';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
