@@ -87,7 +87,7 @@ async deleteMilestonev2(id: string): Promise<string > {
       console.log(milestone)
       milestone.description = mData.description;
       milestone.orderNumber = mData.orderNumber;
-      milestone.id=mData.id
+      milestone.id=mData.title
       const roadmap = await this.roadmapRepository.findOne({
         where: { id: mData.roadmapId}
       });
@@ -98,7 +98,7 @@ async deleteMilestonev2(id: string): Promise<string > {
          console.warn(`TestQuiz "${mData.roadmapId}" not found for question.`);
       }
       const testQuiz = await this.testQuizRepository.findOne({
-        where: { id: mData.quizId }
+        where: { title: mData.quizId }
       });
 
       if (testQuiz) {
