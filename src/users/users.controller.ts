@@ -1,7 +1,8 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, ParseIntPipe, Res} from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, ParseIntPipe, Res, UseGuards, Req} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AuthGuard } from '../Gaurds/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -22,7 +23,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  async getUserById(@Param('id') id: string) {
+  async getUserById(@Param('id') id: number) {
     return await this.usersService.getUserById(id);
   }
 
@@ -30,10 +31,11 @@ export class UsersController {
   async getTotalScore(@Param('id', ParseIntPipe) id: number) {
     return await this.usersService.getTotalScore(id);
   }
-
-  @Post(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return await this.usersService.updateUser(id, updateUserDto);
+  @UseGuards(AuthGuard)
+  @Post('reset')
+  async update(@Body() updateUserDto: UpdateUserDto,@Req() req:Request ) {
+    const userId=req['user']['id']
+    return await this.usersService.updateUser(userId, updateUserDto);
   }
   
 

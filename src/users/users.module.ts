@@ -7,11 +7,12 @@ import {Roadmap} from "../roadmaps/entities/roadmap.entity";
 import {Progress} from "../progress/entities/progress.entity";
 import {Milestone} from "../milestone/entities/milestone.entity";
 import {Validation} from "../validations/entities/validation.entity";
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User,Roadmap,Progress,Milestone,Validation])],
   controllers: [UsersController],
-  providers: [UsersService],
+  providers: [UsersService,JwtService],
 })
 export class UsersModule {
 }
