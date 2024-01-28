@@ -21,6 +21,7 @@ export class UsersController {
   async findAll() {
     return await this.usersService.findAll();
   }
+
   @UseGuards(AuthGuard)
   @Get('getuser')
   async getUserById(@Req() req:Request ) {
