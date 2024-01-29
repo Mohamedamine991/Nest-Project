@@ -14,6 +14,8 @@ import { ProgressController } from './progress.controller';
 import { CrudService } from '../common/crud.service';
 import { ProgressService } from './progress.service';
 import { JwtService } from '@nestjs/jwt';
+import { AuthGuard } from '../Gaurds/jwt-auth.guard';
+
 
 @Module({
   imports: [TypeOrmModule.forFeature([Progress,User,Roadmap,Validation,Milestone])],

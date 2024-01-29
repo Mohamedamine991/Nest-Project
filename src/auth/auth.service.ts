@@ -16,16 +16,14 @@ export class AuthService {
   ) {}
 
   async signUp(signUpDto: SignUpDto): Promise<{ token: string }> {
-    const { username, email, password } = signUpDto;
+    const { username, email, password ,role} = signUpDto;
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
-
-    const user = await this.usersRepository.create({
-      username,
-      email,
-      password: hashedPassword,
-    });
+    signUpDto.password=hashedPassword
+    const user = await this.usersRepository.create(
+    signUpDto
+      );
 try{
     await this.usersRepository.save(user);
 
@@ -34,7 +32,7 @@ catch(e){
   throw new ConflictException('Le nom d\'utilisateur et l\'email doit être unique');
 
 }
-    const token = this.jwtService.sign({ id: user.id });
+    const token = this.jwtService.sign({ id: user.id,role:user.role });
     return { token };
   }
 
@@ -55,7 +53,7 @@ catch(e){
       throw new UnauthorizedException('Invalid email or password');
     }
 
-    const token =this.jwtService.sign({ id: user.id });
+    const token =this.jwtService.sign({ id: user.id ,role:user.role});
 
     return { token };
   }

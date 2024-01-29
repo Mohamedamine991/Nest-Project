@@ -1,5 +1,6 @@
 import { IsEmail, IsNotEmpty, IsString, Matches, MinLength } from 'class-validator';
 import ErrorMessages from '../../utils/error.messages';
+import { UserRoleEnum } from '../../enums/user-role.enum';
 
 export class SignUpDto {
   @IsNotEmpty({message:ErrorMessages.usernameRequired})
@@ -14,4 +15,5 @@ export class SignUpDto {
     message:ErrorMessages.invalidPassword,
   })
   password: string;
+  role?:UserRoleEnum;
 }

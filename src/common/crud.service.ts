@@ -28,7 +28,7 @@ export class CrudService<T> {
       });
     }*/
 
-  async update(id: number, updateDto: DeepPartial<T>): Promise<T> {
+  async update(id: any, updateDto: DeepPartial<T>): Promise<T> {
     const findOneOptions: FindOneOptions = {
       where: { id:  id },
     };

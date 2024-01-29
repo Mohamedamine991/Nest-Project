@@ -26,8 +26,6 @@ import {
           }
 
         );
-        console.log(payload)
-   
         request['user'] = payload;
       } catch {
         throw new UnauthorizedException();

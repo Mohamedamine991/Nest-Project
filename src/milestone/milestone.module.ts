@@ -9,10 +9,11 @@ import {Validation} from "../validations/entities/validation.entity";
 import {User} from "../users/entities/user.entity";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Roadmap } from '../roadmaps/entities/roadmap.entity';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Milestone,TestQuiz,Roadmap])],
   controllers: [MilestoneController],
-  providers: [MilestoneService],
+  providers: [MilestoneService,JwtService],
 })
 export class MilestoneModule {}

@@ -3,6 +3,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '../Gaurds/jwt-auth.guard';
+import { User } from '../decorators/user.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -24,9 +25,8 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @Get('getuser')
-  async getUserById(@Req() req:Request ) {
-    const id=req['user']['id']
-    return await this.usersService.getUserById(id);
+  async getUserById(@User() user) {
+    return await this.usersService.getUserById(user.id);
   }
 
   @Get(':id/totalscore')
@@ -35,9 +35,8 @@ export class UsersController {
   }
   @UseGuards(AuthGuard)
   @Post('reset')
-  async update(@Body() updateUserDto: UpdateUserDto,@Req() req:Request ) {
-    const userId=req['user']['id']
-    return await this.usersService.updateUser(userId, updateUserDto);
+  async update(@Body() updateUserDto: UpdateUserDto,@User() user ) {
+    return await this.usersService.updateUser(user.id,updateUserDto);
   }
   
 
