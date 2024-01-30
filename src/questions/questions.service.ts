@@ -52,7 +52,6 @@ export class QuestionsService extends CrudService<Question>{
     }
   } 
 
-
   //2-get les questions d'un quiz
   /*
   async getQuestionsByQuiz(id: number): Promise<Question[]> {
@@ -66,28 +65,50 @@ export class QuestionsService extends CrudService<Question>{
     });
   }
 
-
-  
   //3-le nbre des questions d'un quiz
   async getCountByQuizId(id: number): Promise<number> {
     return this.questionsRepository.count({ where: { testQuiz: { id: id } } });
   }
 
-
-    //4-ajouter une question
-    async createQuestion(createQuestionDto: CreateQuestionDto): Promise<Question> {
-      const quiz = await this.testQuizRepository.findOne({ where: { id: createQuestionDto.testQuizId } });
+  //4-ajouter une question
+  /*async createQuestion(createQuestionDto: CreateQuestionDto): Promise<Question> {
+    const quiz = await this.testQuizRepository.findOne({ where: { title: createQuestionDto.testQuizId } });
   
       if (!quiz) {
         throw new NotFoundException(`Quiz with ID ${createQuestionDto.testQuizId} not found. Please create the quiz first.`);
       }
   
-      const newQuestionData = {
-        ...createQuestionDto,
+
+      let newQuestion = new Question()
+      newQuestion.content = createQuestionDto.content ,
+      newQuestion.options = createQuestionDto.options
+      newQuestion.correctOption = createQuestionDto.correctOption
+      newQuestion.testQuiz = quiz
+
+      return await this.questionsRepository.save(newQuestion)
+
+    }*/
+
+
+    async create(createQuestionDto): Promise<Question> {
+      // Vérifier si le quiz existe
+      const quiz = await this.testQuizRepository.findOne({ where : { title :createQuestionDto.testQuizId }})
+      if (!quiz) {
+        // Modifier le message pour refléter le bon champ de l'objet DTO
+        throw new NotFoundException(`Quiz with ID ${createQuestionDto.testQuizId} not found. Please create the quiz first.`);
+      }
+  
+      // Créer et sauvegarder la nouvelle question
+      const question = this.questionsRepository.create({
+        content: createQuestionDto.content,
+        options: createQuestionDto.options,
+        correctOption: createQuestionDto.correctOption,
         testQuiz: quiz,
-      };
-        return super.create(newQuestionData);
+      });
+  
+      return this.questionsRepository.save(question);
     }
+  
 
   //5-get toutes les questions
   async findAll(): Promise<Question[]> {
@@ -105,7 +126,7 @@ export class QuestionsService extends CrudService<Question>{
     }
 
     if (updateDto.testQuizId) {
-      const testQuiz = await this.testQuizRepository.findOne({ where: { id: updateDto.testQuizId } });
+      const testQuiz = await this.testQuizRepository.findOne({ where: { title: updateDto.testQuizId } });
       if (!testQuiz) {
         throw new NotFoundException(`TestQuiz with ID ${updateDto.testQuizId} not found.`);
       }

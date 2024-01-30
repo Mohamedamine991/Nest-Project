@@ -27,7 +27,6 @@ export class QuestionsController {
    return this.questionsService.getCountByQuizId(quizId);
 
   }
-
   @UseGuards(AccessConctrolGuard)
   @Post()
   create(@Body() createQuestionDto: CreateQuestionDto) {
