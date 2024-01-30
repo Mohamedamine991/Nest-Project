@@ -4,40 +4,47 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '../Gaurds/jwt-auth.guard';
 import { User } from '../decorators/user.decorator';
+import { AccessConctrolGuard } from '../Gaurds/roles.guard';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-
+  @UseGuards(AccessConctrolGuard)
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return  await this.usersService.deleteUser(id);  }
-
-    @Delete('/soft/:id')
-  async removesoft(@Param('id') id: string) {
-    return  await this.usersService.deleteUserv2(id);  }
+  remove(@Param('id') id: string) {
+    this.usersService.deleteUser(id);
+    return { message: 'User deleted successfully' };
+  }
+  @UseGuards(AccessConctrolGuard)
+  @Delete('/soft/:id')
+  removesoft(@Param('id') id: string) {
+    this.usersService.deleteUserv2(id);
+    return { message: 'Soft user deleted successfully' };
+  }
 
   @Get()
-  async findAll() {
-    return await this.usersService.findAll();
+  findAll() {
+    return this.usersService.findAll();
   }
 
   @UseGuards(AuthGuard)
   @Get('getuser')
-  async getUserById(@User() user) {
-    return await this.usersService.getUserById(user.id);
+   getUserById(@User() user) {
+    return this.usersService.getUserById(user.id);
   }
 
   @Get(':id/totalscore')
-  async getTotalScore(@Param('id', ParseIntPipe) id: number) {
-    return await this.usersService.getTotalScore(id);
+  getTotalScore(@Param('id', ParseIntPipe) id: number) {
+    return  this.usersService.getTotalScore(id);
+    
   }
+
   @UseGuards(AuthGuard)
   @Post('reset')
-  async update(@Body() updateUserDto: UpdateUserDto,@User() user ) {
-    return await this.usersService.updateUser(user.id,updateUserDto);
+  update(@Body() updateUserDto: UpdateUserDto, @User() user) {
+    this.usersService.updateUser(user.id, updateUserDto);
+    return { message: 'User updated successfully' };
   }
-  
 
 } 

@@ -25,9 +25,8 @@ export class TestQuizService extends CrudService<TestQuiz> {
     let quiz = await this.testQuizRepository.findOneBy({ title });
     if (!quiz) {
       quiz = this.testQuizRepository.create({ title });
-      await this.testQuizRepository.save(quiz);
     }
-    return quiz;
+    return await this.testQuizRepository.save(quiz);
   }
 
   async addQuestionToQuiz(quiz: TestQuiz, questionData: any): Promise<Question> {

@@ -2,7 +2,6 @@ import {Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuar
 import { RoadmapService } from './roadmaps.service';
 import { CreateRoadmapDto } from './dto/create-roadmap.dto';
 import { UpdateRoadmapDto } from './dto/update-roadmap.dto';
-import { Roles } from '../decorators/roles.decorator';
 import { UserRoleEnum } from '../enums/user-role.enum';
 import { AuthGuard } from '../Gaurds/jwt-auth.guard';
 import { AccessConctrolGuard } from '../Gaurds/roles.guard';
@@ -14,16 +13,18 @@ export class RoadmapsController {
   @UseGuards(AccessConctrolGuard)
   @Post()
   create(@Body() createRoadmapDto: CreateRoadmapDto) {
-    return this.roadmapsService.create(createRoadmapDto);
+    this.roadmapsService.create(createRoadmapDto);
+    return { message: 'Roadmap created successfully' };
   }
+
   @UseGuards(AccessConctrolGuard)
   @Patch(':id')
-  update(@Param('id') id,@Body() updateRoadmapDto:UpdateRoadmapDto){
-    return this.roadmapsService.update(id,updateRoadmapDto)
+  update(@Param('id') id, @Body() updateRoadmapDto: UpdateRoadmapDto) {
+    this.roadmapsService.update(id, updateRoadmapDto);
+    return { message: 'Roadmap updated successfully' };
   }
 
-
-@Get()
+  @Get()
   findAll() {
     return this.roadmapsService.findAll();
   }
@@ -32,15 +33,18 @@ export class RoadmapsController {
   findOne(@Param('id') id: string) {
     return this.roadmapsService.findOne(id);
   }
+
   @UseGuards(AccessConctrolGuard)
   @Delete(':id')
-    async remove(@Param('id') id: string) {
-      return await this.roadmapsService.deleteRoadmap(id);
-    }
+  remove(@Param('id') id: string) {
+    this.roadmapsService.deleteRoadmap(id);
+    return { message: 'Roadmap deleted successfully' };
+  }
 
-    @UseGuards(AccessConctrolGuard)
-    @Delete('/soft/:id')
-    async removesoft(@Param('id') id: string) {
-      return await this.roadmapsService.deleteRoadmapv2(id);
-    }
+  @UseGuards(AccessConctrolGuard)
+  @Delete('/soft/:id')
+  removesoft(@Param('id') id: string) {
+    this.roadmapsService.deleteRoadmapv2(id);
+    return { message: 'Roadmap deleted successfully' };
+  }
 }

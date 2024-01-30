@@ -17,33 +17,40 @@ export class MilestoneController {
   @UseGuards(AccessConctrolGuard)
   @Post()
   create(@Body() createMilestoneDto: CreateMilestoneDto) {
-    return this.milestoneService.create(createMilestoneDto);
+     this.milestoneService.create(createMilestoneDto);
+     return {message:'Milestone created successfully'};
   }
   @UseGuards(AccessConctrolGuard)
-  @Patch()
-  update(@Param('id') id :string,@Body() updateMilestoneDto:UpdateMilestoneDto){
-    return this.milestoneService.update(id,updateMilestoneDto)
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateMilestoneDto: UpdateMilestoneDto) {
+    this.milestoneService.update(id, updateMilestoneDto);
+    return { message: 'Milestone updated successfully' };
   }
-  
+
   @Get()
   findAll() {
     return this.milestoneService.findAll();
   }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.milestoneService.findOne(id);
   }
+
   @UseGuards(AccessConctrolGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.milestoneService.deleteMilestone(id);
+    this.milestoneService.deleteMilestone(id);
+    return { message: 'Milestone deleted successfully' };
   }
 
   @UseGuards(AccessConctrolGuard)
   @Delete('/soft/:id')
   removesoft(@Param('id') id: string) {
-    return this.milestoneService.deleteMilestonev2(id);
+    this.milestoneService.deleteMilestonev2(id);
+    return { message: 'Soft milestone deleted successfully' };
   }
+
   @Get('byRoadmap/:roadmapId')
   findMilestonesByRoadmap(@Param('roadmapId') roadmapId: string) {
     return this.milestoneService.findMilestonesByRoadmap(roadmapId);

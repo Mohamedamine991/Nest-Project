@@ -11,74 +11,72 @@ export class QuestionsController {
   constructor(private readonly questionsService: QuestionsService) {}
 
 
-  //1-tester le seed
   @Get('testseed')
   seedQuestions() {
-    return this.questionsService.seedQuestions();
+    this.questionsService.seedQuestions();
+    return { message: 'Questions seeded successfully' };
   }
+
   @Get('by-quiz/:quizID')
-  async getByQuiz(@Param('quizID') quizID: number) {
+  getByQuiz(@Param('quizID') quizID: number) {
     return this.questionsService.getQuestionsByQuiz1(quizID);
   }
+
   @Get('count/:quizId')
-  async getCountByQuizId(@Param('quizId') quizId: number) {
-    const count = await this.questionsService.getCountByQuizId(quizId);
-    return { questionCount: count };
+  getCountByQuizId(@Param('quizId') quizId: number) {
+   return this.questionsService.getCountByQuizId(quizId);
+
   }
+
   @UseGuards(AccessConctrolGuard)
   @Post()
   create(@Body() createQuestionDto: CreateQuestionDto) {
-    return this.questionsService.create(createQuestionDto);
+    this.questionsService.create(createQuestionDto);
+    return { message: 'Question created successfully' };
   }
 
-
-  //5-get toutes les questions
   @Get()
   findAll() {
     return this.questionsService.findAll();
   }
 
-
-  //6-get une question par id
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.questionsService.findOne(+id);
   }
 
-
-  //7-modifier une question
   @UseGuards(AccessConctrolGuard)
   @Patch(':id')
   updateQuestion1(@Param('id') questionID: number, @Body() updateQuestionDto: UpdateQuestionDto) {
-    return this.questionsService.updateQuestion(questionID, updateQuestionDto);
+    this.questionsService.updateQuestion(questionID, updateQuestionDto);
+    return { message: 'Question updated successfully' };
   }
 
-  //8-supprimer une question
   @UseGuards(AccessConctrolGuard)
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return this.questionsService.deleteQuestion(+id);
+  remove(@Param('id') id: string) {
+    this.questionsService.deleteQuestion(+id);
+    return { message: 'Question deleted successfully' };
   }
 
-  //9-supprimer une question avec soft delete
   @UseGuards(AccessConctrolGuard)
   @Delete('/soft/:id')
   async removesoft(@Param('id') id: string) {
-    return this.questionsService.deleteQuestionv2(+id);
+    await this.questionsService.deleteQuestionv2(+id);
+    return { message: 'Question deleted successfully' };
   }
-   //9-verifier la reponse d'une question
+
   @UseGuards(AccessConctrolGuard)
   @Post(':id/verify')
-  async verify(@Param('id') id: string, @Body('answer') answer: number) {
-    const isCorrect = await this.questionsService.verifyAnswer(+id, answer);
-    return { correct: isCorrect };
+  verify(@Param('id') id: string, @Body('answer') answer: number) {
+    return this.questionsService.verifyAnswer(+id, answer);
+
   }
 
-
-  //10-verifier les reponses d'un quiz
   @UseGuards(AccessConctrolGuard)
   @Post('verify-quiz')
-  async verifyQuiz(@Body() quizAnswersDto: QuizAnswersDto) {
+  verifyQuiz(@Body() quizAnswersDto: QuizAnswersDto) {
     return this.questionsService.verifyQuizAnswers(quizAnswersDto);
   }
+  
 }

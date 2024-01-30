@@ -11,20 +11,21 @@ export class TestQuizController {
 
   @Get('testseed')
   seedTestQuizzes() {
-    return this.testQuizService.seedTestQuizzes();
+    this.testQuizService.seedTestQuizzes();
+    return { message: 'Test quizzes seeded successfully' };
   }
 
-
- @UseGuards(AccessConctrolGuard)
+  @UseGuards(AccessConctrolGuard)
   @Post()
-  async createQuiz(@Body() createTestQuizDto: CreateTestQuizDto): Promise<TestQuiz> {
-    return this.testQuizService.createQuiz(createTestQuizDto);
+  createQuiz(@Body() createTestQuizDto: CreateTestQuizDto) {
+    this.testQuizService.createQuiz(createTestQuizDto);
+    return { message : 'Test quiz created successfully'};
   }
-
 
   @Post('/createquizzes')
   createDomainQuizzes() {
-    return this.testQuizService.createDomainQuizzes();
+    this.testQuizService.createDomainQuizzes();
+    return { message: 'Domain quizzes created successfully' };
   }
   
   @Get()
@@ -41,15 +42,19 @@ export class TestQuizController {
   findByTitle(@Param('title') title: string) {
     return this.testQuizService.findByTitle(title);
   }
+
   @UseGuards(AccessConctrolGuard)
   @Patch(':id')
   update(@Param('id') id: number, @Body() updateTestQuizDto: UpdateTestQuizDto) {
-    return this.testQuizService.update(id, updateTestQuizDto);
+    this.testQuizService.update(id, updateTestQuizDto);
+    return { message: 'Test quiz updated successfully' };
   }
+
   @UseGuards(AccessConctrolGuard)
   @Delete(':id')
   remove(@Param('id') id: number) {
-    return this.testQuizService.DeleteQuiz(id);
+    this.testQuizService.DeleteQuiz(id);
+    return { message: 'Test quiz deleted successfully' };
   }
   
 }
