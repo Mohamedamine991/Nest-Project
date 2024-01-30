@@ -1,6 +1,6 @@
 [
-    { "title": "Introduction to Linux"},
-    { "title": "Docker for Beginners"},
+    {"title": "Introduction to Linux"},
+    {"title": "Docker for Beginners"},
     {"title": "Mastering Terraform"},
     {"title": "Continuous Integration/Continuous Deployment"},
     {"title": "Kubernetes Fundamentals"},

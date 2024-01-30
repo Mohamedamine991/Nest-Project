@@ -1,7 +1,9 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, ParseIntPipe, Res} from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, ParseIntPipe, Res, UseGuards, Req} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AuthGuard } from '../Gaurds/jwt-auth.guard';
+import { User } from '../decorators/user.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -21,19 +23,20 @@ export class UsersController {
     return await this.usersService.findAll();
   }
 
-  @Get(':id')
-  async getUserById(@Param('id') id: string) {
-    return await this.usersService.getUserById(id);
+  @UseGuards(AuthGuard)
+  @Get('getuser')
+  async getUserById(@User() user) {
+    return await this.usersService.getUserById(user.id);
   }
 
   @Get(':id/totalscore')
   async getTotalScore(@Param('id', ParseIntPipe) id: number) {
     return await this.usersService.getTotalScore(id);
   }
-
-  @Post(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return await this.usersService.updateUser(id, updateUserDto);
+  @UseGuards(AuthGuard)
+  @Post('reset')
+  async update(@Body() updateUserDto: UpdateUserDto,@User() user ) {
+    return await this.usersService.updateUser(user.id,updateUserDto);
   }
   
 

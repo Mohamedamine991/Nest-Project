@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Roadmap } from '../roadmaps/entities/roadmap.entity';
 import { Milestone } from '../milestone/entities/milestone.entity';
 import { CrudService } from '../common/crud.service';
-import { Progress } from 'src/progress/entities/progress.entity';
+import { Progress } from '../progress/entities/progress.entity';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -49,7 +49,7 @@ export class UsersService extends CrudService<User> {
     }
   }
 
-  async getUserById(id: string): Promise<User> {
+  async getUserById(id: number): Promise<User> {
     const user = await super.findOne(id);
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found.`);
@@ -65,7 +65,7 @@ export class UsersService extends CrudService<User> {
     return userProgresses.reduce((total, progress) => total + progress.percentage, 0);
   }
 
-  async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+  async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     const existingUser = await this.getUserById(id);
 
     if (updateUserDto.username) {

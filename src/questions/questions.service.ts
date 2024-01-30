@@ -39,7 +39,7 @@ export class QuestionsService extends CrudService<Question>{
       question.correctOption = qData.correctOption;
 
       const testQuiz = await this.testQuizRepository.findOne({
-        where: { id: qData.testQuizId }
+        where: { title: qData.testQuizId }
       });
 
       if (testQuiz) {

@@ -1,8 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn, OneToMany, DeleteDateColumn } from 'typeorm';
-import { Roadmap } from '../../roadmaps/entities/roadmap.entity';
-import { Milestone } from '../../milestone/entities/milestone.entity';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, DeleteDateColumn } from 'typeorm';
 import { Progress } from '../../progress/entities/progress.entity';
 import { Validation } from '../../validations/entities/validation.entity';
+import { UserRoleEnum } from '../../enums/user-role.enum';
 
 
 @Entity()
@@ -19,6 +18,13 @@ export class User {
   @Column({ length: 100, nullable: false, unique: true })
   email: string;
 
+  @Column({
+    type:'enum',
+    enum:UserRoleEnum,
+    default:UserRoleEnum.USER
+  })
+  role:string
+
   @CreateDateColumn()
   createdAt: Date;
 
@@ -31,8 +37,6 @@ export class User {
 
   @DeleteDateColumn()
   deletedAt: Date;
-
-
 }
 export default User
 

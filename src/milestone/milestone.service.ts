@@ -27,6 +27,7 @@ export class MilestoneService  extends CrudService<Milestone>{
   const {id,roadmapId,description,orderNumber}=createMilestoneDto
   const roadmap = await this.roadmapRepository.findOne({ where: { id: roadmapId } });
   let testquiz=await this.testQuizRepository.findOne({ where: { title:id } })
+  let milestone= new Milestone()
   if (!roadmap) {
     throw new NotFoundException('Roadmap not found.');
   }
@@ -34,9 +35,12 @@ export class MilestoneService  extends CrudService<Milestone>{
     const title=id
     testquiz=await this.testQuizRepository.save({title})
   }
-  return await this.milestoneRepository.save({id,
-    roadmap,testquiz,description,orderNumber
-  })
+    milestone.roadmap=roadmap
+    milestone.quiz=testquiz
+    milestone.orderNumber=orderNumber
+    milestone.id=id
+    milestone.description=description
+  return await this.milestoneRepository.save(milestone)
   }
   async findMilestonesByRoadmap(roadmapId: string): Promise<Milestone[]> {
     return this.milestoneRepository.find({
@@ -87,7 +91,7 @@ async deleteMilestonev2(id: string): Promise<string > {
       console.log(milestone)
       milestone.description = mData.description;
       milestone.orderNumber = mData.orderNumber;
-      milestone.id=mData.id
+      milestone.id=mData.title
       const roadmap = await this.roadmapRepository.findOne({
         where: { id: mData.roadmapId}
       });
@@ -98,7 +102,7 @@ async deleteMilestonev2(id: string): Promise<string > {
          console.warn(`TestQuiz "${mData.roadmapId}" not found for question.`);
       }
       const testQuiz = await this.testQuizRepository.findOne({
-        where: { id: mData.quizId }
+        where: { title: mData.quizId }
       });
 
       if (testQuiz) {

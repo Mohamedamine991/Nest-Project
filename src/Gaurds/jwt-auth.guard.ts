@@ -22,12 +22,10 @@ import {
         const payload = await this.jwtService.verifyAsync(
           token,
           {
-            secret: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+            secret: process.env.JWT_SECRET
           }
 
         );
-        console.log(payload)
-   
         request['user'] = payload;
       } catch {
         throw new UnauthorizedException();
