@@ -27,6 +27,7 @@ export class MilestoneService  extends CrudService<Milestone>{
   const {id,roadmapId,description,orderNumber}=createMilestoneDto
   const roadmap = await this.roadmapRepository.findOne({ where: { id: roadmapId } });
   let testquiz=await this.testQuizRepository.findOne({ where: { title:id } })
+  let milestone= new Milestone()
   if (!roadmap) {
     throw new NotFoundException('Roadmap not found.');
   }
@@ -34,9 +35,12 @@ export class MilestoneService  extends CrudService<Milestone>{
     const title=id
     testquiz=await this.testQuizRepository.save({title})
   }
-  return await this.milestoneRepository.save({id,
-    roadmap,testquiz,description,orderNumber
-  })
+    milestone.roadmap=roadmap
+    milestone.quiz=testquiz
+    milestone.orderNumber=orderNumber
+    milestone.id=id
+    milestone.description=description
+  return await this.milestoneRepository.save(milestone)
   }
   async findMilestonesByRoadmap(roadmapId: string): Promise<Milestone[]> {
     return this.milestoneRepository.find({

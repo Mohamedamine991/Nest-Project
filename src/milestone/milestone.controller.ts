@@ -14,7 +14,7 @@ export class MilestoneController {
   seedsMilestones() {
     return this.milestoneService.seedMilestones();
   }
-  @UseGuards(AccessConctrolGuard)
+
   @Post()
   create(@Body() createMilestoneDto: CreateMilestoneDto) {
     return this.milestoneService.create(createMilestoneDto);
