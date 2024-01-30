@@ -25,7 +25,7 @@ export class QuestionsController {
     const count = await this.questionsService.getCountByQuizId(quizId);
     return { questionCount: count };
   }
-  @UseGuards(AccessConctrolGuard)
+  //@UseGuards(AccessConctrolGuard)
   @Post()
   create(@Body() createQuestionDto: CreateQuestionDto) {
     return this.questionsService.create(createQuestionDto);
