@@ -21,7 +21,7 @@ export class TestQuizController {
     this.testQuizService.createQuiz(createTestQuizDto);
     return { message : 'Test quiz created successfully'};
   }
-
+  @UseGuards(AccessConctrolGuard)
   @Post('/createquizzes')
   createDomainQuizzes() {
     this.testQuizService.createDomainQuizzes();

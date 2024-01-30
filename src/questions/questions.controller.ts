@@ -57,25 +57,26 @@ export class QuestionsController {
     this.questionsService.deleteQuestion(+id);
     return { message: 'Question deleted successfully' };
   }
-
+  
   @UseGuards(AccessConctrolGuard)
   @Delete('/soft/:id')
-  async removesoft(@Param('id') id: string) {
-    await this.questionsService.deleteQuestionv2(+id);
+  removesoft(@Param('id') id: string) {
+    this.questionsService.deleteQuestionv2(+id);
     return { message: 'Question deleted successfully' };
   }
 
   @UseGuards(AccessConctrolGuard)
   @Post(':id/verify')
   verify(@Param('id') id: string, @Body('answer') answer: number) {
-    return this.questionsService.verifyAnswer(+id, answer);
-
+    const verificationResult = this.questionsService.verifyAnswer(+id, answer);
+    return { message: 'Verification successful', data: verificationResult };
   }
-
+  
   @UseGuards(AccessConctrolGuard)
   @Post('verify-quiz')
   verifyQuiz(@Body() quizAnswersDto: QuizAnswersDto) {
-    return this.questionsService.verifyQuizAnswers(quizAnswersDto);
+    const quizVerificationResult = this.questionsService.verifyQuizAnswers(quizAnswersDto);
+    return { message: 'Quiz verification successful', data: quizVerificationResult };
   }
   
 }

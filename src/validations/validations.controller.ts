@@ -8,7 +8,7 @@ import { User } from '../decorators/user.decorator';
 @Controller('validations')
 export class ValidationsController {
   constructor(private readonly validationsService: ValidationsService) {}
-
+  @UseGuards(AuthGuard)
   @Post()
   create(@Body() createValidationDto: CreateValidationDto, @User() user) {
     createValidationDto.userId = user.id;
@@ -24,7 +24,7 @@ export class ValidationsController {
     return { message: 'Validation confirmed successfully', updatedScore };
   }
 
-  @UseGuards(AuthGuard)
+
   @Get('getData/:milestoneId')
   getValidationByUserAndMilestone(@Param('milestoneId') milestoneId: string, @User() user) {
     return this.validationsService.getValidationByUserAndMilestone(milestoneId, user.id);
@@ -39,7 +39,7 @@ export class ValidationsController {
   findOne(@Param('id') id: number) {
    return  this.validationsService.findOne(id);
   }
-
+  @UseGuards(AuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     this.validationsService.remove(+id);
