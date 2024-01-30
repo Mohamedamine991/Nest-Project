@@ -41,10 +41,12 @@ export class MilestoneService  extends CrudService<Milestone>{
   async findMilestonesByRoadmap(roadmapId: string): Promise<Milestone[]> {
     return this.milestoneRepository.find({
       where: { roadmap: { id: roadmapId } },
-      relations: ['validations', 'recommandedCertifications', 'recommandedCourses', 'quiz'],
+      relations: ['quiz'],
       order: {
         orderNumber: 'ASC' 
       },
+      select: ['id', 'description', 'orderNumber', 'createdAt', 'updatedAt', 'deletedAt', 'quiz'] 
+
     });
   }
 

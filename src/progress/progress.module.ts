@@ -13,10 +13,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProgressController } from './progress.controller';
 import { CrudService } from '../common/crud.service';
 import { ProgressService } from './progress.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Progress,User,Roadmap,Validation,Milestone])],
   controllers: [ProgressController],
-  providers: [ProgressService],
+  providers: [ProgressService,JwtService],
 })
 export class ProgressModule {}

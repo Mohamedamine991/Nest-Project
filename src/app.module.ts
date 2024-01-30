@@ -43,14 +43,5 @@ validationSchema:Joi.object({
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule implements NestModule{
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes(
-      { path: 'progress/*', method: RequestMethod.POST },
-      { path: 'progress/*', method: RequestMethod.PATCH },
-      { path: 'validations/*', method: RequestMethod.PATCH },
-      { path: 'validations/*', method: RequestMethod.POST}
-    )
-  }
-
+export class AppModule {
 }

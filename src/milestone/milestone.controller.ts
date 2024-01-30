@@ -13,28 +13,19 @@ export class MilestoneController {
   seedsMilestones() {
     return this.milestoneService.seedMilestones();
   }
-  
-  
   @Post()
   create(@Body() createMilestoneDto: CreateMilestoneDto) {
     return this.milestoneService.create(createMilestoneDto);
   }
-
+  
   @Get()
   findAll() {
     return this.milestoneService.findAll();
   }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.milestoneService.findOne(id);
   }
-/*
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMilestoneDto: UpdateMilestoneDto) {
-    return this.milestoneService.update(+id, updateMilestoneDto);
-  }*/
-
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.milestoneService.deleteMilestone(id);
@@ -44,8 +35,6 @@ export class MilestoneController {
   removesoft(@Param('id') id: string) {
     return this.milestoneService.deleteMilestonev2(id);
   }
-
-
   @Get('byRoadmap/:roadmapId')
   findMilestonesByRoadmap(@Param('roadmapId') roadmapId: string) {
     return this.milestoneService.findMilestonesByRoadmap(roadmapId);

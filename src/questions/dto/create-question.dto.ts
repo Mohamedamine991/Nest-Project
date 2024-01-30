@@ -17,8 +17,9 @@
     @Max(3, { message: "Correct option index must be <= 3." })  
     correctOption: number;
 
-    @IsInt()
+    @IsString()
     @IsNotEmpty()
-    testQuizId: number;
+    testQuizId: string;
+
     
   }

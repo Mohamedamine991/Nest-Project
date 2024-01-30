@@ -36,6 +36,11 @@ export class TestQuizController {
     return this.testQuizService.findOne(id);
   }
 
+  @Get('/title/:title')
+  findByTitle(@Param('title') title: string) {
+    return this.testQuizService.findByTitle(title);
+  }
+
   @Patch(':id')
   update(@Param('id') id: number, @Body() updateTestQuizDto: UpdateTestQuizDto) {
     return this.testQuizService.update(id, updateTestQuizDto);

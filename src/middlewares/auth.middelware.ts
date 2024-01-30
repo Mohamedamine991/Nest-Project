@@ -1,6 +1,7 @@
 import { Injectable, NestMiddleware, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Request, Response, NextFunction } from 'express';
+import { request } from 'http';
 import { verify } from 'jsonwebtoken';
 
 @Injectable()
@@ -8,6 +9,7 @@ export class AuthMiddleware implements NestMiddleware {
     constructor(private configservice:ConfigService){}
 
   use(req: Request, res: Response, next: NextFunction) {
+    console.log(req)
     const token = req.header('access_token');
     if (!token) {
       throw new UnauthorizedException('You have to login or signup first');

@@ -1,9 +1,7 @@
 import { IsBoolean, IsNumber, IsDate, IsString, IsNotEmpty } from 'class-validator';
 
 export class CreateValidationDto {
-    @IsNotEmpty()
-    @IsNumber()
-    userId: number;
+    userId?: number;
     @IsNotEmpty()
     @IsString()
     readonly milestoneId: string;

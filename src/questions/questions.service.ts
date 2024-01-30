@@ -52,25 +52,27 @@ export class QuestionsService extends CrudService<Question>{
     }
   } 
 
-
   //2-get les questions d'un quiz
-  async getQuestionsByQuiz(quizId: number): Promise<Question[]> {
-    return await this.questionsRepository.find({
-      where: { testQuiz: { id: quizId } },
-      relations: ['testQuiz'], 
+  /*
+  async getQuestionsByQuiz(id: number): Promise<Question[]> {
+    const question = await super.getQuestionsByQuiz(id);
+    return question;
+  }*/
+
+  async getQuestionsByQuiz1(id: number): Promise<Question[]> {
+    return this.questionsRepository.find({
+      where: { testQuiz: { id } },
     });
   }
 
-  
   //3-le nbre des questions d'un quiz
   async getCountByQuizId(id: number): Promise<number> {
     return this.questionsRepository.count({ where: { testQuiz: { id: id } } });
   }
 
-
-    //4-ajouter une question
-    async createQuestion(createQuestionDto: CreateQuestionDto): Promise<Question> {
-      const quiz = await this.testQuizRepository.findOne({ where: { id: createQuestionDto.testQuizId } });
+  //4-ajouter une question
+  async createQuestion(createQuestionDto: CreateQuestionDto): Promise<Question> {
+    const quiz = await this.testQuizRepository.findOne({ where: { title: createQuestionDto.testQuizId } });
   
       if (!quiz) {
         throw new NotFoundException(`Quiz with ID ${createQuestionDto.testQuizId} not found. Please create the quiz first.`);
@@ -99,7 +101,7 @@ export class QuestionsService extends CrudService<Question>{
     }
 
     if (updateDto.testQuizId) {
-      const testQuiz = await this.testQuizRepository.findOne({ where: { id: updateDto.testQuizId } });
+      const testQuiz = await this.testQuizRepository.findOne({ where: { title: updateDto.testQuizId } });
       if (!testQuiz) {
         throw new NotFoundException(`TestQuiz with ID ${updateDto.testQuizId} not found.`);
       }

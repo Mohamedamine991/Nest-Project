@@ -20,7 +20,7 @@ export class QuestionsController {
   //2-get les questions d'un quiz
   @Get('by-quiz/:quizID')
   async getByQuiz(@Param('quizID') quizID: number) {
-    return this.questionsService.getQuestionsByQuiz(quizID);
+    return this.questionsService.getQuestionsByQuiz1(quizID);
   }
 
 

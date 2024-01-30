@@ -2,9 +2,7 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class ConfirmUpdateProgressDto {
-    @IsNotEmpty()
-    @IsNumber()
-    userId: number;
+    userId?: number;
     @IsNotEmpty()
     @IsString()
     readonly roadmapId: string;

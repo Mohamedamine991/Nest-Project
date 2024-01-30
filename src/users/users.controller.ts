@@ -26,4 +26,15 @@ export class UsersController {
     return await this.usersService.getUserById(id);
   }
 
+  @Get(':id/totalscore')
+  async getTotalScore(@Param('id', ParseIntPipe) id: number) {
+    return await this.usersService.getTotalScore(id);
+  }
+
+  @Post(':id')
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return await this.usersService.updateUser(id, updateUserDto);
+  }
+  
+
 } 

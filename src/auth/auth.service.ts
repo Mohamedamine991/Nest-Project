@@ -55,7 +55,7 @@ catch(e){
       throw new UnauthorizedException('Invalid email or password');
     }
 
-    const token = this.jwtService.sign({ id: user.id });
+    const token =this.jwtService.sign({ id: user.id });
 
     return { token };
   }
