@@ -189,14 +189,13 @@ export class QuestionsService extends CrudService<Question>{
     );
 
     const score = (correctCount / quizAnswersDto.answers.length) * 100;
+  const message = 'Verifying successful';
 
-    return {
-      results,
-      score: `${score.toFixed(2)}`
-    };
+  return {
+    message,
+    score: `${score.toFixed(2)}`,
   }
-
-}
+}}
   
 
 
