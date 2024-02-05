@@ -72,7 +72,7 @@ export class QuestionsController {
     return { message: 'Verification successful', data: verificationResult };
   }
   
-  //@UseGuards(AccessConctrolGuard)
+  @UseGuards(AccessConctrolGuard)
   @Post('verify-quiz')
   verifyQuiz(@Body() quizAnswersDto: QuizAnswersDto) {
     return this.questionsService.verifyQuizAnswers(quizAnswersDto);
