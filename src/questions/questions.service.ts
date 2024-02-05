@@ -26,7 +26,7 @@ export class QuestionsService extends CrudService<Question>{
 
   //1-tester le seed 
   async seedQuestions() {
-    const filePath = path.join(__dirname, '../../data/question.json');
+    const filePath = path.join(__dirname, '../../data/question (shrot version).json');
     const rawData = fs.readFileSync(filePath, 'utf8');
     const questionData = JSON.parse(rawData);
   
@@ -189,14 +189,13 @@ export class QuestionsService extends CrudService<Question>{
     );
 
     const score = (correctCount / quizAnswersDto.answers.length) * 100;
+  const message = 'Verifying successful';
 
-    return {
-      results,
-      score: `${score.toFixed(2)}`
-    };
+  return {
+    message,
+    score: `${score.toFixed(2)}`,
   }
-
-}
+}}
   
 
 
