@@ -26,7 +26,7 @@ export class QuestionsService extends CrudService<Question>{
 
   //1-tester le seed 
   async seedQuestions() {
-    const filePath = path.join(__dirname, '../../data/question.json');
+    const filePath = path.join(__dirname, '../../data/question (shrot version).json');
     const rawData = fs.readFileSync(filePath, 'utf8');
     const questionData = JSON.parse(rawData);
   
