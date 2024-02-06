@@ -17,11 +17,11 @@ export class ValidationsController {
   }
 
   @UseGuards(AuthGuard)
-  @Patch('confirm')
+  @Post('confirm')
   validate(@Body() confirmValidationDto: ConfirmValidationDto, @User() user) {
     confirmValidationDto.userId = user.id;
-    const updatedScore = this.validationsService.calculateAndUpdateScore(confirmValidationDto);
-    return { message: 'Validation confirmed successfully', updatedScore };
+    this.validationsService.calculateAndUpdateScore(confirmValidationDto);
+    return { message: 'Validation confirmed successfully' };
   }
 
 

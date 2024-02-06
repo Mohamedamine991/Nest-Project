@@ -4,8 +4,8 @@ export class ConfirmValidationDto {
     userId?: number;
     @IsNotEmpty()
     @IsString()
-    readonly milestoneId: string;
+    milestoneId: string;
     @IsNotEmpty()
     @IsArray()
-    readonly userAnswers: number[];
+    userAnswers: number[];
 }

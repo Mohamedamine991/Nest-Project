@@ -17,5 +17,6 @@ import { JwtService } from '@nestjs/jwt';
   imports: [TypeOrmModule.forFeature([Validation,User,Milestone, Roadmap,TestQuiz,Question])],
   controllers: [ValidationsController],
   providers: [ValidationsService,JwtService],
+  exports:[ValidationsService]
 })
 export class ValidationsModule {}

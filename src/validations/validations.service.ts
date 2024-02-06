@@ -78,7 +78,9 @@ export class ValidationsService extends CrudService<Validation> {
     const testQuiz =await this.testRepository.findOne({where :{title:milestone.id}})
     const questions =await this.questionRepository.find({
       where: {testQuiz:{ title:testQuiz.title}}
+
     })
+    console.log(questions)
     if (!user || !milestone) {
       throw new NotFoundException('User or Milestone not found.');
     }
@@ -87,20 +89,26 @@ export class ValidationsService extends CrudService<Validation> {
     for ( const question of questions){
       if (question.correctOption === userAnswers[len]) {
         cout=cout+1
+        console.log(cout)
       }
       len=len+1
     }
     const userScore = ((cout / len) * 100);
     const score= parseFloat(userScore.toString())
-    const validation = await this.validationRepository.findOne({
+    let  validation = await this.validationRepository.findOne({
       where: {user:{id:user.id},milestone:{id:milestone.id}}
     });
+    if(!validation){
+      validation=await this.validationRepository.save({
+        user,milestone,score,passed:false
+      })
+    }
     console.log(validation)
     const threshold = 70;
     const passed=userScore >= threshold;
     validation.score = score;
     validation.passed = passed;
-    return await this.validationRepository.update(validation.id,{score:validation.score,passed:validation.passed});
+    return await this.validationRepository.update({milestone:milestone,user:user},{score:validation.score,passed:validation.passed});
     
   }
   async getValidationByUserAndMilestone(milestoneId:string,userId:number){

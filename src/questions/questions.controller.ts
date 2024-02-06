@@ -5,6 +5,7 @@ import { UpdateQuestionDto } from './dto/update-question.dto';
 import { QuizAnswersDto } from './dto/quiz-answers.dto';
 import { response } from 'express';
 import { AccessConctrolGuard } from '../Gaurds/roles.guard';
+import { User } from '../decorators/user.decorator';
 
 @Controller('questions')
 export class QuestionsController {
@@ -72,9 +73,9 @@ export class QuestionsController {
     return { message: 'Verification successful', data: verificationResult };
   }
   
-  @UseGuards(AccessConctrolGuard)
   @Post('verify-quiz')
-  verifyQuiz(@Body() quizAnswersDto: QuizAnswersDto) {
+  verifyQuiz(@Body() quizAnswersDto: QuizAnswersDto,@User() user) {
+    quizAnswersDto.userId=user.id
     return this.questionsService.verifyQuizAnswers(quizAnswersDto);
 
   }
