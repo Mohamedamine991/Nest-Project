@@ -11,6 +11,9 @@ import * as path from 'path';
 import { QuizAnswersDto } from './dto/quiz-answers.dto';
 import { ValidationsService } from '../validations/validations.service';
 import { ConfirmValidationDto } from '../validations/dto/confirm-validation.dto';
+import { Milestone } from 'src/milestone/entities/milestone.entity';
+import { ProgressService } from 'src/progress/progress.service';
+import { ConfirmUpdateProgressDto } from 'src/progress/dto/confirm-progress.dto';
 
 @Injectable()
 export class QuestionsService extends CrudService<Question>{
@@ -19,8 +22,10 @@ export class QuestionsService extends CrudService<Question>{
       private questionsRepository: Repository<Question>,
       @InjectRepository(TestQuiz)
       private testQuizRepository: Repository<TestQuiz>,
-      private validationService:ValidationsService
-
+      @InjectRepository(Milestone)
+      private MilestoneRepository: Repository<Milestone>,
+      private validationService:ValidationsService,
+      private progressService:ProgressService
   ) {
     super(questionsRepository);
   }
@@ -178,11 +183,10 @@ export class QuestionsService extends CrudService<Question>{
   async verifyQuizAnswers(quizAnswersDto: QuizAnswersDto): Promise<any> {
     let correctCount = 0;
     const Quiz=await this.testQuizRepository.findOne({where:{id:quizAnswersDto.quizId}})
-    let userAnswers=[]
     const results = await Promise.all(
         quizAnswersDto.answers.map(async (answer) => {
           const isCorrect = await this.verifyAnswer(answer.questionId, answer.userAnswer);
-          userAnswers.concat(answer.userAnswer)
+     
           if (isCorrect) {
             correctCount++;
           }
@@ -192,18 +196,28 @@ export class QuestionsService extends CrudService<Question>{
           };
         })
     );
-
-    const score = (correctCount / quizAnswersDto.answers.length) * 100;
+  const score = (correctCount / quizAnswersDto.answers.length) * 100;
   const message = 'Verifying successful';
+
   let confirmValidationDto=new ConfirmValidationDto()
+
   confirmValidationDto.milestoneId=Quiz.title
   confirmValidationDto.userId=quizAnswersDto.userId
-  confirmValidationDto.userAnswers=userAnswers
+  confirmValidationDto.score=score
+
   this.validationService.calculateAndUpdateScore(confirmValidationDto)
 
+  const milestone=await this.MilestoneRepository.findOne({where:{id:Quiz.title}})
+
+  let confirmProgressDto=new ConfirmUpdateProgressDto()
+
+  confirmProgressDto.userId=quizAnswersDto.userId
+  confirmProgressDto.roadmapId=milestone.roadmap.id
+ this.progressService.updateProgressByUserAndRoadmap(confirmProgressDto)
+ 
   return {
     message,
-    score: `${score.toFixed(2)}`,
+    score: `${score.toFixed(2)}`
   }
 }}
   

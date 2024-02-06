@@ -6,6 +6,5 @@ export class ConfirmValidationDto {
     @IsString()
     milestoneId: string;
     @IsNotEmpty()
-    @IsArray()
-    userAnswers: number[];
+    score:number
 }

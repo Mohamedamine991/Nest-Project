@@ -82,7 +82,7 @@ export class ProgressService extends CrudService<Progress>{
         }
       }
     }
-    const ratio= validated
+    const ratio= (validated/milestones.length)*100
     console.log(ratio)
     existingProgress.percentage = Number(ratio.toFixed(1));
     return await this.progressRepository.update(existingProgress.id,{percentage:existingProgress.percentage});

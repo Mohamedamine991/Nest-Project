@@ -68,6 +68,7 @@ export class QuestionsController {
     return { message: 'Question deleted successfully' };
   }
 
+  
   @UseGuards(AccessConctrolGuard)
   @Post(':id/verify')
   verify(@Param('id') id: string, @Body('answer') answer: number) {

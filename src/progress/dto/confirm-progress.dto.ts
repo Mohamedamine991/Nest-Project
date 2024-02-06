@@ -5,5 +5,5 @@ export class ConfirmUpdateProgressDto {
     userId?: number;
     @IsNotEmpty()
     @IsString()
-    readonly roadmapId: string;
+    roadmapId: string;
 }
