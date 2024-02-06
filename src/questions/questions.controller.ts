@@ -6,7 +6,8 @@ import { QuizAnswersDto } from './dto/quiz-answers.dto';
 import { response } from 'express';
 import { AccessConctrolGuard } from '../Gaurds/roles.guard';
 import { User } from '../decorators/user.decorator';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthGuard } from '../Gaurds/jwt-auth.guard';
+
 
 @Controller('questions')
 export class QuestionsController {
@@ -73,7 +74,7 @@ export class QuestionsController {
     const verificationResult = this.questionsService.verifyAnswer(+id, answer);
     return { message: 'Verification successful', data: verificationResult };
   }
-  @UseGuards(AuthGuard)
+@UseGuards(AuthGuard)
   @Post('verify-quiz')
   verifyQuiz(@Body() quizAnswersDto: QuizAnswersDto,@User() user) {
     quizAnswersDto.userId=user.id
