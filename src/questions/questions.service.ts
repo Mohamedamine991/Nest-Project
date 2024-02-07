@@ -195,6 +195,7 @@ export class QuestionsService extends CrudService<Question>{
 
     const score = (correctCount / quizAnswersDto.answers.length) * 100;
   const message = 'Verifying successful';
+  console.log(userAnswers)
   let confirmValidationDto=new ConfirmValidationDto()
   confirmValidationDto.milestoneId=Quiz.title
   confirmValidationDto.userId=quizAnswersDto.userId
