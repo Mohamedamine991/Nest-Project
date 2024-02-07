@@ -21,5 +21,6 @@ import { AuthGuard } from '../Gaurds/jwt-auth.guard';
   imports: [TypeOrmModule.forFeature([Progress,User,Roadmap,Validation,Milestone])],
   controllers: [ProgressController],
   providers: [ProgressService,JwtService],
+  exports: [ProgressService]
 })
 export class ProgressModule {}

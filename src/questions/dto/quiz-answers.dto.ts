@@ -7,5 +7,6 @@ export class QuizAnswerDto {
           answers: QuizAnswerDto[];
           quizId:number;
           userId:number;
+  
         }
         
