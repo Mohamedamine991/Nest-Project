@@ -68,7 +68,7 @@ export class ProgressService extends CrudService<Progress>{
     if (!milestones) {
       throw new NotFoundException(`Milestones Roadmap ID ${roadmapId} not found.`);
     }
-    console.log(milestones)
+
 
     for (const milestone of milestones) {
       const milestoneId = milestone.id;

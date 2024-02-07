@@ -4,6 +4,7 @@ import { CreateValidationDto } from './dto/create-validation.dto';
 import { ConfirmValidationDto } from './dto/confirm-validation.dto';
 import { AuthGuard } from '../Gaurds/jwt-auth.guard';
 import { User } from '../decorators/user.decorator';
+import { AccessConctrolGuard } from '../Gaurds/roles.guard';
 
 @Controller('validations')
 export class ValidationsController {
@@ -39,7 +40,7 @@ export class ValidationsController {
   findOne(@Param('id') id: number) {
    return  this.validationsService.findOne(id);
   }
-  @UseGuards(AuthGuard)
+  @UseGuards(AccessConctrolGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     this.validationsService.remove(+id);

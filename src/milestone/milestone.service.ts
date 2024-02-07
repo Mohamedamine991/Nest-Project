@@ -83,8 +83,6 @@ async deleteMilestonev2(id: string): Promise<string > {
     const filePath = path.join(__dirname, '../../data/milestone.json');
     const rawData = fs.readFileSync(filePath, 'utf8');
     const milestoneData = JSON.parse(rawData);
-    let i=0;
-    console.log(i)
 
     for (const mData of milestoneData) {
       const milestone = new Milestone();
@@ -112,7 +110,6 @@ async deleteMilestonev2(id: string): Promise<string > {
          console.warn(`TestQuiz "${mData.quizId}" not found for question.`);
       }
       await this.milestoneRepository.save(milestone);
-      i=i+1
     }
   } 
 }
